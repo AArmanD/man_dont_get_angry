@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using man_dont_get_angry.Utils;
 
 namespace man_dont_get_angry.Models
 {
-    internal class Field
+    internal class Field : INotifyPropertyChanged
     {
-        private Piece _piece;
+        private Piece? _piece;
         private string _imagePath;
         private FieldType _fieldType;
 
@@ -39,7 +41,7 @@ namespace man_dont_get_angry.Models
                     }
                     else
                     {
-                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_.png";
+                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
                 case FieldType.BlueArrowField:
@@ -49,7 +51,7 @@ namespace man_dont_get_angry.Models
                     }
                     else
                     {
-                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_.png";
+                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
                 case FieldType.GreenArrowField:
@@ -59,7 +61,7 @@ namespace man_dont_get_angry.Models
                     }
                     else
                     {
-                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_.png";
+                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
                 case FieldType.RedArrowField:
@@ -69,7 +71,7 @@ namespace man_dont_get_angry.Models
                     }
                     else
                     {
-                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_.png";
+                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
                 case FieldType.YellowArrowField:
@@ -79,7 +81,7 @@ namespace man_dont_get_angry.Models
                     }
                     else
                     {
-                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_.png";
+                        this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
                 case FieldType.GreenStartField:
@@ -149,7 +151,12 @@ namespace man_dont_get_angry.Models
         public Piece ThePiece
         {
             get { return this._piece; }
-            set { this._piece = value; }
+            set 
+            {
+                this._piece = value;
+                ImagePathSetter();
+                OnPropertyChanged("ImagePath");
+            }
         }
 
         public string ImagePath
@@ -160,6 +167,13 @@ namespace man_dont_get_angry.Models
         public FieldType TheFieldType
         {
             get { return this._fieldType; }
+        }
+
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -110,5 +110,38 @@ namespace man_dont_get_angry.Models
         { 
             get { return _imageSource; }
         }
+
+        public void setPiece(Tuple<int, int> setTuple)
+        {
+            Piece pieceToSet = null;
+            if (setTuple.Item1 < 40)
+            {
+                pieceToSet = this._gameBoardFields[setTuple.Item1].ThePiece;
+                this._gameBoardFields[setTuple.Item1].ThePiece = null;
+            }
+            else if (setTuple.Item1 > 39 && setTuple.Item1 < 56)
+            {
+                pieceToSet = this._startFields[setTuple.Item1 - 40].ThePiece;
+                this._startFields[setTuple.Item1 - 40].ThePiece = null;
+            }
+            else if (setTuple.Item1 > 55 && setTuple.Item1 < 72)
+            {
+                pieceToSet = this.EndFields[setTuple.Item1 - 56].ThePiece;
+                this.EndFields[setTuple.Item1 - 56].ThePiece = null;
+            }
+
+            if (setTuple.Item2 < 40)
+            {
+                this._gameBoardFields[setTuple.Item2].ThePiece = pieceToSet;
+            }
+            else if (setTuple.Item2 > 39 && setTuple.Item1 < 56)
+            {
+                this._startFields[setTuple.Item1 - 40].ThePiece = pieceToSet;
+            }
+            else if (setTuple.Item2 > 55 && setTuple.Item1 < 72)
+            {
+                this.EndFields[setTuple.Item1 - 56].ThePiece = pieceToSet;
+            }
+        }
     }
 }

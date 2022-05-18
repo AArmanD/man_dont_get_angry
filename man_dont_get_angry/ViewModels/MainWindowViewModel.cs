@@ -40,21 +40,27 @@ namespace man_dont_get_angry.ViewModels
 
         public bool OnDiceButtonClickAllowed(Object arg)
         {
-            return this.ManDontGetAngryGame.DiceRollable();
+            return true;
+            //return this.ManDontGetAngryGame.DiceRollable();
         }
 
         public void OnFieldClicked(Object arg)
-        { 
-
+        {
+            this.ManDontGetAngryGame.setPosition(int.Parse(arg.ToString()));
         }
 
         public bool OnFieldClickAllowed(Object arg)
         {
-            return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
+            return true;
+            //return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
         }
+
+        public Dice TheDice => this.ManDontGetAngryGame.TheDice;
 
         public Field[] GameBoardFields => this.ManDontGetAngryGame.TheGameBoard.GameBoardFields;
         public Field[] StartFields => this.ManDontGetAngryGame.TheGameBoard.StartFields;
         public Field[] EndFields => this.ManDontGetAngryGame.TheGameBoard.EndFields;
+
+        public string ActualPlayer => this.ManDontGetAngryGame.ActualPlayer.Name;
     }
 }
