@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using man_dont_get_angry.Utils;
 
 namespace man_dont_get_angry.Models
 {
@@ -132,7 +133,37 @@ namespace man_dont_get_angry.Models
 
             if (setTuple.Item2 < 40)
             {
+                if (this._gameBoardFields[setTuple.Item2].ThePiece != null)
+                {
+                    // move piece on field back to start
+                    int count = 3;
+                    switch (this._gameBoardFields[setTuple.Item2].ThePiece.TheColor)
+                    {
+                        case Color.Green:
+                            break;
+                        case Color.Red:
+                            count = 7;
+                            break;
+                        case Color.Yellow:
+                            count = 11;
+                            break;
+                        case Color.Blue:
+                            count = 15;
+                            break;
+                    }
+
+                    for (int i = count; i > -1; i--)
+                    {
+                        if (this._startFields[i].ThePiece == null)
+                        {
+                            this._startFields[i].ThePiece = this._gameBoardFields[setTuple.Item2].ThePiece;
+                            break;
+                        }
+                    }
+                }
+
                 this._gameBoardFields[setTuple.Item2].ThePiece = pieceToSet;
+
             }
             else if (setTuple.Item2 > 39 && setTuple.Item1 < 56)
             {
@@ -140,8 +171,14 @@ namespace man_dont_get_angry.Models
             }
             else if (setTuple.Item2 > 55 && setTuple.Item1 < 72)
             {
+                // here throw out check is not needed because cannot happen
                 this.EndFields[setTuple.Item1 - 56].ThePiece = pieceToSet;
             }
+        }
+
+        private void SetPieceBackToStartFields(Piece piece)
+        {
+
         }
     }
 }

@@ -31,7 +31,7 @@ namespace man_dont_get_angry.Models
         public void roll()
         {
             this._value = _random.Next(1, 7);
-            
+
             //if (this._testCounter != 10)
             //{
             //    this._value = 3;
@@ -40,6 +40,8 @@ namespace man_dont_get_angry.Models
             //{
             //    this._value = 6;
             //}
+
+            //this._value = 6;
 
             this._testCounter++;
             
