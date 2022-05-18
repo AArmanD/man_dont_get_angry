@@ -10,227 +10,227 @@
         ResizeMode="NoResize">
     <!--height was 680 before-->
     <Canvas Name="GameCanvas" Focusable="True" Background="White">
-        <Button Height="50" Canvas.Left="242" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="0">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="0">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[0].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="1">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="1">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[1].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="458" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="2">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="458" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="2">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[2].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="403" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="3">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="403" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="3">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[3].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="4">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="4">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[4].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="187" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="5">
+        <Button Height="50" Canvas.Left="187" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="5">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[5].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="132" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="6">
+        <Button Height="50" Canvas.Left="132" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="6">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[6].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="77" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="7">
+        <Button Height="50" Canvas.Left="77" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="7">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[7].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="22" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="8">
+        <Button Height="50" Canvas.Left="22" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="8">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[8].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="22" Canvas.Top="292" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="9">
+        <Button Height="50" Canvas.Left="22" Canvas.Top="292" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="9">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[9].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="22" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="10">
+        <Button Height="50" Canvas.Left="22" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="10">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[10].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="77" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="11">
+        <Button Height="50" Canvas.Left="77" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="11">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[11].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="132" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="12">
+        <Button Height="50" Canvas.Left="132" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="12">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[12].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="187" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="13">
+        <Button Height="50" Canvas.Left="187" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="13">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[13].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="14">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="14">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[14].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="183" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="15">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="183" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="15">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[15].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="128" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="16">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="128" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="16">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[16].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="17">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="17">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[17].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="242" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="18">
+        <Button Height="50" Canvas.Left="242" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="18">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[18].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="297" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="19">
+        <Button Height="50" Canvas.Left="297" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="19">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[19].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="20">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="20">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[20].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="21">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="21">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[21].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="128" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="22">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="128" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="22">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[22].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="183" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="23">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="183" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="23">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[23].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="24">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="24">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[24].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="407" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="25">
+        <Button Height="50" Canvas.Left="407" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="25">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[25].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="462" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="26">
+        <Button Height="50" Canvas.Left="462" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="26">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[26].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="517" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="27">
+        <Button Height="50" Canvas.Left="517" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="27">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[27].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="28">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="238" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="28">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[28].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="293" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="29">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="293" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="29">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[29].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="30">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="30">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[30].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="517" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="31">
+        <Button Height="50" Canvas.Left="517" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="31">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[31].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="462" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="32">
+        <Button Height="50" Canvas.Left="462" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="32">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[32].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="407" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="33">
+        <Button Height="50" Canvas.Left="407" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="33">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[33].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="34">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="348" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="34">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[34].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="403" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="35">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="403" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="35">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[35].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="458" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="36">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="458" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="36">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[36].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="37">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="37">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[37].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="352" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="38">
+        <Button Height="50" Canvas.Left="352" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="38">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[38].ImagePath}"></Image>
         </Button>
-        <Button Canvas.Left="297" Canvas.Top="568" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="50" CommandParameter="39">
+        <Button Canvas.Left="297" Canvas.Top="568" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="50" Command="{Binding FieldClickedCommand}" CommandParameter="39">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.GameBoardFields[39].ImagePath}"/>
         </Button>
-        <Button Height="50" Canvas.Left="29" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="40">
+        <Button Height="50" Canvas.Left="29" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="40">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[0].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="84" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="41">
+        <Button Height="50" Canvas.Left="84" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="41">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[1].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="29" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="42">
+        <Button Height="50" Canvas.Left="29" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="42">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[2].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="84" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="43">
+        <Button Height="50" Canvas.Left="84" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="43">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[3].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="22" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="44">
+        <Button Height="50" Canvas.Left="22" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="44">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[4].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="77" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="45">
+        <Button Height="50" Canvas.Left="77" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="45">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[5].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="22" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="46">
+        <Button Height="50" Canvas.Left="22" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="46">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[6].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="77" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="47">
+        <Button Height="50" Canvas.Left="77" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="47">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[7].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="517" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="48">
+        <Button Height="50" Canvas.Left="517" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="48">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[8].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="49">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="49">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[9].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="517" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="50">
+        <Button Height="50" Canvas.Left="517" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="50">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[10].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="51">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="73" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="51">
             <Image Source ="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[11].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="517" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="52">
+        <Button Height="50" Canvas.Left="517" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="52">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[12].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="53">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="513" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="53">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[13].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="517" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="54">
+        <Button Height="50" Canvas.Left="517" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="54">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[14].ImagePath}"></Image>
         </Button>
-        <Button Height="50" Canvas.Left="572" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="55">
+        <Button Height="50" Canvas.Left="572" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="55">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.StartFields[15].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="305" Canvas.Top="521" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="56">
+        <Button Height="35" Canvas.Left="305" Canvas.Top="521" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="56">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[0].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="305" Canvas.Top="466" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="57">
+        <Button Height="35" Canvas.Left="305" Canvas.Top="466" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="57">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[1].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="305" Canvas.Top="411" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="58">
+        <Button Height="35" Canvas.Left="305" Canvas.Top="411" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="58">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[2].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="305" Canvas.Top="356" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="59">
+        <Button Height="35" Canvas.Left="305" Canvas.Top="356" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="59">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[3].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="84" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="60">
+        <Button Height="35" Canvas.Left="84" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="60">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[4].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="139" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="61">
+        <Button Height="35" Canvas.Left="139" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="61">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[5].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="194" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="62">
+        <Button Height="35" Canvas.Left="194" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="62">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[6].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="249" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" CommandParameter="63">
+        <Button Height="35" Canvas.Left="249" Canvas.Top="300" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="63">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[7].ImagePath}"></Image>
         </Button>
-        <Button Height="36" Canvas.Left="304" Canvas.Top="80" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="64">
+        <Button Height="36" Canvas.Left="304" Canvas.Top="80" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="64">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[8].ImagePath}"></Image>
         </Button>
-        <Button Height="34" Canvas.Left="304" Canvas.Top="136" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="65">
+        <Button Height="34" Canvas.Left="304" Canvas.Top="136" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="65">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[9].ImagePath}"></Image>
         </Button>
-        <Button Height="36" Canvas.Left="304" Canvas.Top="190" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="66">
+        <Button Height="36" Canvas.Left="304" Canvas.Top="190" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="66">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[10].ImagePath}"></Image>
         </Button>
-        <Button Height="34" Canvas.Left="304" Canvas.Top="246" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="67">
+        <Button Height="34" Canvas.Left="304" Canvas.Top="246" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="67">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[11].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="524" Canvas.Top="300" Width="36" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="68">
+        <Button Height="35" Canvas.Left="524" Canvas.Top="300" Width="36" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="68">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[12].ImagePath}"></Image>
         </Button>
-        <Button Height="36" Canvas.Left="470" Canvas.Top="300" Width="34" HorizontalAlignment="Left" VerticalAlignment="Center" CommandParameter="69">
+        <Button Height="36" Canvas.Left="470" Canvas.Top="300" Width="34" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="69">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[13].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="414" Canvas.Top="300" Width="36" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="70">
+        <Button Height="35" Canvas.Left="414" Canvas.Top="300" Width="36" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="70">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[14].ImagePath}"></Image>
         </Button>
-        <Button Height="35" Canvas.Left="360" Canvas.Top="300" Width="34" HorizontalAlignment="Center" VerticalAlignment="Center" CommandParameter="71">
+        <Button Height="35" Canvas.Left="360" Canvas.Top="300" Width="34" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="71">
             <Image Source="{Binding Path=ManDontGetAngryGame.TheGameBoard.EndFields[15].ImagePath}"></Image>
         </Button>
 
         <Label Content="Aktueller Spieler:" Canvas.Left="164" Canvas.Top="655" FontWeight="Bold"/>
         <Label Content="Spieler 1" Canvas.Left="291" Canvas.Top="655" FontWeight="Bold"/>
-        <Button Canvas.Left="432" Canvas.Top="638" Width="60" Height="60" Command="{Binding DiceClickedCommand}" CommandParameter="1">
-            <Image Source="\images\dice1.png"></Image>
+        <Button Canvas.Left="432" Canvas.Top="638" Width="60" Height="60" Command="{Binding DiceClickedCommand}">
+            <Image Source="{Binding Path=ManDontGetAngryGame.TheDice.ImagePath}"></Image>
         </Button>
     </Canvas>
 </Window>

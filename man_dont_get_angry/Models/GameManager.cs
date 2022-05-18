@@ -1,4 +1,6 @@
 ﻿using man_dont_get_angry.Utils;
+using System.Collections.Generic;
+using System;
 
 namespace man_dont_get_angry.Models
 {
@@ -12,6 +14,7 @@ namespace man_dont_get_angry.Models
         private Dice _dice;
         private Player[] _players;
         private int _actualPlayerID;
+        private List<Tuple<int, int>> _movementOptions;
 
         public GameManager()
         {
@@ -33,12 +36,18 @@ namespace man_dont_get_angry.Models
         public void RollDice()
         {
             this._dice.roll();
-            this._players[_actualPlayerID].ThePlayerState = OptionsChecker.GenerateStateAfterRolling(this._players[_actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields);
+            this._movementOptions = OptionsChecker.checkMovements(_players[this._actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields, this._gameBoard.EndFields);
+            this._players[_actualPlayerID].ThePlayerState = OptionsChecker.GenerateStateAfterRolling(this._movementOptions, this._dice);
         }
 
         public GameBoard TheGameBoard
         {
             get { return this._gameBoard; }
+        }
+
+        public Dice TheDice
+        {
+            get { return this._dice; }
         }
 
         public bool DiceRollable()
@@ -59,9 +68,21 @@ namespace man_dont_get_angry.Models
 
         }
 
-        public bool positionSettable()
+        public bool positionSettable(int a)
         {
-            return true;
+            if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces)
+            {
+                foreach(Tuple<int,int> tuple in this._movementOptions)
+                {
+                    if (tuple.Item1 == a)
+                        return true;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -35,23 +35,22 @@ namespace man_dont_get_angry.ViewModels
 
         public void OnDiceButtonClicked(Object arg)
         {
-            //int a = int.Parse(arg.ToString());
             this.ManDontGetAngryGame.RollDice();
         }
 
         public bool OnDiceButtonClickAllowed(Object arg)
         {
-            //int a = int.Parse(arg.ToString());
             return this.ManDontGetAngryGame.DiceRollable();
         }
 
         public void OnFieldClicked(Object arg)
         { 
+
         }
 
         public bool OnFieldClickAllowed(Object arg)
         {
-            return true;
+            return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
         }
 
         public Field[] GameBoardFields => this.ManDontGetAngryGame.TheGameBoard.GameBoardFields;

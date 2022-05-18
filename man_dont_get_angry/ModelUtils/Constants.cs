@@ -35,6 +35,7 @@ namespace man_dont_get_angry.Utils
     { 
         ThrowDice,
         MovePieces,
+        MovePiecesRepeadetly,
         MoveDone,
     }
 }
