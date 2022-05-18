@@ -1,0 +1,9 @@
+﻿<Application x:Class="man_dont_get_angry.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:man_dont_get_angry"
+             StartupUri="/Views/MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

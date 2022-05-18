@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="images\dice1.png" />
+    <None Remove="images\dice2.png" />
+    <None Remove="images\dice3.png" />
+    <None Remove="images\dice4.png" />
+    <None Remove="images\dice5.png" />
+    <None Remove="images\dice6.png" />
+    <None Remove="images\square.jpg" />
+    <None Remove="images\square.png" />
+    <None Remove="images\square_blue.png" />
+    <None Remove="images\square_blue_arrow.png" />
+    <None Remove="images\square_blue_player.png" />
+    <None Remove="images\square_blue_player_blue.png" />
+    <None Remove="images\square_green.png" />
+    <None Remove="images\square_green_arrow.png" />
+    <None Remove="images\square_green_player.png" />
+    <None Remove="images\square_green_player_green.png" />
+    <None Remove="images\square_red.png" />
+    <None Remove="images\square_red_arrow.png" />
+    <None Remove="images\square_red_player.png" />
+    <None Remove="images\square_red_player_red.png" />
+    <None Remove="images\square_yellow.png" />
+    <None Remove="images\square_yellow_arrow.png" />
+    <None Remove="images\square_yellow_player.png" />
+    <None Remove="images\square_yellow_player_yellow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\dice1.png" />
+    <Resource Include="images\dice2.png" />
+    <Resource Include="images\dice3.png" />
+    <Resource Include="images\dice4.png" />
+    <Resource Include="images\dice5.png" />
+    <Resource Include="images\dice6.png" />
+    <Resource Include="images\square.jpg" />
+    <Resource Include="images\square.png" />
+    <Resource Include="images\square_blue.png" />
+    <Resource Include="images\square_blue_arrow.png" />
+    <Resource Include="images\square_blue_player.png" />
+    <Resource Include="images\square_blue_player_blue.png" />
+    <Resource Include="images\square_green.png" />
+    <Resource Include="images\square_green_arrow.png" />
+    <Resource Include="images\square_green_player.png" />
+    <Resource Include="images\square_green_player_green.png" />
+    <Resource Include="images\square_red.png" />
+    <Resource Include="images\square_red_arrow.png" />
+    <Resource Include="images\square_red_player.png" />
+    <Resource Include="images\square_red_player_red.png" />
+    <Resource Include="images\square_yellow.png" />
+    <Resource Include="images\square_yellow_arrow.png" />
+    <Resource Include="images\square_yellow_player.png" />
+    <Resource Include="images\square_yellow_player_yellow.png" />
+  </ItemGroup>
+
+</Project>
