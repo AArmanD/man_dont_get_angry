@@ -18,6 +18,7 @@ namespace man_dont_get_angry.Models
         private int _actualPlayerID;
         private List<Tuple<int, int>> _movementOptions;
 
+        // TODO: Fix bug when no player change at time where are no options to go into end fields, implement win check
         public GameManager()
         {
             this._dice = new Dice();

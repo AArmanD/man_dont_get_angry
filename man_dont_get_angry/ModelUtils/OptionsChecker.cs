@@ -41,7 +41,7 @@ namespace man_dont_get_angry.Utils
                 {
                     return PlayerState.MoveDone;
                 }
-            } 
+            }
             else
             {
                 return PlayerState.MovePieces;
@@ -67,7 +67,7 @@ namespace man_dont_get_angry.Utils
                         }
                         else
                         {
-                            movementOptions.AddRange(COpt(startPositions, gameBoardPositions, endPositions, player, dice, gameBoardFields, endFields));
+                            movementOptions.AddRange(COpt(gameBoardPositions, player, dice, gameBoardFields, endFields));
                         }
                         break;
                     case Color.Red:
@@ -77,7 +77,7 @@ namespace man_dont_get_angry.Utils
                         }
                         else
                         {
-                            movementOptions.AddRange(COpt(startPositions, gameBoardPositions, endPositions, player, dice, gameBoardFields, endFields));
+                            movementOptions.AddRange(COpt(gameBoardPositions, player, dice, gameBoardFields, endFields));
                         }
                         break;
                     case Color.Blue:
@@ -87,7 +87,7 @@ namespace man_dont_get_angry.Utils
                         }
                         else
                         {
-                            movementOptions.AddRange(COpt(startPositions, gameBoardPositions, endPositions, player, dice, gameBoardFields, endFields));
+                            movementOptions.AddRange(COpt(gameBoardPositions, player, dice, gameBoardFields, endFields));
                         }
                         break;
                     case Color.Yellow:
@@ -97,19 +97,20 @@ namespace man_dont_get_angry.Utils
                         }
                         else
                         {
-                            movementOptions.AddRange(COpt(startPositions, gameBoardPositions, endPositions, player, dice, gameBoardFields, endFields));
+                            movementOptions.AddRange(COpt(gameBoardPositions, player, dice, gameBoardFields, endFields));
                         }
                         break;
                 }
             }
             else
             {
-                movementOptions.AddRange(COpt(startPositions, gameBoardPositions, endPositions, player, dice, gameBoardFields, endFields));
+                movementOptions.AddRange(COpt(gameBoardPositions, player, dice, gameBoardFields, endFields));
+                movementOptions.AddRange(COptEndPositions(player, endPositions, endFields, dice));
             }
 
             return movementOptions;
         }
-        private static List<Tuple<int, int>> COpt(List<int> startPositions, List<int> gameBoardPositions, List<int> endPositions, Player player, Dice dice, Field[] gameBoardFields, Field[] endFields)
+        private static List<Tuple<int, int>> COpt(List<int> gameBoardPositions, Player player, Dice dice, Field[] gameBoardFields, Field[] endFields)
         {
             List<Tuple<int, int>> movementOptions = new List<Tuple<int, int>>();
             if (gameBoardPositions.Count > 0)
@@ -118,7 +119,6 @@ namespace man_dont_get_angry.Utils
                 {
                     switch (player.TheColor)
                     {
-                        // TODO fix bug when getting over 40
                         case Color.Green:
                             if ((position + dice.Value) < 40)
                             {
@@ -154,7 +154,7 @@ namespace man_dont_get_angry.Utils
                             }
                             else if ((position + dice.Value) - 30 < 4)
                             {
-                                if (endFields[(position + dice.Value) - 10].ThePiece == null || endFields[(position + dice.Value)-10].ThePiece.TheColor != Color.Red)
+                                if (endFields[(position + dice.Value) - 10].ThePiece == null || endFields[(position + dice.Value) - 10].ThePiece.TheColor != Color.Red)
                                 {
                                     movementOptions.Add(Tuple.Create(position, 60 + (position + dice.Value) - 10));
                                 }
@@ -215,8 +215,57 @@ namespace man_dont_get_angry.Utils
             return movementOptions;
         }
         // TODO check move options in end fields
-        private static List<Tuple<int, int>> COptEndPositions() {
-            return null;
+        private static List<Tuple<int, int>> COptEndPositions(Player player, List<int> endPositions, Field[] endFields, Dice dice)
+        {
+            List<Tuple<int, int>> movementOptions = new List<Tuple<int, int>>();
+
+            foreach (int position in endPositions)
+            {
+                switch (player.TheColor)
+                {
+                    case Color.Green:
+                        if ((position + dice.Value) < 4)
+                        {
+                            if (endFields[(position + dice.Value)].ThePiece == null)
+                            {
+                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 56));
+                            }
+                            break;
+                        }
+                        break;
+                    case Color.Red:
+                        if (position < 7 && position > 3 && (position + dice.Value) < 8)
+                        {
+                            if (endFields[(position + dice.Value)].ThePiece == null)
+                            {
+                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 60));
+                            }
+                            break;
+                        }
+                        break;
+                    case Color.Yellow:
+                        if (position < 11 && position > 7 && (position + dice.Value) < 12)
+                        {
+                            if (endFields[(position + dice.Value)].ThePiece == null)
+                            {
+                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 64));
+                            }
+                            break;
+                        }
+                        break;
+                    case Color.Blue:
+                        if (position < 15 && position > 11 && (position + dice.Value) < 16)
+                        {
+                            if (endFields[(position + dice.Value)].ThePiece == null)
+                            {
+                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 68));
+                            }
+                            break;
+                        }
+                        break;
+                }
+            }
+            return movementOptions;
         }
     }
 }
