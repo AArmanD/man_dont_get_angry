@@ -214,5 +214,9 @@ namespace man_dont_get_angry.Utils
             }
             return movementOptions;
         }
+        // TODO check move options in end fields
+        private static List<Tuple<int, int>> COptEndPositions() {
+            return null;
+        }
     }
 }

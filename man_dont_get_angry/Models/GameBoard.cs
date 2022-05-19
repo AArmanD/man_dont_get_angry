@@ -165,14 +165,14 @@ namespace man_dont_get_angry.Models
                 this._gameBoardFields[setTuple.Item2].ThePiece = pieceToSet;
 
             }
-            else if (setTuple.Item2 > 39 && setTuple.Item1 < 56)
+            else if (setTuple.Item2 > 39 && setTuple.Item2 < 56)
             {
-                this._startFields[setTuple.Item1 - 40].ThePiece = pieceToSet;
+                this._startFields[setTuple.Item2 - 40].ThePiece = pieceToSet;
             }
-            else if (setTuple.Item2 > 55 && setTuple.Item1 < 72)
+            else if (setTuple.Item2 > 55 && setTuple.Item2 < 72)
             {
                 // here throw out check is not needed because cannot happen
-                this.EndFields[setTuple.Item1 - 56].ThePiece = pieceToSet;
+                this.EndFields[setTuple.Item2 - 56].ThePiece = pieceToSet;
             }
         }
 
