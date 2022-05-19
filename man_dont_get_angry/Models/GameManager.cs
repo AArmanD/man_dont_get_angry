@@ -87,35 +87,21 @@ namespace man_dont_get_angry.Models
                 if (movementOption.Item2 == a)
                 {
                     this._gameBoard.setPiece(movementOption);
-                    if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
-                    {
-                        this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
-                    }
-                    else
-                    {
-                        this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
-                        changePlayer();
-                    }
-                }
-            }
-        }
 
-        public bool positionSettable(int a)
-        {
-            if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces)
-            {
-                foreach(Tuple<int,int> tuple in this._movementOptions)
-                {
-                    if (tuple.Item1 == a)
+                    if (!OptionsChecker.checkGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields))
                     {
-                        return true;
+
+                        if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
+                        {
+                            this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
+                        }
+                        else
+                        {
+                            this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
+                            changePlayer();
+                        }
                     }
                 }
-                return false;
-            }
-            else
-            {
-                return false;
             }
         }
 

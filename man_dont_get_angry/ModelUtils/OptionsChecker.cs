@@ -214,7 +214,8 @@ namespace man_dont_get_angry.Utils
             }
             return movementOptions;
         }
-        // TODO check move options in end fields
+
+
         private static List<Tuple<int, int>> COptEndPositions(Player player, List<int> endPositions, Field[] endFields, Dice dice)
         {
             List<Tuple<int, int>> movementOptions = new List<Tuple<int, int>>();
@@ -266,6 +267,20 @@ namespace man_dont_get_angry.Utils
                 }
             }
             return movementOptions;
+        }
+
+        public static bool checkGameWon(Player player, Field[] endFields)
+        {
+            List<int> playerPositions = checkPlayerPositions(player, endFields);
+
+            if (playerPositions.Count == 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
