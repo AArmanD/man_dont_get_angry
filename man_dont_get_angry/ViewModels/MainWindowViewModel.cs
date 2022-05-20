@@ -9,6 +9,7 @@ using man_dont_get_angry.Models;
 
 namespace man_dont_get_angry.ViewModels
 {
+    // gelb ins ziel kommen error
     internal class MainWindowViewModel
     {
         public GameManager ManDontGetAngryGame { get; }

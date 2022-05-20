@@ -132,7 +132,7 @@ namespace man_dont_get_angry.Utils
                             {
                                 if (endFields[(position + dice.Value) - 40].ThePiece == null || endFields[(position + dice.Value) - 40].ThePiece.TheColor != Color.Green)
                                 {
-                                    movementOptions.Add(Tuple.Create(position, 56 + (position + dice.Value) - 40));
+                                    movementOptions.Add(Tuple.Create(position, 55 + (position + dice.Value) - 39));
                                 }
                                 break;
                             }
@@ -156,7 +156,7 @@ namespace man_dont_get_angry.Utils
                             {
                                 if (endFields[(position + dice.Value) - 10].ThePiece == null || endFields[(position + dice.Value) - 10].ThePiece.TheColor != Color.Red)
                                 {
-                                    movementOptions.Add(Tuple.Create(position, 60 + (position + dice.Value) - 10));
+                                    movementOptions.Add(Tuple.Create(position, 59 + (position + dice.Value) - 9));
                                 }
                                 break;
                             }
@@ -180,7 +180,7 @@ namespace man_dont_get_angry.Utils
                                 if (endFields[(position + dice.Value) - 20].ThePiece == null || endFields[(position + dice.Value) - 20].ThePiece.TheColor != Color.Yellow)
                                 {
                                     // Remove error
-                                    movementOptions.Add(Tuple.Create(position, 68 + (position + dice.Value) - 20));
+                                    movementOptions.Add(Tuple.Create(position, 63 + (position + dice.Value) - 19));
                                 }
                                 break;
                             }
@@ -203,7 +203,7 @@ namespace man_dont_get_angry.Utils
                             {
                                 if (endFields[(position + dice.Value) - 30].ThePiece == null || endFields[(position + dice.Value) - 30].ThePiece.TheColor != Color.Blue)
                                 {
-                                    movementOptions.Add(Tuple.Create(position, 68 + (position + dice.Value) - 30));
+                                    movementOptions.Add(Tuple.Create(position, 67 + (position + dice.Value) - 29));
                                 }
                                 break;
                             }
@@ -239,7 +239,7 @@ namespace man_dont_get_angry.Utils
                         {
                             if (endFields[(position + dice.Value)].ThePiece == null)
                             {
-                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 60));
+                                movementOptions.Add(Tuple.Create(position + 56, position + dice.Value + 56));
                             }
                             break;
                         }
@@ -249,7 +249,7 @@ namespace man_dont_get_angry.Utils
                         {
                             if (endFields[(position + dice.Value)].ThePiece == null)
                             {
-                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 64));
+                                movementOptions.Add(Tuple.Create(position + 56, position + dice.Value + 56));
                             }
                             break;
                         }
@@ -259,7 +259,7 @@ namespace man_dont_get_angry.Utils
                         {
                             if (endFields[(position + dice.Value)].ThePiece == null)
                             {
-                                movementOptions.Add(Tuple.Create(position, position + dice.Value + 68));
+                                movementOptions.Add(Tuple.Create(position + 56, position + dice.Value + 56));
                             }
                             break;
                         }
