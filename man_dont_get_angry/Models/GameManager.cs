@@ -82,25 +82,35 @@ namespace man_dont_get_angry.Models
 
         public void setPosition(int a)
         {
-            foreach (Tuple<int, int> movementOption in this._movementOptions)
+            if (this._movementOptions.Count > 0)
             {
-                if (movementOption.Item2 == a)
+                foreach (Tuple<int, int> movementOption in this._movementOptions)
                 {
-                    this._gameBoard.setPiece(movementOption);
-
-                    if (!OptionsChecker.checkGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields))
+                    if (movementOption.Item2 == a)
                     {
+                        this._gameBoard.setPiece(movementOption);
 
-                        if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
+                        if (!OptionsChecker.checkGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields))
                         {
-                            this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
-                        }
-                        else
-                        {
-                            this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
-                            changePlayer();
+
+                            if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
+                            {
+                                this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
+                            }
+                            else
+                            {
+                                this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
+                                changePlayer();
+                            }
                         }
                     }
+                }
+            }
+            else
+            {
+                if (this._players[this._actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
+                { 
+                    this._players[this._actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
                 }
             }
         }
