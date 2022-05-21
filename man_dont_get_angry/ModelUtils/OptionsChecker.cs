@@ -26,9 +26,13 @@ namespace man_dont_get_angry.Utils
         public static PlayerState GenerateStateAfterRolling(List<Tuple<int, int>> movementOptions, Dice dice)
         {
 
-            if (dice.Value == 6)
+            if (dice.Value == 6 && movementOptions.Count > 0)
             {
                 return PlayerState.MovePiecesRepeadetly;
+            }
+            else
+            { 
+                return PlayerState.ThrowDice;
             }
 
             if (movementOptions.Count == 0)

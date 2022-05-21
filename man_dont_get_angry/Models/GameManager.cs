@@ -82,11 +82,10 @@ namespace man_dont_get_angry.Models
 
         public void setPosition(int a)
         {
+            // TODO: allow movements when thrown a 6 also when no movement done
             if (!OptionsChecker.checkGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields) && (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
             {
-                if (this._movementOptions.Count > 0)
-                {
-                    foreach (Tuple<int, int> movementOption in this._movementOptions)
+                    foreach (Tuple<int, int> movementOption in this._movementOptions?)
                     {
                         if (movementOption.Item2 == a)
                         {
@@ -105,14 +104,6 @@ namespace man_dont_get_angry.Models
 
                         }
                     }
-                }
-                else
-                {
-                    if (this._players[this._actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
-                    {
-                        this._players[this._actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
-                    }
-                }
             }
         }
 
