@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using man_dont_get_angry.ViewModelUtils;
 
 namespace man_dont_get_angry.Models
 {
@@ -40,10 +39,6 @@ namespace man_dont_get_angry.Models
             //{
             //    this._value = 6;
             //}
-
-            //this._value = 6;
-
-            this._testCounter++;
             
             this._diceThrownNumber++;
             this._imagePath = "\\images\\dice_" + this._value + ".png";

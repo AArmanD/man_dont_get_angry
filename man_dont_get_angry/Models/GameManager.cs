@@ -1,8 +1,8 @@
-﻿using man_dont_get_angry.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
@@ -16,9 +16,10 @@ namespace man_dont_get_angry.Models
         private Dice _dice;
         private Player[] _players;
         private int _actualPlayerID;
+        private int _lastPlayerID;
         private List<Tuple<int, int>> _movementOptions;
 
-        // error moving to last endfield green
+
         public GameManager()
         {
             this._dice = new Dice();
@@ -26,10 +27,10 @@ namespace man_dont_get_angry.Models
             this._players = new Player[]
             {
                 // Reihenfolge ist "noch" wichtig
-                new Player("Green", Utils.Color.Green, true),
-                new Player("Red", Utils.Color.Red),
-                new Player("Yellow", Utils.Color.Yellow),
-                new Player("Blue", Utils.Color.Blue),
+                new Player("Green", Color.Green, true),
+                new Player("Red", Color.Red),
+                new Player("Yellow", Color.Yellow),
+                new Player("Blue", Color.Blue),
             };
 
             this._gameBoard = new GameBoard(_players);
@@ -38,8 +39,8 @@ namespace man_dont_get_angry.Models
 
         public void RollDice()
         {
-
-            if (this._players[this._actualPlayerID].ThePlayerState == PlayerState.ThrowDice)
+            // check if win checking algorithm is correct
+            if (this._players[this._actualPlayerID].ThePlayerState == PlayerState.ThrowDice && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
             {
                 this._dice.roll();
                 this._movementOptions = OptionsChecker.checkMovements(_players[this._actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields, this._gameBoard.EndFields);
@@ -82,33 +83,34 @@ namespace man_dont_get_angry.Models
 
         public void setPosition(int a)
         {
-            // TODO: allow movements when thrown a 6 also when no movement done
-            if (!OptionsChecker.checkGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields) && (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
+            // TODO: win check does not work
+            if ((this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
             {
-                    foreach (Tuple<int, int> movementOption in this._movementOptions)
+                foreach (Tuple<int, int> movementOption in this._movementOptions)
+                {
+                    if (movementOption.Item2 == a)
                     {
-                        if (movementOption.Item2 == a)
+                        this._gameBoard.setPiece(movementOption);
+
+
+                        if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
                         {
-                            this._gameBoard.setPiece(movementOption);
-
-
-                            if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
-                            {
-                                this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
-                            }
-                            else
-                            {
-                                this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
-                                changePlayer();
-                            }
-
+                            this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
                         }
+                        else
+                        {
+                            this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
+                            changePlayer();
+                        }
+
                     }
+                }
             }
         }
 
         private void changePlayer()
         {
+            this._lastPlayerID = this._actualPlayerID;
             if (this._actualPlayerID < 3)
             {
                 this._actualPlayerID++;

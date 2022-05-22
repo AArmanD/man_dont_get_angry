@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using man_dont_get_angry.Utils;
+using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
@@ -13,12 +13,14 @@ namespace man_dont_get_angry.Models
         private Piece[] _pieces;
         private PlayerState _playerState;
         private Color _color;
+        private bool _isAutomatic;
 
-        public Player(string Name, Color color, bool first=false)
-        { 
+        public Player(string Name, Color color, bool first = false)
+        {
             this._name = Name;
             this._pieces = new Piece[4];
             this._color = color;
+            this._isAutomatic = false;
 
             if (first)
                 this._playerState = PlayerState.ThrowDice;
@@ -26,7 +28,8 @@ namespace man_dont_get_angry.Models
             else
                 this._playerState = PlayerState.MoveDone;
 
-            for (int i = 0; i < _pieces.Length; i++) {
+            for (int i = 0; i < _pieces.Length; i++)
+            {
                 _pieces[i] = new Piece(i, color);
             }
         }
@@ -38,17 +41,17 @@ namespace man_dont_get_angry.Models
         }
 
         public Piece[] ThePieces
-        { 
+        {
             get { return _pieces; }
         }
 
         public PlayerState ThePlayerState
         {
             get { return _playerState; }
-            set 
+            set
             {
                 int dice_thrown;
-                this._playerState = value; 
+                this._playerState = value;
             }
         }
 
@@ -56,6 +59,11 @@ namespace man_dont_get_angry.Models
         {
             get { return _color; }
             set { _color = value; }
+        }
+
+        public bool IsAutomatic
+        {
+            get { return _isAutomatic; }
         }
     }
 }

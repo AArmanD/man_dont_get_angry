@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using man_dont_get_angry.Utils;
+using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {

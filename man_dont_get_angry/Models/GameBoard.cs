@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using man_dont_get_angry.Utils;
+using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
@@ -27,23 +27,23 @@ namespace man_dont_get_angry.Models
             {
                 if (i == 0)
                 {
-                    this._gameBoardFields[i] = new Field(Utils.FieldType.GreenArrowField);
+                    this._gameBoardFields[i] = new Field(FieldType.GreenArrowField);
                 }
                 else if (i == 10)
                 {
-                    this._gameBoardFields[i] = new Field(Utils.FieldType.RedArrowField);
+                    this._gameBoardFields[i] = new Field(FieldType.RedArrowField);
                 }
                 else if (i == 20)
                 {
-                    this._gameBoardFields[i] = new Field(Utils.FieldType.YellowArrowField);
+                    this._gameBoardFields[i] = new Field(FieldType.YellowArrowField);
                 }
                 else if (i == 30)
                 {
-                    this._gameBoardFields[i] = new Field(Utils.FieldType.BlueArrowField);
+                    this._gameBoardFields[i] = new Field(FieldType.BlueArrowField);
                 }
                 else
                 {
-                    this._gameBoardFields[i] = new Field(Utils.FieldType.NormalField);
+                    this._gameBoardFields[i] = new Field(FieldType.NormalField);
                 }
             }
 
@@ -54,19 +54,19 @@ namespace man_dont_get_angry.Models
                 {
                     if (-1 < count && count < 4)
                     {
-                        this._startFields[count++] = new Field(Utils.FieldType.GreenStartField, piece);
+                        this._startFields[count++] = new Field(FieldType.GreenStartField, piece);
                     }
                     else if (3 < count && count < 8)
                     {
-                        this._startFields[count++] = new Field(Utils.FieldType.RedStartField, piece);
+                        this._startFields[count++] = new Field(FieldType.RedStartField, piece);
                     }
                     else if (7 < count && count < 12)
                     {
-                        this._startFields[count++] = new Field(Utils.FieldType.YellowStartField, piece);
+                        this._startFields[count++] = new Field(FieldType.YellowStartField, piece);
                     }
                     else if (11 < count && count < 16)
                     {
-                        this._startFields[count++] = new Field(Utils.FieldType.BlueStartField, piece);
+                        this._startFields[count++] = new Field(FieldType.BlueStartField, piece);
                     }
                 }
             }
@@ -75,19 +75,19 @@ namespace man_dont_get_angry.Models
             {
                 if (-1 < i && i < 4)
                 {
-                    this._endFields[i] = new Field(Utils.FieldType.GreenEndField);
+                    this._endFields[i] = new Field(FieldType.GreenEndField);
                 }
                 else if (3 < i && i < 8)
                 {
-                    this._endFields[i] = new Field(Utils.FieldType.RedEndField);
+                    this._endFields[i] = new Field(FieldType.RedEndField);
                 }
                 else if (7 < i && i < 12)
                 {
-                    this._endFields[i] = new Field(Utils.FieldType.YellowEndField);
+                    this._endFields[i] = new Field(FieldType.YellowEndField);
                 }
                 else if (11 < i && i < 16)
                 {
-                    this._endFields[i] = new Field(Utils.FieldType.BlueEndField);
+                    this._endFields[i] = new Field(FieldType.BlueEndField);
                 }
             }
         }

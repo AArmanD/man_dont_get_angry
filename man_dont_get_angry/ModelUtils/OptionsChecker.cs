@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using man_dont_get_angry.Models;
 
-namespace man_dont_get_angry.Utils
+namespace man_dont_get_angry.ModelUtils
 {
     internal static class OptionsChecker
     {
@@ -37,7 +37,7 @@ namespace man_dont_get_angry.Utils
 
             if (movementOptions.Count == 0)
             {
-                // TODO: Check whether all players are after each other in the end fields
+                // TODO: Check whether all players are after each other in the end fields --> check if algorithm is correct
                 if (dice.DiceThrownNumber < 3 && checkPlayersAreAfterEachOtherInEnd(player, endFields))
                 {
                     return PlayerState.ThrowDice;
