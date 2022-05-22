@@ -23,21 +23,22 @@ namespace man_dont_get_angry.Utils
             return playerPositions;
         }
 
-        public static PlayerState GenerateStateAfterRolling(List<Tuple<int, int>> movementOptions, Dice dice)
+        public static PlayerState GenerateStateAfterRolling(List<Tuple<int, int>> movementOptions, Dice dice, Player player, Field[] endFields)
         {
 
             if (dice.Value == 6 && movementOptions.Count > 0)
             {
                 return PlayerState.MovePiecesRepeadetly;
             }
-            else
+            else if (dice.Value == 6 && movementOptions.Count == 0)
             { 
                 return PlayerState.ThrowDice;
             }
 
             if (movementOptions.Count == 0)
             {
-                if (dice.DiceThrownNumber < 3)
+                // TODO: Check whether all players are after each other in the end fields
+                if (dice.DiceThrownNumber < 3 && checkPlayersAreAfterEachOtherInEnd(player, endFields))
                 {
                     return PlayerState.ThrowDice;
                 }
@@ -284,6 +285,54 @@ namespace man_dont_get_angry.Utils
             {
                 return false;
             }
+        }
+
+        private static bool checkPlayersAreAfterEachOtherInEnd(Player player, Field[] endFields)
+        {
+            List<int> playerPositions = checkPlayerPositions(player, endFields);
+
+
+            switch (player.TheColor)
+            {
+                case Color.Green:
+                    for(int i = 3; i > 3-playerPositions.Count; i--)
+                    {
+                        if(endFields[i].ThePiece == null)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                case Color.Red:
+                    for (int i = 7; i > 7 - playerPositions.Count; i--)
+                    {
+                        if (endFields[i].ThePiece == null)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                case Color.Blue:
+                    for (int i = 11; i > 11 - playerPositions.Count; i--)
+                    {
+                        if (endFields[i].ThePiece == null)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                case Color.Yellow:
+                    for (int i = 15; i > 15 - playerPositions.Count; i--)
+                    {
+                        if (endFields[i].ThePiece == null)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+            }
+
+            return true;
         }
     }
 }

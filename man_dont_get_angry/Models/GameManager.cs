@@ -43,7 +43,7 @@ namespace man_dont_get_angry.Models
             {
                 this._dice.roll();
                 this._movementOptions = OptionsChecker.checkMovements(_players[this._actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields, this._gameBoard.EndFields);
-                this._players[_actualPlayerID].ThePlayerState = OptionsChecker.GenerateStateAfterRolling(this._movementOptions, this._dice);
+                this._players[_actualPlayerID].ThePlayerState = OptionsChecker.GenerateStateAfterRolling(this._movementOptions, this._dice, this._players[this._actualPlayerID], this._gameBoard.EndFields);
 
                 if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MoveDone)
                 {
@@ -85,7 +85,7 @@ namespace man_dont_get_angry.Models
             // TODO: allow movements when thrown a 6 also when no movement done
             if (!OptionsChecker.checkGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields) && (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
             {
-                    foreach (Tuple<int, int> movementOption in this._movementOptions?)
+                    foreach (Tuple<int, int> movementOption in this._movementOptions)
                     {
                         if (movementOption.Item2 == a)
                         {
