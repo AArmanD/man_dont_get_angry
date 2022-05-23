@@ -20,7 +20,7 @@ namespace man_dont_get_angry.Models
             this._name = Name;
             this._pieces = new Piece[4];
             this._color = color;
-            this._isAutomatic = false;
+            this._isAutomatic = true;
 
             if (first)
                 this._playerState = PlayerState.ThrowDice;

@@ -3,6 +3,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using man_dont_get_angry.ModelUtils;
+using System.Threading;
+using System.Linq;
 
 namespace man_dont_get_angry.Models
 {
@@ -68,6 +70,11 @@ namespace man_dont_get_angry.Models
             get { return this._players[this._actualPlayerID]; }
         }
 
+        public List<Tuple<int, int>> MovementOptions
+        {
+            get { return this._movementOptions; }
+        }
+
         public bool DiceRollable()
         {
             if (this._players[_actualPlayerID].ThePlayerState == PlayerState.ThrowDice)
@@ -128,6 +135,25 @@ namespace man_dont_get_angry.Models
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void RollD()
+        {
+            var random = new Random();
+            while (this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
+            {
+                if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
+                {
+                    this.RollDice();
+                    Thread.Sleep(100);
+                }
+                else
+                {
+                    int index = random.Next(this.MovementOptions.Count);
+                    this.setPosition(this.MovementOptions[index].Item2);
+                    Thread.Sleep(100);
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
+using System.Threading;
 
 namespace man_dont_get_angry.ViewModels
 {
@@ -36,7 +37,8 @@ namespace man_dont_get_angry.ViewModels
 
         public void OnDiceButtonClicked(Object arg)
         {
-            this.ManDontGetAngryGame.RollDice();
+            Thread thread1 = new Thread(this.ManDontGetAngryGame.RollD);
+            thread1.Start();
         }
 
         public bool OnDiceButtonClickAllowed(Object arg)

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
@@ -174,11 +172,6 @@ namespace man_dont_get_angry.Models
                 // here throw out check is not needed because cannot happen
                 this.EndFields[setTuple.Item2 - 56].ThePiece = pieceToSet;
             }
-        }
-
-        private void SetPieceBackToStartFields(Piece piece)
-        {
-
         }
     }
 }
