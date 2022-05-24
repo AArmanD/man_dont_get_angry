@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
-    internal class Player
+    internal class Player : INotifyPropertyChanged
     {
         private string _name;
-        private Piece[] _pieces;
         private PlayerState _playerState;
         private Color _color;
         private bool _isAutomatic;
+        private GameManager _gameManager;
 
-        public Player(string Name, Color color, bool first = false)
+        public Player(string Name, Color color, GameManager gameManager, bool first = false)
         {
             this._name = Name;
-            this._pieces = new Piece[4];
             this._color = color;
             this._isAutomatic = false;
+            this._gameManager = gameManager;
 
             if (first)
                 this._playerState = PlayerState.ThrowDice;
@@ -28,21 +30,16 @@ namespace man_dont_get_angry.Models
             else
                 this._playerState = PlayerState.MoveDone;
 
-            for (int i = 0; i < _pieces.Length; i++)
-            {
-                _pieces[i] = new Piece(i, color);
-            }
+            //for (int i = 0; i < _pieces.Length; i++)
+            //{
+            //    _pieces[i] = new Piece(i, color);
+            //}
         }
 
         public string Name
         {
             get { return _name; }
             set { _name = value; }
-        }
-
-        public Piece[] ThePieces
-        {
-            get { return _pieces; }
         }
 
         public PlayerState ThePlayerState
@@ -64,7 +61,32 @@ namespace man_dont_get_angry.Models
         public bool IsAutomatic
         {
             get { return _isAutomatic; }
-            set { this._isAutomatic = value;  }
+            set { this._isAutomatic = value;
+                OnPropertyChanged("IsAutomatic");
+                switch (this._color)
+                {
+                    case Color.Green:
+                        this._gameManager.StartAutoThread(0);
+                        break;
+                    case Color.Red:
+                        this._gameManager.StartAutoThread(1);
+                        break;
+                    case Color.Yellow:
+                        this._gameManager.StartAutoThread(2);
+                        break;
+                    case Color.Blue:
+                        this._gameManager.StartAutoThread(3);
+                        break;
+                }
+                
+            }
+        }
+
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

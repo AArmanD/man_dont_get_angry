@@ -15,7 +15,7 @@ namespace man_dont_get_angry.ModelUtils
             for (int i = 0; i < fieldArray.Length; i++)
                 if (fieldArray[i].ThePiece != null)
                 {
-                    if (player.ThePieces.Contains(fieldArray[i].ThePiece))
+                    if (player.TheColor == fieldArray[i].ThePiece.TheColor)
                     {
                         playerPositions.Add(i);
                     }

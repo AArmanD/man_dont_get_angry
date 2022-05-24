@@ -10,11 +10,9 @@ namespace man_dont_get_angry.Models
     internal class Piece
     {
         private Color _pieceColor;
-        private int _id;
 
-        public Piece(int id, Color color)
+        public Piece(Color color)
         {
-            this._id = id;
             this._pieceColor = color;
         }
 
@@ -22,12 +20,6 @@ namespace man_dont_get_angry.Models
         {
             get { return _pieceColor; }
             set { _pieceColor = value; }
-        }
-
-        public int Id
-        { 
-            get { return _id; }
-            set { _id = value; }
         }
     }
 }

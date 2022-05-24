@@ -45,27 +45,23 @@ namespace man_dont_get_angry.Models
                 }
             }
 
-            int count = 0;
-            foreach (Player player in players)
+            for (int count = 0; count < _startFields.Length; count++)
             {
-                foreach (Piece piece in player.ThePieces)
+                if (-1 < count && count < 4)
                 {
-                    if (-1 < count && count < 4)
-                    {
-                        this._startFields[count++] = new Field(FieldType.GreenStartField, piece);
-                    }
-                    else if (3 < count && count < 8)
-                    {
-                        this._startFields[count++] = new Field(FieldType.RedStartField, piece);
-                    }
-                    else if (7 < count && count < 12)
-                    {
-                        this._startFields[count++] = new Field(FieldType.YellowStartField, piece);
-                    }
-                    else if (11 < count && count < 16)
-                    {
-                        this._startFields[count++] = new Field(FieldType.BlueStartField, piece);
-                    }
+                    this._startFields[count] = new Field(FieldType.GreenStartField, new Piece(Color.Green));
+                }
+                else if (3 < count && count < 8)
+                {
+                    this._startFields[count] = new Field(FieldType.RedStartField, new Piece(Color.Red));
+                }
+                else if (7 < count && count < 12)
+                {
+                    this._startFields[count] = new Field(FieldType.YellowStartField, new Piece(Color.Yellow));
+                }
+                else if (11 < count && count < 16)
+                {
+                    this._startFields[count] = new Field(FieldType.BlueStartField, new Piece(Color.Blue));
                 }
             }
 
@@ -91,7 +87,7 @@ namespace man_dont_get_angry.Models
         }
 
         public Field[] GameBoardFields
-        { 
+        {
             get { return _gameBoardFields; }
         }
 
@@ -105,8 +101,8 @@ namespace man_dont_get_angry.Models
             get { return _endFields; }
         }
 
-        public string ImageSource 
-        { 
+        public string ImageSource
+        {
             get { return _imageSource; }
         }
 
@@ -171,6 +167,39 @@ namespace man_dont_get_angry.Models
             {
                 // here throw out check is not needed because cannot happen
                 this.EndFields[setTuple.Item2 - 56].ThePiece = pieceToSet;
+            }
+        }
+
+        public void SetupStartPostitions()
+        {
+            for (int count = 0; count < _startFields.Length; count++)
+            {
+                if (-1 < count && count < 4)
+                {
+                    this._startFields[count].ThePiece = new Piece(Color.Green);
+                }
+                else if (3 < count && count < 8)
+                {
+                    this._startFields[count].ThePiece = new Piece(Color.Red);
+                }
+                else if (7 < count && count < 12)
+                {
+                    this._startFields[count].ThePiece = new Piece(Color.Yellow);
+                }
+                else if (11 < count && count < 16)
+                {
+                    this._startFields[count].ThePiece = new Piece(Color.Blue);
+                }
+            }
+
+            for (int i = 0; i < _endFields.Length; i++)
+            {
+                _endFields[i].ThePiece = null;
+            }
+
+            for (int i = 0; i < this._gameBoardFields.Length; i++)
+            {
+                this._gameBoardFields[i].ThePiece = null;
             }
         }
     }

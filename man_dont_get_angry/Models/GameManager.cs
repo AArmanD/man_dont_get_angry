@@ -31,10 +31,10 @@ namespace man_dont_get_angry.Models
             this._players = new Player[]
             {
                 // Reihenfolge ist "noch" wichtig
-                new Player("Green", Color.Green, true),
-                new Player("Red", Color.Red),
-                new Player("Yellow", Color.Yellow),
-                new Player("Blue", Color.Blue),
+                new Player("Green", Color.Green, this, true),
+                new Player("Red", Color.Red, this),
+                new Player("Yellow", Color.Yellow, this),
+                new Player("Blue", Color.Blue, this),
             };
 
             this._gameBoard = new GameBoard(_players);
@@ -144,7 +144,7 @@ namespace man_dont_get_angry.Models
             }
         }
 
-        
+
         private void changePlayer()
         {
             // als enumerator implementieren
@@ -193,26 +193,44 @@ namespace man_dont_get_angry.Models
         public void RollD()
         {
             var random = new Random();
-                while (this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
+            while (this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
+            {
+                if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
                 {
-                    if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
-                    {
-                        this.RollDice();
-                        Thread.Sleep(1000);
-                    }
-                    else
-                    {
-                        int index = random.Next(this.MovementOptions.Count);
-                        this.setPosition(this.MovementOptions[index].Item2);
-                        Thread.Sleep(1000);
-                    }
+                    this.RollDice();
+                    Thread.Sleep(1000);
                 }
+                else
+                {
+                    int index = random.Next(this.MovementOptions.Count);
+                    this.setPosition(this.MovementOptions[index].Item2);
+                    Thread.Sleep(1000);
+                }
+            }
         }
 
-        public void StartAutoThread() 
+        public void StartAutoThread(int num)
         {
-            this._thread = new Thread(this.RollD);
-            this._thread.Start();
+            if (num == this._actualPlayerID)
+            {
+                this._thread = new Thread(this.RollD);
+                this._thread.Start();
+            }
+        }
+
+        public void ResetGame()
+        {
+            this.TheGameBoard.SetupStartPostitions();
+            for(int i = 0; i < this._players.Length; i++)
+            {
+                this._players[i].IsAutomatic = false;
+            }
+
+            this._players[0].ThePlayerState = PlayerState.ThrowDice;
+            OnPropertyChanged("ActualMove");
+            this._actualPlayerID = 0;
+            OnPropertyChanged("ActualPlayer");
+            this._dice.resetDice();
         }
     }
 }

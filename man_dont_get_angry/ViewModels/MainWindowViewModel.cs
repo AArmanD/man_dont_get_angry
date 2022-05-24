@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
-using System.Threading;
-using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.ViewModels
 {
@@ -28,22 +26,7 @@ namespace man_dont_get_angry.ViewModels
             private set;
         }
 
-        public DelegateCommand CheckBoxPlayerGreenAutoCommand
-        {
-            get;
-            private set;
-        }
-        public DelegateCommand CheckBoxPlayerRedAutoCommand
-        {
-            get;
-            private set;
-        }
-        public DelegateCommand CheckBoxPlayerYellowAutoCommand
-        {
-            get;
-            private set;
-        }
-        public DelegateCommand CheckBoxPlayerBlueAutoCommand
+        public DelegateCommand ResetClickedCommand
         {
             get;
             private set;
@@ -55,10 +38,7 @@ namespace man_dont_get_angry.ViewModels
 
             DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
             FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
-            CheckBoxPlayerGreenAutoCommand = new DelegateCommand(OnCheckBoxPlayerGreenAutoClicked, OnCheckBoxPlayerGreenAutoClickAllowed);
-            CheckBoxPlayerRedAutoCommand = new DelegateCommand(OnCheckBoxPlayerRedAutoClicked, OnCheckBoxPlayerRedAutoClickAllowed);
-            CheckBoxPlayerYellowAutoCommand = new DelegateCommand(OnCheckBoxPlayerYellowAutoClicked, OnCheckBoxPlayerYellowAutoClickAllowed);
-            CheckBoxPlayerBlueAutoCommand = new DelegateCommand(OnCheckBoxPlayerBlueAutoClicked, OnCheckBoxPlayerBlueAutoClickAllowed);
+            ResetClickedCommand = new DelegateCommand(OnResetClicked, OnResetClickAllowed);
         }
 
         public void OnDiceButtonClicked(Object arg)
@@ -83,46 +63,12 @@ namespace man_dont_get_angry.ViewModels
             //return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
         }
 
-        public void OnCheckBoxPlayerGreenAutoClicked(Object arg)
+        public void OnResetClicked(Object arg)
         {
-            this.ManDontGetAngryGame.Players[0].IsAutomatic = (bool)arg;
-            this.ManDontGetAngryGame.StartAutoThread();
+            this.ManDontGetAngryGame.ResetGame();
         }
 
-        public bool OnCheckBoxPlayerGreenAutoClickAllowed(Object arg)
-        {
-            return true;
-        }
-
-        public void OnCheckBoxPlayerRedAutoClicked(Object arg)
-        {
-            this.ManDontGetAngryGame.Players[1].IsAutomatic = (bool)arg;
-            this.ManDontGetAngryGame.StartAutoThread();
-        }
-
-        public bool OnCheckBoxPlayerRedAutoClickAllowed(Object arg)
-        {
-            return true;
-        }
-
-        public void OnCheckBoxPlayerYellowAutoClicked(Object arg)
-        {
-            this.ManDontGetAngryGame.Players[2].IsAutomatic = (bool)arg;
-            this.ManDontGetAngryGame.StartAutoThread();
-        }
-
-        public bool OnCheckBoxPlayerYellowAutoClickAllowed(Object arg)
-        {
-            return true;
-        }
-
-        public void OnCheckBoxPlayerBlueAutoClicked(Object arg)
-        {
-            this.ManDontGetAngryGame.Players[3].IsAutomatic = (bool)arg;
-            this.ManDontGetAngryGame.StartAutoThread();
-        }
-
-        public bool OnCheckBoxPlayerBlueAutoClickAllowed(Object arg)
+        public bool OnResetClickAllowed(Object arg)
         {
             return true;
         }
