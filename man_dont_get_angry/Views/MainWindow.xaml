@@ -239,13 +239,13 @@
         <Button Content="Load Game from XML" Canvas.Left="656" Canvas.Top="113" HorizontalAlignment="Center" VerticalAlignment="Top" Width="144" Height="35"/>
         <Label Content="Player Options" Canvas.Left="656" Canvas.Top="238" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Width="144"/>
         <Label Content="Player Green:" Canvas.Left="656" Canvas.Top="268" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="294" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="294" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"/>
         <Label Content="Player Red:" Canvas.Left="656" Canvas.Top="324" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="350" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="350" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"/>
         <Label Content="Player Yellow:" Canvas.Left="656" Canvas.Top="380" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="406" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="406" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"/>
         <Label Content="Player Blue:" Canvas.Left="656" Canvas.Top="434" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="460" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="460" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"/>
         <Button Content="Save Game to XML" Canvas.Left="656" Canvas.Top="161" Height="35" Width="144" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Window>

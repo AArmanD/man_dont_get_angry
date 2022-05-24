@@ -28,6 +28,27 @@ namespace man_dont_get_angry.ViewModels
             private set;
         }
 
+        public Delegate CheckBoxPlayerGreenAutoCommand
+        {
+            get;
+            private set;
+        }
+        public Delegate CheckBoxPlayerRedAutoCommand
+        {
+            get;
+            private set;
+        }
+        public Delegate CheckBoxPlayerYellowAutoCommand
+        {
+            get;
+            private set;
+        }
+        public Delegate CheckBoxPlayerGreenBlueCommand
+        {
+            get;
+            private set;
+        }
+
         public MainWindowViewModel()
         {
             ManDontGetAngryGame = new GameManager();
@@ -58,6 +79,8 @@ namespace man_dont_get_angry.ViewModels
             return true;
             //return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
         }
+
+        public void On
 
         public Dice TheDice => this.ManDontGetAngryGame.TheDice;
 
