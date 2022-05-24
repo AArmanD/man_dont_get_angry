@@ -47,6 +47,7 @@ namespace man_dont_get_angry.Models
                 this._dice.roll();
                 this._movementOptions = OptionsChecker.checkMovements(_players[this._actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields, this._gameBoard.EndFields);
                 this._players[_actualPlayerID].ThePlayerState = OptionsChecker.GenerateStateAfterRolling(this._movementOptions, this._dice, this._players[this._actualPlayerID], this._gameBoard.EndFields);
+                OnPropertyChanged("ActualMove");
 
                 if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MoveDone)
                 {
@@ -68,6 +69,25 @@ namespace man_dont_get_angry.Models
         public Player ActualPlayer
         {
             get { return this._players[this._actualPlayerID]; }
+        }
+
+        public string ActualMove
+        {
+            get
+            {
+                switch (this.ActualPlayer.ThePlayerState)
+                {
+                    case PlayerState.ThrowDice:
+                        return "Throw Dice";
+                    case PlayerState.MovePieces:
+                    case PlayerState.MovePiecesRepeadetly:
+                        return "Move Pieces";
+                    case PlayerState.MoveDone:
+                        return "Move Done";
+                    default:
+                        return "";
+                }
+            }
         }
 
         public List<Tuple<int, int>> MovementOptions
@@ -103,11 +123,13 @@ namespace man_dont_get_angry.Models
                         if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
                         {
                             this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
+                            OnPropertyChanged("ActualMove");
                         }
                         else
                         {
                             this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
                             changePlayer();
+                            OnPropertyChanged("ActualMove");
                         }
 
                     }
@@ -115,8 +137,10 @@ namespace man_dont_get_angry.Models
             }
         }
 
+        
         private void changePlayer()
         {
+            // als enumerator implementieren
             this._lastPlayerID = this._actualPlayerID;
             if (this._actualPlayerID < 3)
             {
@@ -145,13 +169,13 @@ namespace man_dont_get_angry.Models
                 if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
                 {
                     this.RollDice();
-                    Thread.Sleep(100);
+                    Thread.Sleep(1000);
                 }
                 else
                 {
                     int index = random.Next(this.MovementOptions.Count);
                     this.setPosition(this.MovementOptions[index].Item2);
-                    Thread.Sleep(100);
+                    Thread.Sleep(1000);
                 }
             }
         }

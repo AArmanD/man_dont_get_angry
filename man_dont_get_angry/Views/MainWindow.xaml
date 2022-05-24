@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:man_dont_get_angry"
         mc:Ignorable="d"
         Title="Man dont get angry"
-        Height="740" Width="660"
+        Height="740" Width="841"
         ResizeMode="NoResize">
     <!--height was 680 before-->
     <Canvas Name="GameCanvas" Focusable="True" Background="White">
@@ -227,10 +227,25 @@
             <Image Source="{Binding Path=EndFields[15].ImagePath}"></Image>
         </Button>
 
-        <Label Content="Aktueller Spieler:" Canvas.Left="164" Canvas.Top="655" FontWeight="Bold"/>
-        <Label Content="{Binding Path=ManDontGetAngryGame.ActualPlayer.Name}" Canvas.Left="291" Canvas.Top="655" FontWeight="Bold"/>
-        <Button Canvas.Left="432" Canvas.Top="638" Width="60" Height="60" Command="{Binding DiceClickedCommand}">
+        <Label Content="Actual Player:" Canvas.Left="31" Canvas.Top="655" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Canvas.Left="292" Canvas.Top="638" Width="60" Height="60" Command="{Binding DiceClickedCommand}" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image Source="{Binding Path=TheDice.ImagePath}"></Image>
         </Button>
+        <Button Content="Restart Game" Canvas.Left="656" Canvas.Top="61" Height="35" Width="144" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Actual move:" Canvas.Left="445" Canvas.Top="655" FontWeight="Bold"/>
+        <Label Content="{Binding Path=ManDontGetAngryGame.ActualMove}" Canvas.Left="542" Canvas.Top="655" HorizontalAlignment="Left" VerticalAlignment="Center" Width="91"/>
+        <Label Content="{Binding Path=ManDontGetAngryGame.ActualPlayer.Name}" Canvas.Left="144" Canvas.Top="655" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Game Options" Canvas.Left="656" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Width="144"/>
+        <Button Content="Load Game from XML" Canvas.Left="656" Canvas.Top="113" HorizontalAlignment="Center" VerticalAlignment="Top" Width="144" Height="35"/>
+        <Label Content="Player Options" Canvas.Left="656" Canvas.Top="238" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Width="144"/>
+        <Label Content="Player Green:" Canvas.Left="656" Canvas.Top="268" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="294" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Player Red:" Canvas.Left="656" Canvas.Top="324" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="350" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Player Yellow:" Canvas.Left="656" Canvas.Top="380" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="406" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Player Blue:" Canvas.Left="656" Canvas.Top="434" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="460" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Content="Save Game to XML" Canvas.Left="656" Canvas.Top="161" Height="35" Width="144" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Window>

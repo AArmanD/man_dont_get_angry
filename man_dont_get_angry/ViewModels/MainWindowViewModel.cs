@@ -7,6 +7,7 @@ using System.Windows.Input;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
 using System.Threading;
+using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.ViewModels
 {
@@ -65,5 +66,6 @@ namespace man_dont_get_angry.ViewModels
         public Field[] EndFields => this.ManDontGetAngryGame.TheGameBoard.EndFields;
 
         public string ActualPlayer => this.ManDontGetAngryGame.ActualPlayer.Name;
+        public string ActualMove => this.ManDontGetAngryGame.ActualMove;
     }
 }
