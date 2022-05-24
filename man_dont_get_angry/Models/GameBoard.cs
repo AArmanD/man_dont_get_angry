@@ -5,7 +5,7 @@ using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
-    internal class GameBoard
+    public class GameBoard
     {
         private Field[] _gameBoardFields;
         private Field[] _startFields;
@@ -14,7 +14,7 @@ namespace man_dont_get_angry.Models
         private string _imageSource;
 
 
-        public GameBoard(Player[] players)
+        public GameBoard()
         {
             this._startFields = new Field[16];
             this._endFields = new Field[16];

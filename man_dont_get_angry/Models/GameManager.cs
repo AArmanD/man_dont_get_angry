@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using man_dont_get_angry.ModelUtils;
 using System.Threading;
 using System.Linq;
+using System.IO;
 
 namespace man_dont_get_angry.Models
 {
@@ -12,7 +13,7 @@ namespace man_dont_get_angry.Models
     /// This class manages the Game flow in a loop, uses class OptionsChecker to check options 
     /// which can be made, sets the wanted pieces
     /// </summary>
-    internal class GameManager : INotifyPropertyChanged
+    public class GameManager : INotifyPropertyChanged
     {
         private GameBoard _gameBoard;
         private Dice _dice;
@@ -37,7 +38,7 @@ namespace man_dont_get_angry.Models
                 new Player("Blue", Color.Blue, this),
             };
 
-            this._gameBoard = new GameBoard(_players);
+            this._gameBoard = new GameBoard();
             this._actualPlayerID = 0;
         }
 
@@ -138,7 +139,6 @@ namespace man_dont_get_angry.Models
                             changePlayer();
                             OnPropertyChanged("ActualMove");
                         }
-
                     }
                 }
             }
@@ -231,6 +231,22 @@ namespace man_dont_get_angry.Models
             this._actualPlayerID = 0;
             OnPropertyChanged("ActualPlayer");
             this._dice.resetDice();
+        }
+
+        public void SaveGameAsXML()
+        {
+            TextWriter writer = null;
+            try
+            {
+                System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(this._gameBoard.GetType());
+                writer = new StreamWriter(@"C:\Temp\Lol.xml", false);
+                x.Serialize(writer, this._gameBoard);
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
-    internal class Piece
+    public class Piece
     {
         private Color _pieceColor;
 

@@ -9,11 +9,14 @@ using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
-    internal class Field : INotifyPropertyChanged
+    public class Field : INotifyPropertyChanged
     {
         private Piece? _piece;
         private string _imagePath;
         private FieldType _fieldType;
+
+        private Field()
+        { }
 
         public Field(FieldType fieldType)
         {

@@ -32,6 +32,12 @@ namespace man_dont_get_angry.ViewModels
             private set;
         }
 
+        public DelegateCommand SaveAsXMLClickedCommand
+        {
+            get;
+            private set;
+        }
+
         public MainWindowViewModel()
         {
             ManDontGetAngryGame = new GameManager();
@@ -39,6 +45,7 @@ namespace man_dont_get_angry.ViewModels
             DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
             FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
             ResetClickedCommand = new DelegateCommand(OnResetClicked, OnResetClickAllowed);
+            SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked, OnResetClickAllowed);
         }
 
         public void OnDiceButtonClicked(Object arg)
@@ -69,6 +76,17 @@ namespace man_dont_get_angry.ViewModels
         }
 
         public bool OnResetClickAllowed(Object arg)
+        {
+            // make only possible when game is already started
+            return true;
+        }
+
+        public void OnSaveAsXMLClicked(Object arg)
+        {
+            this.ManDontGetAngryGame.SaveGameAsXML();
+        }
+
+        public bool OnSaveAsXMLClickAllowed(Object arg)
         {
             return true;
         }

@@ -246,6 +246,6 @@
         <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="406" Height="22" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="{Binding ManDontGetAngryGame.Players[2].IsAutomatic, Mode=TwoWay}"/>
         <Label Content="Player Blue:" Canvas.Left="656" Canvas.Top="434" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="460" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="{Binding ManDontGetAngryGame.Players[3].IsAutomatic, Mode=TwoWay}"/>
-        <Button Content="Save Game to XML" Canvas.Left="656" Canvas.Top="161" Height="35" Width="144" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Content="Save Game to XML" Canvas.Left="656" Canvas.Top="161" Height="35" Width="144" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding SaveAsXMLClickedCommand}"/>
     </Canvas>
 </Window>

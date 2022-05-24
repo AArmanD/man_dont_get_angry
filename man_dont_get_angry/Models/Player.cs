@@ -9,7 +9,7 @@ using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
-    internal class Player : INotifyPropertyChanged
+    public class Player : INotifyPropertyChanged
     {
         private string _name;
         private PlayerState _playerState;
@@ -35,6 +35,9 @@ namespace man_dont_get_angry.Models
             //    _pieces[i] = new Piece(i, color);
             //}
         }
+
+        private Player()
+        { }
 
         public string Name
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace man_dont_get_angry.Models
 {
-    internal class Dice : INotifyPropertyChanged
+    public class Dice : INotifyPropertyChanged
     {
         private int _value;
         private System.Random _random;
