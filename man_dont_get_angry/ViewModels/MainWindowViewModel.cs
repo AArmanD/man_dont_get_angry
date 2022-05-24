@@ -28,22 +28,22 @@ namespace man_dont_get_angry.ViewModels
             private set;
         }
 
-        public Delegate CheckBoxPlayerGreenAutoCommand
+        public DelegateCommand CheckBoxPlayerGreenAutoCommand
         {
             get;
             private set;
         }
-        public Delegate CheckBoxPlayerRedAutoCommand
+        public DelegateCommand CheckBoxPlayerRedAutoCommand
         {
             get;
             private set;
         }
-        public Delegate CheckBoxPlayerYellowAutoCommand
+        public DelegateCommand CheckBoxPlayerYellowAutoCommand
         {
             get;
             private set;
         }
-        public Delegate CheckBoxPlayerGreenBlueCommand
+        public DelegateCommand CheckBoxPlayerBlueAutoCommand
         {
             get;
             private set;
@@ -55,12 +55,15 @@ namespace man_dont_get_angry.ViewModels
 
             DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
             FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
+            CheckBoxPlayerGreenAutoCommand = new DelegateCommand(OnCheckBoxPlayerGreenAutoClicked, OnCheckBoxPlayerGreenAutoClickAllowed);
+            CheckBoxPlayerRedAutoCommand = new DelegateCommand(OnCheckBoxPlayerRedAutoClicked, OnCheckBoxPlayerRedAutoClickAllowed);
+            CheckBoxPlayerYellowAutoCommand = new DelegateCommand(OnCheckBoxPlayerYellowAutoClicked, OnCheckBoxPlayerYellowAutoClickAllowed);
+            CheckBoxPlayerBlueAutoCommand = new DelegateCommand(OnCheckBoxPlayerBlueAutoClicked, OnCheckBoxPlayerBlueAutoClickAllowed);
         }
 
         public void OnDiceButtonClicked(Object arg)
         {
-            Thread thread1 = new Thread(this.ManDontGetAngryGame.RollD);
-            thread1.Start();
+            this.ManDontGetAngryGame.RollDice();
         }
 
         public bool OnDiceButtonClickAllowed(Object arg)
@@ -80,7 +83,49 @@ namespace man_dont_get_angry.ViewModels
             //return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
         }
 
-        public void On
+        public void OnCheckBoxPlayerGreenAutoClicked(Object arg)
+        {
+            this.ManDontGetAngryGame.Players[0].IsAutomatic = (bool)arg;
+            this.ManDontGetAngryGame.StartAutoThread();
+        }
+
+        public bool OnCheckBoxPlayerGreenAutoClickAllowed(Object arg)
+        {
+            return true;
+        }
+
+        public void OnCheckBoxPlayerRedAutoClicked(Object arg)
+        {
+            this.ManDontGetAngryGame.Players[1].IsAutomatic = (bool)arg;
+            this.ManDontGetAngryGame.StartAutoThread();
+        }
+
+        public bool OnCheckBoxPlayerRedAutoClickAllowed(Object arg)
+        {
+            return true;
+        }
+
+        public void OnCheckBoxPlayerYellowAutoClicked(Object arg)
+        {
+            this.ManDontGetAngryGame.Players[2].IsAutomatic = (bool)arg;
+            this.ManDontGetAngryGame.StartAutoThread();
+        }
+
+        public bool OnCheckBoxPlayerYellowAutoClickAllowed(Object arg)
+        {
+            return true;
+        }
+
+        public void OnCheckBoxPlayerBlueAutoClicked(Object arg)
+        {
+            this.ManDontGetAngryGame.Players[3].IsAutomatic = (bool)arg;
+            this.ManDontGetAngryGame.StartAutoThread();
+        }
+
+        public bool OnCheckBoxPlayerBlueAutoClickAllowed(Object arg)
+        {
+            return true;
+        }
 
         public Dice TheDice => this.ManDontGetAngryGame.TheDice;
 
@@ -90,5 +135,7 @@ namespace man_dont_get_angry.ViewModels
 
         public string ActualPlayer => this.ManDontGetAngryGame.ActualPlayer.Name;
         public string ActualMove => this.ManDontGetAngryGame.ActualMove;
+
+        public Player[] Players => this.ManDontGetAngryGame.Players;
     }
 }

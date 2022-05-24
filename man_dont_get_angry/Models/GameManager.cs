@@ -19,12 +19,14 @@ namespace man_dont_get_angry.Models
         private Player[] _players;
         private int _actualPlayerID;
         private int _lastPlayerID;
+        private Thread _thread;
         private List<Tuple<int, int>> _movementOptions;
 
 
         public GameManager()
         {
             this._dice = new Dice();
+            this._thread = new Thread(this.RollD);
 
             this._players = new Player[]
             {
@@ -69,6 +71,11 @@ namespace man_dont_get_angry.Models
         public Player ActualPlayer
         {
             get { return this._players[this._actualPlayerID]; }
+        }
+
+        public Player[] Players
+        {
+            get { return this._players; }
         }
 
         public string ActualMove
@@ -152,6 +159,12 @@ namespace man_dont_get_angry.Models
             OnPropertyChanged("ActualPlayer");
             this._dice.resetDice();
             this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
+
+            if (this.ActualPlayer.IsAutomatic && !this._thread.IsAlive)
+            {
+                this._thread = new Thread(this.RollD);
+                this._thread.Start();
+            }
         }
 
         [field: NonSerialized]
@@ -161,23 +174,45 @@ namespace man_dont_get_angry.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+        public void RollDiceManager()
+        {
+            if (this.ActualPlayer.IsAutomatic)
+            {
+                if (this.ActualPlayer.IsAutomatic && !this._thread.IsAlive)
+                {
+                    this._thread = new Thread(this.RollD);
+                    this._thread.Start();
+                }
+            }
+            else
+            {
+                RollDice();
+            }
+        }
+
         public void RollD()
         {
             var random = new Random();
-            while (this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
-            {
-                if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
+                while (this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
                 {
-                    this.RollDice();
-                    Thread.Sleep(1000);
+                    if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
+                    {
+                        this.RollDice();
+                        Thread.Sleep(1000);
+                    }
+                    else
+                    {
+                        int index = random.Next(this.MovementOptions.Count);
+                        this.setPosition(this.MovementOptions[index].Item2);
+                        Thread.Sleep(1000);
+                    }
                 }
-                else
-                {
-                    int index = random.Next(this.MovementOptions.Count);
-                    this.setPosition(this.MovementOptions[index].Item2);
-                    Thread.Sleep(1000);
-                }
-            }
+        }
+
+        public void StartAutoThread() 
+        {
+            this._thread = new Thread(this.RollD);
+            this._thread.Start();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace man_dont_get_angry.Models
             this._name = Name;
             this._pieces = new Piece[4];
             this._color = color;
-            this._isAutomatic = true;
+            this._isAutomatic = false;
 
             if (first)
                 this._playerState = PlayerState.ThrowDice;
@@ -64,6 +64,7 @@ namespace man_dont_get_angry.Models
         public bool IsAutomatic
         {
             get { return _isAutomatic; }
+            set { this._isAutomatic = value;  }
         }
     }
 }
