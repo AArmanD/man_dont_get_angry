@@ -6,6 +6,7 @@ using man_dont_get_angry.ModelUtils;
 using System.Threading;
 using System.Linq;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace man_dont_get_angry.Models
 {
@@ -21,7 +22,8 @@ namespace man_dont_get_angry.Models
         private int _actualPlayerID;
         private int _lastPlayerID;
         private Thread _thread;
-        private List<Tuple<int, int>> _movementOptions;
+        private bool _threadRunning;
+        private List<MovementOption> _movementOptions;
 
 
         public GameManager()
@@ -31,7 +33,6 @@ namespace man_dont_get_angry.Models
 
             this._players = new Player[]
             {
-                // Reihenfolge ist "noch" wichtig
                 new Player("Green", Color.Green, this, true),
                 new Player("Red", Color.Red, this),
                 new Player("Yellow", Color.Yellow, this),
@@ -40,6 +41,7 @@ namespace man_dont_get_angry.Models
 
             this._gameBoard = new GameBoard();
             this._actualPlayerID = 0;
+            this._threadRunning = false;
         }
 
         public void RollDice()
@@ -62,11 +64,13 @@ namespace man_dont_get_angry.Models
         public GameBoard TheGameBoard
         {
             get { return this._gameBoard; }
+            set { this._gameBoard = value; }
         }
 
         public Dice TheDice
         {
             get { return this._dice; }
+            set { this._dice = value; }
         }
 
         public Player ActualPlayer
@@ -77,6 +81,12 @@ namespace man_dont_get_angry.Models
         public Player[] Players
         {
             get { return this._players; }
+            set { this._players = value; }
+        }
+
+        public int PlayerID { 
+            get { return this._actualPlayerID; }
+            set { this._actualPlayerID = value; }
         }
 
         public string ActualMove
@@ -98,9 +108,32 @@ namespace man_dont_get_angry.Models
             }
         }
 
-        public List<Tuple<int, int>> MovementOptions
+        // Ignore Movement Options, TODO allow to redice every time new when game is loaded
+        public List<MovementOption> MovementOptions
         {
             get { return this._movementOptions; }
+            set { this._movementOptions = value; }
+        }
+
+        public void SetAutoThread(bool state) 
+        {
+            if (state)
+            {
+                if (this._thread.ThreadState != ThreadState.Running && this._players[this._actualPlayerID].IsAutomatic)
+                {
+                    this._thread = new Thread(this.RollD);
+                    this._threadRunning = true;
+                    this._thread.Start();
+                }
+            }
+            else
+            {
+                if (this._thread.ThreadState == ThreadState.Running)
+                {
+                    this._threadRunning = false;
+                    Thread.Sleep(100);
+                }
+            }
         }
 
         public bool DiceRollable()
@@ -121,9 +154,9 @@ namespace man_dont_get_angry.Models
             // TODO: win check does not work
             if ((this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
             {
-                foreach (Tuple<int, int> movementOption in this._movementOptions)
+                foreach (MovementOption movementOption in this._movementOptions)
                 {
-                    if (movementOption.Item2 == a)
+                    if (movementOption.EndPosition == a)
                     {
                         this._gameBoard.setPiece(movementOption);
 
@@ -163,6 +196,7 @@ namespace man_dont_get_angry.Models
             if (this.ActualPlayer.IsAutomatic && !this._thread.IsAlive)
             {
                 this._thread = new Thread(this.RollD);
+                this._threadRunning = true;
                 this._thread.Start();
             }
         }
@@ -193,7 +227,7 @@ namespace man_dont_get_angry.Models
         public void RollD()
         {
             var random = new Random();
-            while (this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
+            while (this._threadRunning && this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
             {
                 if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
                 {
@@ -203,7 +237,7 @@ namespace man_dont_get_angry.Models
                 else
                 {
                     int index = random.Next(this.MovementOptions.Count);
-                    this.setPosition(this.MovementOptions[index].Item2);
+                    this.setPosition(this.MovementOptions[index].EndPosition);
                     Thread.Sleep(1000);
                 }
             }
@@ -214,6 +248,7 @@ namespace man_dont_get_angry.Models
             if (num == this._actualPlayerID)
             {
                 this._thread = new Thread(this.RollD);
+                this._threadRunning = true;
                 this._thread.Start();
             }
         }
@@ -231,22 +266,6 @@ namespace man_dont_get_angry.Models
             this._actualPlayerID = 0;
             OnPropertyChanged("ActualPlayer");
             this._dice.resetDice();
-        }
-
-        public void SaveGameAsXML()
-        {
-            TextWriter writer = null;
-            try
-            {
-                System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(this._gameBoard.GetType());
-                writer = new StreamWriter(@"C:\Temp\Lol.xml", false);
-                x.Serialize(writer, this._gameBoard);
-            }
-            finally
-            {
-                if (writer != null)
-                    writer.Close();
-            }
         }
     }
 }

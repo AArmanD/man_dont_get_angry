@@ -236,7 +236,7 @@
         <Label Content="{Binding Path=ManDontGetAngryGame.ActualMove}" Canvas.Left="542" Canvas.Top="655" HorizontalAlignment="Left" VerticalAlignment="Center" Width="91"/>
         <Label Content="{Binding Path=ManDontGetAngryGame.ActualPlayer.Name}" Canvas.Left="144" Canvas.Top="655" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label Content="Game Options" Canvas.Left="656" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Width="144"/>
-        <Button Content="Load Game from XML" Canvas.Left="656" Canvas.Top="113" HorizontalAlignment="Center" VerticalAlignment="Top" Width="144" Height="35"/>
+        <Button Content="Load Game from XML" Canvas.Left="656" Canvas.Top="113" HorizontalAlignment="Center" VerticalAlignment="Top" Width="144" Height="35" Command="{Binding LoadXMLClickedCommand}"/>
         <Label Content="Player Options" Canvas.Left="656" Canvas.Top="238" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Width="144"/>
         <Label Content="Player Green:" Canvas.Left="656" Canvas.Top="268" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <CheckBox Content="Automatic" Canvas.Left="668" Canvas.Top="294" Height="24" Width="132" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="{Binding ManDontGetAngryGame.Players[0].IsAutomatic, Mode=TwoWay}"/>

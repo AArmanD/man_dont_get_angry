@@ -11,15 +11,12 @@ namespace man_dont_get_angry.Models
         private Field[] _startFields;
         private Field[] _endFields;
 
-        private string _imageSource;
-
 
         public GameBoard()
         {
             this._startFields = new Field[16];
             this._endFields = new Field[16];
             this._gameBoardFields = new Field[40];
-            this._imageSource = "\\images\\square.png";
 
             for (int i = 0; i < _gameBoardFields.Length; i++)
             {
@@ -89,49 +86,47 @@ namespace man_dont_get_angry.Models
         public Field[] GameBoardFields
         {
             get { return _gameBoardFields; }
+            set { _gameBoardFields = value; }
         }
 
         public Field[] StartFields
         {
             get { return _startFields; }
+            set { _startFields = value; }
         }
 
         public Field[] EndFields
         {
             get { return _endFields; }
+            set { _endFields = value; }
         }
 
-        public string ImageSource
-        {
-            get { return _imageSource; }
-        }
-
-        public void setPiece(Tuple<int, int> setTuple)
+        public void setPiece(MovementOption setTuple)
         {
             Piece pieceToSet = null;
-            if (setTuple.Item1 < 40)
+            if (setTuple.StartPosition < 40)
             {
-                pieceToSet = this._gameBoardFields[setTuple.Item1].ThePiece;
-                this._gameBoardFields[setTuple.Item1].ThePiece = null;
+                pieceToSet = this._gameBoardFields[setTuple.StartPosition].ThePiece;
+                this._gameBoardFields[setTuple.StartPosition].ThePiece = null;
             }
-            else if (setTuple.Item1 > 39 && setTuple.Item1 < 56)
+            else if (setTuple.StartPosition > 39 && setTuple.StartPosition < 56)
             {
-                pieceToSet = this._startFields[setTuple.Item1 - 40].ThePiece;
-                this._startFields[setTuple.Item1 - 40].ThePiece = null;
+                pieceToSet = this._startFields[setTuple.StartPosition - 40].ThePiece;
+                this._startFields[setTuple.StartPosition - 40].ThePiece = null;
             }
-            else if (setTuple.Item1 > 55 && setTuple.Item1 < 72)
+            else if (setTuple.StartPosition > 55 && setTuple.StartPosition < 72)
             {
-                pieceToSet = this.EndFields[setTuple.Item1 - 56].ThePiece;
-                this.EndFields[setTuple.Item1 - 56].ThePiece = null;
+                pieceToSet = this.EndFields[setTuple.StartPosition - 56].ThePiece;
+                this.EndFields[setTuple.StartPosition - 56].ThePiece = null;
             }
 
-            if (setTuple.Item2 < 40)
+            if (setTuple.EndPosition < 40)
             {
-                if (this._gameBoardFields[setTuple.Item2].ThePiece != null)
+                if (this._gameBoardFields[setTuple.EndPosition].ThePiece != null)
                 {
                     // move piece on field back to start
                     int count = 3;
-                    switch (this._gameBoardFields[setTuple.Item2].ThePiece.TheColor)
+                    switch (this._gameBoardFields[setTuple.EndPosition].ThePiece.TheColor)
                     {
                         case Color.Green:
                             break;
@@ -150,23 +145,23 @@ namespace man_dont_get_angry.Models
                     {
                         if (this._startFields[i].ThePiece == null)
                         {
-                            this._startFields[i].ThePiece = this._gameBoardFields[setTuple.Item2].ThePiece;
+                            this._startFields[i].ThePiece = this._gameBoardFields[setTuple.EndPosition].ThePiece;
                             break;
                         }
                     }
                 }
 
-                this._gameBoardFields[setTuple.Item2].ThePiece = pieceToSet;
+                this._gameBoardFields[setTuple.EndPosition].ThePiece = pieceToSet;
 
             }
-            else if (setTuple.Item2 > 39 && setTuple.Item2 < 56)
+            else if (setTuple.EndPosition > 39 && setTuple.EndPosition < 56)
             {
-                this._startFields[setTuple.Item2 - 40].ThePiece = pieceToSet;
+                this._startFields[setTuple.EndPosition - 40].ThePiece = pieceToSet;
             }
-            else if (setTuple.Item2 > 55 && setTuple.Item2 < 72)
+            else if (setTuple.EndPosition > 55 && setTuple.EndPosition < 72)
             {
                 // here throw out check is not needed because cannot happen
-                this.EndFields[setTuple.Item2 - 56].ThePiece = pieceToSet;
+                this.EndFields[setTuple.EndPosition - 56].ThePiece = pieceToSet;
             }
         }
 

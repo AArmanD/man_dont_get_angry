@@ -48,11 +48,13 @@ namespace man_dont_get_angry.Models
         public int Value
         {
             get { return _value; }
+            set {this._value = value; }
         }
 
         public int DiceThrownNumber
         {
             get { return this._diceThrownNumber; }
+            set { this._diceThrownNumber = value; }
         }
 
         public void resetDice()
@@ -63,6 +65,7 @@ namespace man_dont_get_angry.Models
         public string ImagePath
         {
             get { return this._imagePath; }
+            set { this._imagePath = value; }
         }
 
         [field: NonSerialized]

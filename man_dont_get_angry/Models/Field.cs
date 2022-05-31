@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
@@ -154,7 +155,7 @@ namespace man_dont_get_angry.Models
         public Piece ThePiece
         {
             get { return this._piece; }
-            set 
+            set
             {
                 this._piece = value;
                 ImagePathSetter();
@@ -165,11 +166,13 @@ namespace man_dont_get_angry.Models
         public string ImagePath
         {
             get { return this._imagePath; }
+            set { this._imagePath = value; }
         }
 
         public FieldType TheFieldType
         {
             get { return this._fieldType; }
+            set { this._fieldType = value; }
         }
 
         [field: NonSerialized]

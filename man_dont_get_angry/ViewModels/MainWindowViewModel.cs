@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
+using System.IO;
 
 namespace man_dont_get_angry.ViewModels
 {
     // gelb ins ziel kommen error
     internal class MainWindowViewModel
     {
-        public GameManager ManDontGetAngryGame { get; }
+        public GameManager ManDontGetAngryGame { get; set; }
 
         public DelegateCommand DiceClickedCommand
         {
@@ -83,7 +84,21 @@ namespace man_dont_get_angry.ViewModels
 
         public void OnSaveAsXMLClicked(Object arg)
         {
-            this.ManDontGetAngryGame.SaveGameAsXML();
+            this.ManDontGetAngryGame.SetAutoThread(false);
+            TextWriter writer = null;
+            try
+            {
+                System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(ManDontGetAngryGame.GetType());
+                writer = new StreamWriter(@"C:\Temp\Lol.xml", false);
+                x.Serialize(writer, ManDontGetAngryGame);
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
+            }
+
+            this.ManDontGetAngryGame.SetAutoThread(true);
         }
 
         public bool OnSaveAsXMLClickAllowed(Object arg)
