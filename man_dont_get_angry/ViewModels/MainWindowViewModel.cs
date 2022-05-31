@@ -7,6 +7,8 @@ using System.Windows.Input;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
 using System.IO;
+using System.Xml.Serialization;
+using Microsoft.Win32;
 
 namespace man_dont_get_angry.ViewModels
 {
@@ -39,6 +41,12 @@ namespace man_dont_get_angry.ViewModels
             private set;
         }
 
+        public DelegateCommand LoadXMLClickedCommand
+        {
+            get;
+            private set;
+        }
+
         public MainWindowViewModel()
         {
             ManDontGetAngryGame = new GameManager();
@@ -47,6 +55,7 @@ namespace man_dont_get_angry.ViewModels
             FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
             ResetClickedCommand = new DelegateCommand(OnResetClicked, OnResetClickAllowed);
             SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked, OnResetClickAllowed);
+            LoadXMLClickedCommand = new DelegateCommand(OnLoadXMLClicked, OnLoadXMLClickeAllowed);
         }
 
         public void OnDiceButtonClicked(Object arg)
@@ -84,24 +93,81 @@ namespace man_dont_get_angry.ViewModels
 
         public void OnSaveAsXMLClicked(Object arg)
         {
-            this.ManDontGetAngryGame.SetAutoThread(false);
-            TextWriter writer = null;
-            try
-            {
-                System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(ManDontGetAngryGame.GetType());
-                writer = new StreamWriter(@"C:\Temp\Lol.xml", false);
-                x.Serialize(writer, ManDontGetAngryGame);
-            }
-            finally
-            {
-                if (writer != null)
-                    writer.Close();
-            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog() {
+                InitialDirectory = @"C:\",
+                Title = "Save Game State as XML",
 
-            this.ManDontGetAngryGame.SetAutoThread(true);
+                DefaultExt = "xml",
+                Filter = "XML files (*.xml)|*.xml",
+
+                FilterIndex = 2,
+                RestoreDirectory = true,
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+
+            if (result.Value)
+            {
+                var filePath = saveFileDialog.FileName;
+                this.ManDontGetAngryGame.SetAutoThread(false);
+                TextWriter writer = null;
+                try
+                {
+                    XmlSerializer x = new System.Xml.Serialization.XmlSerializer(ManDontGetAngryGame.GetType());
+                    writer = new StreamWriter(filePath, false);
+                    x.Serialize(writer, ManDontGetAngryGame);
+                }
+                finally
+                {
+                    if (writer != null)
+                        writer.Close();
+                }
+
+                this.ManDontGetAngryGame.SetAutoThread(true);
+            }
         }
 
         public bool OnSaveAsXMLClickAllowed(Object arg)
+        {
+            return true;
+        }
+
+        public void OnLoadXMLClicked(Object arg)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse XML Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "xml",
+                Filter = "XML files (*.xml)|*.xml",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            bool? result = openFileDialog1.ShowDialog();
+
+            if (result.Value)
+            {
+                var filePath = openFileDialog1.FileName;
+                var deserializer = new XmlSerializer(typeof(GameManager));
+                TextReader reader = new StreamReader(filePath);
+                object obj = deserializer.Deserialize(reader);
+                var xmlData = (GameManager)obj;
+                reader.Close();
+
+                this.ManDontGetAngryGame.SetAutoThread(false);
+                this.ManDontGetAngryGame.LoadGame(xmlData);
+            }
+        }
+
+        public bool OnLoadXMLClickeAllowed(Object arg)
         {
             return true;
         }

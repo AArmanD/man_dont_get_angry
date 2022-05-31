@@ -197,5 +197,23 @@ namespace man_dont_get_angry.Models
                 this._gameBoardFields[i].ThePiece = null;
             }
         }
+
+        public void SetupPositions(GameManager gameManager)
+        {
+            for (int i = 0; i < this._startFields.Length; i++)
+            {
+                this._startFields[i].ThePiece = gameManager.TheGameBoard._startFields[i].ThePiece;
+            }
+
+            for (int i = 0; i < this._gameBoardFields.Length; i++)
+            {
+                this._gameBoardFields[i].ThePiece = gameManager.TheGameBoard._gameBoardFields[i].ThePiece;
+            }
+
+            for (int i = 0; i < this._endFields.Length; i++)
+            {
+                this._endFields[i].ThePiece = gameManager.TheGameBoard._endFields[i].ThePiece;
+            }
+        }
     }
 }

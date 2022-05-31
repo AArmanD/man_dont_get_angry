@@ -69,16 +69,16 @@ namespace man_dont_get_angry.Models
                 switch (this._color)
                 {
                     case Color.Green:
-                        this._gameManager.StartAutoThread(0);
+                        this._gameManager?.StartAutoThread(0);
                         break;
                     case Color.Red:
-                        this._gameManager.StartAutoThread(1);
+                        this._gameManager?.StartAutoThread(1);
                         break;
                     case Color.Yellow:
-                        this._gameManager.StartAutoThread(2);
+                        this._gameManager?.StartAutoThread(2);
                         break;
                     case Color.Blue:
-                        this._gameManager.StartAutoThread(3);
+                        this._gameManager?.StartAutoThread(3);
                         break;
                 }
                 

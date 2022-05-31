@@ -89,6 +89,12 @@ namespace man_dont_get_angry.Models
             set { this._actualPlayerID = value; }
         }
 
+        public int LastPlayerID
+        {
+            get { return this._lastPlayerID; }
+            set { this._lastPlayerID = value; }
+        }
+
         public string ActualMove
         {
             get
@@ -266,6 +272,26 @@ namespace man_dont_get_angry.Models
             this._actualPlayerID = 0;
             OnPropertyChanged("ActualPlayer");
             this._dice.resetDice();
+        }
+
+        public void LoadGame(GameManager gameManager)
+        {
+            // set actual player
+            this._actualPlayerID = gameManager.PlayerID;
+            this._lastPlayerID = gameManager.LastPlayerID;
+            this._movementOptions = gameManager._movementOptions;
+
+            OnPropertyChanged("ActualMove");
+            OnPropertyChanged("ActualPlayer");
+
+            // set data to players
+            for (int i = 0; i < this._players.Length; i++)
+            {
+                this._players[i].IsAutomatic = false;
+                this._players[i].ThePlayerState = gameManager.Players[i].ThePlayerState;
+            }
+
+            this._gameBoard.SetupPositions(gameManager);
         }
     }
 }
