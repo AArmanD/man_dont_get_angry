@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
 using System.IO;
@@ -93,38 +88,7 @@ namespace man_dont_get_angry.ViewModels
 
         public void OnSaveAsXMLClicked(Object arg)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog() {
-                InitialDirectory = @"C:\",
-                Title = "Save Game State as XML",
-
-                DefaultExt = "xml",
-                Filter = "XML files (*.xml)|*.xml",
-
-                FilterIndex = 2,
-                RestoreDirectory = true,
-            };
-
-            bool? result = saveFileDialog.ShowDialog();
-
-            if (result.Value)
-            {
-                var filePath = saveFileDialog.FileName;
-                this.ManDontGetAngryGame.SetAutoThread(false);
-                TextWriter writer = null;
-                try
-                {
-                    XmlSerializer x = new System.Xml.Serialization.XmlSerializer(ManDontGetAngryGame.GetType());
-                    writer = new StreamWriter(filePath, false);
-                    x.Serialize(writer, ManDontGetAngryGame);
-                }
-                finally
-                {
-                    if (writer != null)
-                        writer.Close();
-                }
-
-                this.ManDontGetAngryGame.SetAutoThread(true);
-            }
+            PopupWindowHandler.HandleSaveFile(this.ManDontGetAngryGame);
         }
 
         public bool OnSaveAsXMLClickAllowed(Object arg)
@@ -134,37 +98,7 @@ namespace man_dont_get_angry.ViewModels
 
         public void OnLoadXMLClicked(Object arg)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                InitialDirectory = @"C:\",
-                Title = "Browse XML Files",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-
-                DefaultExt = "xml",
-                Filter = "XML files (*.xml)|*.xml",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
-            };
-
-            bool? result = openFileDialog1.ShowDialog();
-
-            if (result.Value)
-            {
-                var filePath = openFileDialog1.FileName;
-                var deserializer = new XmlSerializer(typeof(GameManager));
-                TextReader reader = new StreamReader(filePath);
-                object obj = deserializer.Deserialize(reader);
-                var xmlData = (GameManager)obj;
-                reader.Close();
-
-                this.ManDontGetAngryGame.SetAutoThread(false);
-                this.ManDontGetAngryGame.LoadGame(xmlData);
-            }
+            PopupWindowHandler.HandleOpenFile(this.ManDontGetAngryGame);
         }
 
         public bool OnLoadXMLClickeAllowed(Object arg)

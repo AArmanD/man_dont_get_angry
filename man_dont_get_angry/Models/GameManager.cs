@@ -30,6 +30,7 @@ namespace man_dont_get_angry.Models
         {
             this._dice = new Dice();
             this._thread = new Thread(this.RollD);
+            this._thread.IsBackground = true;
 
             this._players = new Player[]
             {
@@ -84,7 +85,8 @@ namespace man_dont_get_angry.Models
             set { this._players = value; }
         }
 
-        public int PlayerID { 
+        public int PlayerID
+        {
             get { return this._actualPlayerID; }
             set { this._actualPlayerID = value; }
         }
@@ -121,7 +123,7 @@ namespace man_dont_get_angry.Models
             set { this._movementOptions = value; }
         }
 
-        public void SetAutoThread(bool state) 
+        public void SetAutoThread(bool state)
         {
             if (state)
             {
@@ -129,16 +131,13 @@ namespace man_dont_get_angry.Models
                 {
                     this._thread = new Thread(this.RollD);
                     this._threadRunning = true;
+                    this._thread.IsBackground = true;
                     this._thread.Start();
                 }
             }
             else
             {
-                if (this._thread.ThreadState == ThreadState.Running)
-                {
-                    this._threadRunning = false;
-                    Thread.Sleep(100);
-                }
+                this._threadRunning = false;
             }
         }
 
@@ -202,6 +201,7 @@ namespace man_dont_get_angry.Models
             if (this.ActualPlayer.IsAutomatic && !this._thread.IsAlive)
             {
                 this._thread = new Thread(this.RollD);
+                this._thread.IsBackground = true;
                 this._threadRunning = true;
                 this._thread.Start();
             }
@@ -212,22 +212,6 @@ namespace man_dont_get_angry.Models
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void RollDiceManager()
-        {
-            if (this.ActualPlayer.IsAutomatic)
-            {
-                if (this.ActualPlayer.IsAutomatic && !this._thread.IsAlive)
-                {
-                    this._thread = new Thread(this.RollD);
-                    this._thread.Start();
-                }
-            }
-            else
-            {
-                RollDice();
-            }
         }
 
         public void RollD()
@@ -255,6 +239,7 @@ namespace man_dont_get_angry.Models
             {
                 this._thread = new Thread(this.RollD);
                 this._threadRunning = true;
+                this._thread.IsBackground = true;
                 this._thread.Start();
             }
         }
@@ -262,7 +247,7 @@ namespace man_dont_get_angry.Models
         public void ResetGame()
         {
             this.TheGameBoard.SetupStartPostitions();
-            for(int i = 0; i < this._players.Length; i++)
+            for (int i = 0; i < this._players.Length; i++)
             {
                 this._players[i].IsAutomatic = false;
             }
