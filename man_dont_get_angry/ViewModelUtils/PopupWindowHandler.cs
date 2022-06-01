@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 
 namespace man_dont_get_angry.ViewModelUtils
@@ -84,6 +85,14 @@ namespace man_dont_get_angry.ViewModelUtils
             }
 
             gameManager.SetAutoThread(true);
+        }
+
+        public static void HandleWinDialog(String playerName)
+        {
+            string message = "Player " + playerName + " has won the game";
+            string title = "Game Won";
+
+            MessageBox.Show(message, title);
         }
     }
 }

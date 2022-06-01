@@ -222,14 +222,20 @@ namespace man_dont_get_angry.Models
                 if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
                 {
                     this.RollDice();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(50);
                 }
                 else
                 {
                     int index = random.Next(this.MovementOptions.Count);
                     this.setPosition(this.MovementOptions[index].EndPosition);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(50);
                 }
+            }
+
+            if (OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
+            {
+                ViewModelUtils.PopupWindowHandler.HandleWinDialog(this._players[this._lastPlayerID].Name);
+                this.ResetGame();
             }
         }
 
@@ -277,6 +283,11 @@ namespace man_dont_get_angry.Models
             }
 
             this._gameBoard.SetupPositions(gameManager);
+        }
+
+        public bool CheckGameWon() 
+        {
+            return OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields);
         }
     }
 }

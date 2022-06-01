@@ -67,6 +67,11 @@ namespace man_dont_get_angry.ViewModels
         public void OnFieldClicked(Object arg)
         {
             this.ManDontGetAngryGame.setPosition(int.Parse(arg.ToString()));
+            if (this.ManDontGetAngryGame.CheckGameWon())
+            {
+                PopupWindowHandler.HandleWinDialog(this.ManDontGetAngryGame.Players[this.ManDontGetAngryGame.PlayerID].Name);
+                this.ManDontGetAngryGame.ResetGame();
+            }
         }
 
         public bool OnFieldClickAllowed(Object arg)
