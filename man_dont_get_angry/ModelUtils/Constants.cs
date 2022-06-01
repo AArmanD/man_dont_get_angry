@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace man_dont_get_angry.ModelUtils
 {
+    /// <summary>
+    /// Defines constants for distinguishing between different colors
+    /// </summary>
     public enum Color 
     {
         Red,
@@ -14,6 +17,9 @@ namespace man_dont_get_angry.ModelUtils
         Yellow
     }
 
+    /// <summary>
+    /// Defines constants for distinguishing between different field types
+    /// </summary>
     public enum FieldType
     { 
         NormalField,
@@ -31,6 +37,9 @@ namespace man_dont_get_angry.ModelUtils
         YellowEndField,
     }
 
+    /// <summary>
+    /// Defines constants for distinguishing between different player states
+    /// </summary>
     public enum PlayerState
     { 
         ThrowDice,

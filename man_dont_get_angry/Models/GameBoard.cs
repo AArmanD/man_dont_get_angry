@@ -1,23 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using man_dont_get_angry.ModelUtils;
+﻿using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
+    /// <summary>
+    /// Represents the gameboard of the game
+    /// </summary>
     public class GameBoard
     {
+        /// <summary>
+        /// For saving the game board fields
+        /// </summary>
         private Field[] _gameBoardFields;
+
+        /// <summary>
+        /// For saving the start fields
+        /// </summary>
         private Field[] _startFields;
+
+        /// <summary>
+        /// For saving the end fields
+        /// </summary>
         private Field[] _endFields;
 
+        /// <summary>
+        /// Get/Set the gameboard fields
+        /// </summary>
+        public Field[] GameBoardFields
+        {
+            get { return _gameBoardFields; }
+            set { _gameBoardFields = value; }
+        }
 
+        /// <summary>
+        /// Get/Set the start fields
+        /// </summary>
+        public Field[] StartFields
+        {
+            get { return _startFields; }
+            set { _startFields = value; }
+        }
+
+        /// <summary>
+        /// Get/Set the end fields
+        /// </summary>
+        public Field[] EndFields
+        {
+            get { return _endFields; }
+            set { _endFields = value; }
+        }
+
+        /// <summary>
+        /// Constructor for creating a game board object
+        /// </summary>
         public GameBoard()
         {
+            // create field arrays
             this._startFields = new Field[16];
             this._endFields = new Field[16];
             this._gameBoardFields = new Field[40];
 
+            // initialize game board field array, consider in arrow fields
             for (int i = 0; i < _gameBoardFields.Length; i++)
             {
                 if (i == 0)
@@ -42,6 +84,7 @@ namespace man_dont_get_angry.Models
                 }
             }
 
+            // initialize start field array, set pieces at the same time
             for (int count = 0; count < _startFields.Length; count++)
             {
                 if (-1 < count && count < 4)
@@ -62,6 +105,7 @@ namespace man_dont_get_angry.Models
                 }
             }
 
+            // initialize end field array
             for (int i = 0; i < _endFields.Length; i++)
             {
                 if (-1 < i && i < 4)
@@ -83,50 +127,39 @@ namespace man_dont_get_angry.Models
             }
         }
 
-        public Field[] GameBoardFields
+        /// <summary>
+        /// Sets a piece to a specified position
+        /// </summary>
+        /// <param name="movementOption">Object of type MovementOption in which stands from where to where should be moved</param>
+        public void setPiece(MovementOption movementOption)
         {
-            get { return _gameBoardFields; }
-            set { _gameBoardFields = value; }
-        }
-
-        public Field[] StartFields
-        {
-            get { return _startFields; }
-            set { _startFields = value; }
-        }
-
-        public Field[] EndFields
-        {
-            get { return _endFields; }
-            set { _endFields = value; }
-        }
-
-        public void setPiece(MovementOption setTuple)
-        {
-            Piece pieceToSet = null;
-            if (setTuple.StartPosition < 40)
+            // remove the piece from its initial position, save it into a temporary variable
+            Piece? pieceToSet = null;
+            if (movementOption.StartPosition < 40)
             {
-                pieceToSet = this._gameBoardFields[setTuple.StartPosition].ThePiece;
-                this._gameBoardFields[setTuple.StartPosition].ThePiece = null;
+                pieceToSet = this._gameBoardFields[movementOption.StartPosition].ThePiece;
+                this._gameBoardFields[movementOption.StartPosition].ThePiece = null;
             }
-            else if (setTuple.StartPosition > 39 && setTuple.StartPosition < 56)
+            else if (movementOption.StartPosition > 39 && movementOption.StartPosition < 56)
             {
-                pieceToSet = this._startFields[setTuple.StartPosition - 40].ThePiece;
-                this._startFields[setTuple.StartPosition - 40].ThePiece = null;
+                pieceToSet = this._startFields[movementOption.StartPosition - 40].ThePiece;
+                this._startFields[movementOption.StartPosition - 40].ThePiece = null;
             }
-            else if (setTuple.StartPosition > 55 && setTuple.StartPosition < 72)
+            else if (movementOption.StartPosition > 55 && movementOption.StartPosition < 72)
             {
-                pieceToSet = this.EndFields[setTuple.StartPosition - 56].ThePiece;
-                this.EndFields[setTuple.StartPosition - 56].ThePiece = null;
+                pieceToSet = this._endFields[movementOption.StartPosition - 56].ThePiece;
+                this._endFields[movementOption.StartPosition - 56].ThePiece = null;
             }
 
-            if (setTuple.EndPosition < 40)
+            // check whether the position to set the piece to is on the gameboard fields
+            if (movementOption.EndPosition < 40)
             {
-                if (this._gameBoardFields[setTuple.EndPosition].ThePiece != null)
+                // check whether at the position to set the piece to already piece stands
+                if (this._gameBoardFields[movementOption.EndPosition].ThePiece != null)
                 {
                     // move piece on field back to start
                     int count = 3;
-                    switch (this._gameBoardFields[setTuple.EndPosition].ThePiece.TheColor)
+                    switch (this._gameBoardFields[movementOption.EndPosition].ThePiece?.TheColor)
                     {
                         case Color.Green:
                             break;
@@ -145,28 +178,37 @@ namespace man_dont_get_angry.Models
                     {
                         if (this._startFields[i].ThePiece == null)
                         {
-                            this._startFields[i].ThePiece = this._gameBoardFields[setTuple.EndPosition].ThePiece;
+                            this._startFields[i].ThePiece = this._gameBoardFields[movementOption.EndPosition].ThePiece;
                             break;
                         }
                     }
                 }
-
-                this._gameBoardFields[setTuple.EndPosition].ThePiece = pieceToSet;
+                else
+                {
+                    this._gameBoardFields[movementOption.EndPosition].ThePiece = pieceToSet;
+                }
 
             }
-            else if (setTuple.EndPosition > 39 && setTuple.EndPosition < 56)
+
+            // check whether the position to set the piece to is on the start fields
+            else if (movementOption.EndPosition > 39 && movementOption.EndPosition < 56)
             {
-                this._startFields[setTuple.EndPosition - 40].ThePiece = pieceToSet;
+                this._startFields[movementOption.EndPosition - 40].ThePiece = pieceToSet;
             }
-            else if (setTuple.EndPosition > 55 && setTuple.EndPosition < 72)
+
+            // check whether the position to set the piece to is on the end fields
+            else if (movementOption.EndPosition > 55 && movementOption.EndPosition < 72)
             {
-                // here throw out check is not needed because cannot happen
-                this.EndFields[setTuple.EndPosition - 56].ThePiece = pieceToSet;
+                this._endFields[movementOption.EndPosition - 56].ThePiece = pieceToSet;
             }
         }
 
+        /// <summary>
+        /// Sets up the initial start positions, is used when the game is resetted
+        /// </summary>
         public void SetupStartPostitions()
         {
+            // set all pieces to the start fields
             for (int count = 0; count < _startFields.Length; count++)
             {
                 if (-1 < count && count < 4)
@@ -187,32 +229,41 @@ namespace man_dont_get_angry.Models
                 }
             }
 
+            // clear out end fields from pieces
             for (int i = 0; i < _endFields.Length; i++)
             {
                 _endFields[i].ThePiece = null;
             }
 
+            // clear out game board fields from pieces
             for (int i = 0; i < this._gameBoardFields.Length; i++)
             {
                 this._gameBoardFields[i].ThePiece = null;
             }
         }
 
+        /// <summary>
+        /// Sets up positions from a gameManager instance, is used when a game state is imported from an xml file
+        /// </summary>
+        /// <param name="gameManager"></param>
         public void SetupPositions(GameManager gameManager)
         {
+            // set piece positions in the start fields
             for (int i = 0; i < this._startFields.Length; i++)
             {
                 this._startFields[i].ThePiece = gameManager.TheGameBoard._startFields[i].ThePiece;
             }
 
-            for (int i = 0; i < this._gameBoardFields.Length; i++)
-            {
-                this._gameBoardFields[i].ThePiece = gameManager.TheGameBoard._gameBoardFields[i].ThePiece;
-            }
-
+            // set piece positions in the end fields
             for (int i = 0; i < this._endFields.Length; i++)
             {
                 this._endFields[i].ThePiece = gameManager.TheGameBoard._endFields[i].ThePiece;
+            }
+
+            // set piece positions in the game board fields
+            for (int i = 0; i < this._gameBoardFields.Length; i++)
+            {
+                this._gameBoardFields[i].ThePiece = gameManager.TheGameBoard._gameBoardFields[i].ThePiece;
             }
         }
     }

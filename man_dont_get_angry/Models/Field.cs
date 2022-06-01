@@ -1,39 +1,105 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
+    /// <summary>
+    /// Represents a field on the gameboard
+    /// </summary>
     public class Field : INotifyPropertyChanged
     {
+        /// <summary>
+        /// For saving the piece which is on the field
+        /// </summary>
         private Piece? _piece;
-        private string _imagePath;
-        private FieldType _fieldType;
 
+        /// <summary>
+        /// For saving the type of which the field is
+        /// </summary>
+        private FieldType? _fieldType;
+
+        /// <summary>
+        /// For saving the path of the image which should be shown on the dice button on the gameboard
+        /// </summary>
+        private string? _imagePath;
+
+        /// <summary>
+        /// Event which is to be raised when a property changes from which the value should be updated
+        /// in the main window
+        /// </summary>
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Gets/Sets a piece on the field
+        /// </summary>
+        public Piece? ThePiece
+        {
+            get { return this._piece; }
+            set
+            {
+                this._piece = value;
+                ImagePathSetter();
+                OnPropertyChanged("ImagePath");
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the image path of the image on the dice button
+        /// </summary>
+        public string? ImagePath
+        {
+            get { return this._imagePath; }
+            set { this._imagePath = value; }
+        }
+
+        /// <summary>
+        /// Get/Set the field type of the field
+        /// </summary>
+        public FieldType? TheFieldType
+        {
+            get { return this._fieldType; }
+            set { this._fieldType = value; }
+        }
+
+        /// <summary>
+        /// Constructor needed for serializing/deserializing
+        /// </summary>
         private Field()
         { }
 
+        /// <summary>
+        /// Constructor which is used for creating a Field without containing a piece
+        /// </summary>
+        /// <param name="fieldType">Type of which the field is, which are defined in ModelUtils.Constants</param>
         public Field(FieldType fieldType)
         {
             this._fieldType = fieldType;
             this._piece = null;
+
+            // set the correct image path up
             ImagePathSetter();
         }
 
+        /// <summary>
+        /// Constructor which is used for creating a Field containing a piece
+        /// </summary>
+        /// <param name="fieldType">Type of which the field is, which are defined in ModelUtils.Constants</param>
+        /// <param name="piece">Piece which should be on the field</param>
         public Field(FieldType fieldType, Piece piece)
         {
             this._fieldType = fieldType;
             this._piece = piece;
 
+            // set the correct image path up
             ImagePathSetter();
         }
 
+        /// <summary>
+        /// Sets up the correct image path for the field
+        /// </summary>
         private void ImagePathSetter()
         {
             switch (this._fieldType)
@@ -135,9 +201,13 @@ namespace man_dont_get_angry.Models
             }
         }
 
+        /// <summary>
+        /// Generates a string which is used for inserting it into the image paths, so that code hasnt to be repeated as much
+        /// </summary>
+        /// <returns>Generated string for inserting into the image paths</returns>
         private string PieceColorStringGenerator()
         {
-            switch (this._piece.TheColor)
+            switch (this._piece?.TheColor)
             {
                 case Color.Red:
                     return "red";
@@ -152,31 +222,11 @@ namespace man_dont_get_angry.Models
             }
         }
 
-        public Piece ThePiece
-        {
-            get { return this._piece; }
-            set
-            {
-                this._piece = value;
-                ImagePathSetter();
-                OnPropertyChanged("ImagePath");
-            }
-        }
-
-        public string ImagePath
-        {
-            get { return this._imagePath; }
-            set { this._imagePath = value; }
-        }
-
-        public FieldType TheFieldType
-        {
-            get { return this._fieldType; }
-            set { this._fieldType = value; }
-        }
-
-        [field: NonSerialized]
-        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// Handler for The PropertyChangedEvent, which is for updating the value of the property 
+        /// in the gui
+        /// </summary>
+        /// <param name="prop">Name of the property of which the value should be updated in the gui</param>
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

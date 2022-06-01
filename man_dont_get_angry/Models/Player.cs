@@ -1,92 +1,137 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {
+    /// <summary>
+    /// Represents a player in the game
+    /// </summary>
     public class Player : INotifyPropertyChanged
     {
-        private string _name;
-        private PlayerState _playerState;
-        private Color _color;
-        private bool _isAutomatic;
-        private GameManager _gameManager;
+        /// <summary>
+        /// For saving the name of the player
+        /// </summary>
+        private string? _name;
 
-        public Player(string Name, Color color, GameManager gameManager, bool first = false)
+        /// <summary>
+        /// For saving the actual state of the player
+        /// </summary>
+        private PlayerState? _playerState;
+
+        /// <summary>
+        /// For saving the color of the player
+        /// </summary>
+        private Color? _color;
+
+        /// <summary>
+        /// For saving whether the player should be played automatically or manually
+        /// </summary>
+        private bool? _isAutomatic;
+
+        private AutoPlayerThreadManager? _autoPlayerThreadManager;
+
+        /// <summary>
+        /// Event which is to be raised when a property changes from which the value should be updated
+        /// in the main window
+        /// </summary>
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Constructor needed for serializing/deserializing
+        /// </summary>
+        private Player()
+        { }
+
+        /// <summary>
+        /// Constructor for creating a player object
+        /// </summary>
+        /// <param name="Name">Name of the player</param>
+        /// <param name="color">Color of the player, are defined in ModelUtils.Constants</param>
+        /// <param name="gameManager">Instance of the game manager</param>
+        /// <param name="first">Optional bool parameter which specifies whether the player which is created is the first one</param>
+        public Player(string Name, Color color, AutoPlayerThreadManager autoPlayerThreadManager, bool first = false)
         {
             this._name = Name;
             this._color = color;
             this._isAutomatic = false;
-            this._gameManager = gameManager;
+            this._autoPlayerThreadManager = autoPlayerThreadManager;
 
             if (first)
                 this._playerState = PlayerState.ThrowDice;
 
             else
                 this._playerState = PlayerState.MoveDone;
-
-            //for (int i = 0; i < _pieces.Length; i++)
-            //{
-            //    _pieces[i] = new Piece(i, color);
-            //}
         }
 
-        private Player()
-        { }
-
-        public string Name
+        /// <summary>
+        /// Get/Set the name of the player
+        /// </summary>
+        public string? Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        public PlayerState ThePlayerState
+        /// <summary>
+        /// Get/Set the state of the player
+        /// </summary>
+        public PlayerState? ThePlayerState
         {
             get { return _playerState; }
             set
             {
-                int dice_thrown;
                 this._playerState = value;
             }
         }
 
-        public Color TheColor
+        /// <summary>
+        /// Get/Set the color of the player
+        /// </summary>
+        public Color? TheColor
         {
             get { return _color; }
             set { _color = value; }
         }
 
-        public bool IsAutomatic
+        /// <summary>
+        /// Get/Set whether the player is automatic
+        /// </summary>
+        public bool? IsAutomatic
         {
             get { return _isAutomatic; }
-            set { this._isAutomatic = value;
+            set
+            {
+                this._isAutomatic = value;
                 OnPropertyChanged("IsAutomatic");
+
+                // start auto playing thread in the game manager
                 switch (this._color)
                 {
                     case Color.Green:
-                        this._gameManager?.StartAutoThread(0);
+                        this._autoPlayerThreadManager?.StartAutoThread(0);
                         break;
                     case Color.Red:
-                        this._gameManager?.StartAutoThread(1);
+                        this._autoPlayerThreadManager?.StartAutoThread(1);
                         break;
                     case Color.Yellow:
-                        this._gameManager?.StartAutoThread(2);
+                        this._autoPlayerThreadManager?.StartAutoThread(2);
                         break;
                     case Color.Blue:
-                        this._gameManager?.StartAutoThread(3);
+                        this._autoPlayerThreadManager?.StartAutoThread(3);
                         break;
                 }
-                
+
             }
         }
 
-        [field: NonSerialized]
-        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// Handler for The PropertyChangedEvent, which is for updating the value of the property 
+        /// in the gui
+        /// </summary>
+        /// <param name="prop">Name of the property of which the value should be updated in the gui</param>
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

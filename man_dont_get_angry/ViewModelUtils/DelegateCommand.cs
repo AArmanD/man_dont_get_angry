@@ -15,7 +15,6 @@ namespace man_dont_get_angry.ViewModelUtils
 
 
         /// <summary>
-        /// Constructor.
         /// Creates a new DelegateCommand with the provided action.
         /// </summary>
         /// <param name="execute"></param>
@@ -26,7 +25,6 @@ namespace man_dont_get_angry.ViewModelUtils
         }
 
         /// <summary>
-        /// Constructor.
         /// Creates a new DelegateCommand with the provided action and condition.
         /// </summary>
         /// <param name="execute"></param>
@@ -37,7 +35,7 @@ namespace man_dont_get_angry.ViewModelUtils
             _canExecute = canExecute;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         /// <summary>
         /// The CanExecute method is called to inform if this command can be executed.

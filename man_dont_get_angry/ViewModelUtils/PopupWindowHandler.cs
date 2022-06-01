@@ -1,21 +1,27 @@
 ﻿using man_dont_get_angry.Models;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
 
 namespace man_dont_get_angry.ViewModelUtils
 {
+    /// <summary>
+    /// Class which contains functions to Handle popup windows for opening/saving xml files
+    /// </summary>
     public static class PopupWindowHandler
     {
+        /// <summary>
+        /// Creates an open file dialog, opens specified file and loads content into the game
+        /// </summary>
+        /// <param name="gameManager">Instance of gameManager for calling specific methods</param>
         public static void HandleOpenFile(GameManager gameManager) 
         {
-            gameManager.SetAutoThread(false);
+            // stop auto player thread
+            gameManager.TheAutoPlayerThreadManager.SetAutoThread(false);
+
+            // create open file dialog for xml files
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 InitialDirectory = @"C:\",
@@ -33,26 +39,59 @@ namespace man_dont_get_angry.ViewModelUtils
                 ShowReadOnly = true
             };
 
+            // show open dialog
             bool? result = openFileDialog1.ShowDialog();
 
-            if (result.Value)
+            // check whether a xml file was chosen
+            if (result ?? false)
             {
                 var filePath = openFileDialog1.FileName;
-                var deserializer = new XmlSerializer(typeof(GameManager));
-                TextReader reader = new StreamReader(filePath);
-                object obj = deserializer.Deserialize(reader);
-                var xmlData = (GameManager)obj;
-                reader.Close();
 
-                gameManager.SetAutoThread(false);
-                gameManager.LoadGame(xmlData);
+                TextReader? reader = null;
+                try
+                {
+                    XmlSerializer? deserializer = new XmlSerializer(typeof(GameManager));
+                    reader = new StreamReader(filePath);
+                    object? obj = deserializer.Deserialize(reader);
+                    GameManager? xmlData = (GameManager?)obj;
+
+                    if (xmlData != null)
+                        gameManager.LoadGame(xmlData);
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                    string title = "Error";
+                    MessageBox.Show(message, title);
+
+                    // start auto player thread
+                    gameManager.TheAutoPlayerThreadManager.SetAutoThread(true);
+                }
+                finally
+                { 
+                    if (reader != null)
+                        reader.Close();
+                }
             }
-            gameManager.SetAutoThread(true);
+            else
+            {
+                // start auto player thread
+                gameManager.TheAutoPlayerThreadManager.SetAutoThread(true);
+            }
+
         }
 
+        /// <summary>
+        /// Creates an save file dialog, saves game state into a xml file
+        /// </summary>
+        /// <param name="gameManager">Instance of gameManager for calling specific methods</param>
         public static void HandleSaveFile(GameManager gameManager)
         {
-            gameManager.SetAutoThread(false);
+
+            // stop auto player thread
+            gameManager.TheAutoPlayerThreadManager.SetAutoThread(false);
+
+            // create save file dialog for xml files
             SaveFileDialog saveFileDialog = new SaveFileDialog()
             {
                 InitialDirectory = @"C:\",
@@ -65,15 +104,17 @@ namespace man_dont_get_angry.ViewModelUtils
                 RestoreDirectory = true,
             };
 
+            // show open dialog
             bool? result = saveFileDialog.ShowDialog();
 
-            if (result.Value)
+            // check whether a xml file was chosen
+            if (result ?? false)
             {
                 var filePath = saveFileDialog.FileName;
-                TextWriter writer = null;
+                TextWriter? writer = null;
                 try
                 {
-                    XmlSerializer x = new System.Xml.Serialization.XmlSerializer(gameManager.GetType());
+                    XmlSerializer x = new XmlSerializer(gameManager.GetType());
                     writer = new StreamWriter(filePath, false);
                     x.Serialize(writer, gameManager);
                 }
@@ -84,15 +125,8 @@ namespace man_dont_get_angry.ViewModelUtils
                 }
             }
 
-            gameManager.SetAutoThread(true);
-        }
-
-        public static void HandleWinDialog(String playerName)
-        {
-            string message = "Player " + playerName + " has won the game";
-            string title = "Game Won";
-
-            MessageBox.Show(message, title);
+            // start auto player thread
+            gameManager.TheAutoPlayerThreadManager.SetAutoThread(true);
         }
     }
 }

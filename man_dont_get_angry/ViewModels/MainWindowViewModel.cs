@@ -1,13 +1,9 @@
 ﻿using System;
 using man_dont_get_angry.ViewModelUtils;
 using man_dont_get_angry.Models;
-using System.IO;
-using System.Xml.Serialization;
-using Microsoft.Win32;
 
 namespace man_dont_get_angry.ViewModels
 {
-    // gelb ins ziel kommen error
     internal class MainWindowViewModel
     {
         public GameManager ManDontGetAngryGame { get; set; }
@@ -61,17 +57,13 @@ namespace man_dont_get_angry.ViewModels
         public bool OnDiceButtonClickAllowed(Object arg)
         {
             return true;
-            //return this.ManDontGetAngryGame.DiceRollable();
         }
 
         public void OnFieldClicked(Object arg)
         {
-            this.ManDontGetAngryGame.setPosition(int.Parse(arg.ToString()));
-            if (this.ManDontGetAngryGame.CheckGameWon())
-            {
-                PopupWindowHandler.HandleWinDialog(this.ManDontGetAngryGame.Players[this.ManDontGetAngryGame.PlayerID].Name);
-                this.ManDontGetAngryGame.ResetGame();
-            }
+            string? fieldNumber = (string?)arg;
+            if (!string.IsNullOrEmpty(fieldNumber))
+                this.ManDontGetAngryGame.setPosition(int.Parse(fieldNumber));
         }
 
         public bool OnFieldClickAllowed(Object arg)
@@ -116,9 +108,6 @@ namespace man_dont_get_angry.ViewModels
         public Field[] GameBoardFields => this.ManDontGetAngryGame.TheGameBoard.GameBoardFields;
         public Field[] StartFields => this.ManDontGetAngryGame.TheGameBoard.StartFields;
         public Field[] EndFields => this.ManDontGetAngryGame.TheGameBoard.EndFields;
-
-        public string ActualPlayer => this.ManDontGetAngryGame.ActualPlayer.Name;
-        public string ActualMove => this.ManDontGetAngryGame.ActualMove;
 
         public Player[] Players => this.ManDontGetAngryGame.Players;
     }

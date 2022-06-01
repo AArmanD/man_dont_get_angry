@@ -4,47 +4,172 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using man_dont_get_angry.ModelUtils;
 using System.Threading;
-using System.Linq;
-using System.IO;
-using System.Xml.Serialization;
 
 namespace man_dont_get_angry.Models
 {
     /// <summary>
-    /// This class manages the Game flow in a loop, uses class OptionsChecker to check options 
-    /// which can be made, sets the wanted pieces
+    /// Manages the game flow
     /// </summary>
     public class GameManager : INotifyPropertyChanged
     {
+        /// <summary>
+        /// For saving the game board
+        /// </summary>
         private GameBoard _gameBoard;
+
+        /// <summary>
+        /// For saving the dice
+        /// </summary>
         private Dice _dice;
+
+        /// <summary>
+        /// For saving the players
+        /// </summary>
         private Player[] _players;
+
+        /// <summary>
+        /// For saving the id of the actual player
+        /// </summary>
         private int _actualPlayerID;
+
+        /// <summary>
+        /// For saving the id of the last player
+        /// </summary>
         private int _lastPlayerID;
-        private Thread _thread;
-        private bool _threadRunning;
+
+        /// <summary>
+        /// For saving the movement options for the actual move
+        /// </summary>
         private List<MovementOption> _movementOptions;
 
+        /// <summary>
+        /// For saving the Automatic player thread manager
+        /// </summary>
+        private AutoPlayerThreadManager _autoPlayerThreadManager;
 
+        /// <summary>
+        /// Event which is to be raised when a property changes from which the value should be updated
+        /// in the main window
+        /// </summary>
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Get/Set the game board
+        /// </summary>
+        public GameBoard TheGameBoard
+        {
+            get { return this._gameBoard; }
+            set { this._gameBoard = value; }
+        }
+
+        /// <summary>
+        /// Get/Set the dice
+        /// </summary>
+        public Dice TheDice
+        {
+            get { return this._dice; }
+            set { this._dice = value; }
+        }
+
+        /// <summary>
+        /// Get the actual player
+        /// </summary>
+        public Player ActualPlayer
+        {
+            get { return this._players[this._actualPlayerID]; }
+        }
+
+        /// <summary>
+        /// Get/Set player array
+        /// </summary>
+        public Player[] Players
+        {
+            get { return this._players; }
+            set { this._players = value; }
+        }
+
+        /// <summary>
+        /// Get/Set ID of actual player
+        /// </summary>
+        public int PlayerID
+        {
+            get { return this._actualPlayerID; }
+            set { this._actualPlayerID = value; }
+        }
+
+        /// <summary>
+        /// Get/Set ID of last player
+        /// </summary>
+        public int LastPlayerID
+        {
+            get { return this._lastPlayerID; }
+            set { this._lastPlayerID = value; }
+        }
+
+        /// <summary>
+        /// Get string representation of the actual player state
+        /// </summary>
+        public string ActualMove
+        {
+            get
+            {
+                switch (this.ActualPlayer.ThePlayerState)
+                {
+                    case PlayerState.ThrowDice:
+                        return "Throw Dice";
+                    case PlayerState.MovePieces:
+                    case PlayerState.MovePiecesRepeadetly:
+                        return "Move Pieces";
+                    default:
+                        return "";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the list with the actual movement options
+        /// </summary>
+        public List<MovementOption> MovementOptions
+        {
+            get { return this._movementOptions; }
+            set { this._movementOptions = value; }
+        }
+
+        /// <summary>
+        /// Get the saved AutoPlayerThreadManager
+        /// </summary>
+        public AutoPlayerThreadManager TheAutoPlayerThreadManager
+        {
+            get { return _autoPlayerThreadManager; }
+        }
+
+        /// <summary>
+        /// Constructor for creating a GameManager object
+        /// </summary>
         public GameManager()
         {
+
             this._dice = new Dice();
-            this._thread = new Thread(this.RollD);
-            this._thread.IsBackground = true;
+            this._movementOptions = new List<MovementOption>();
+
+            this._autoPlayerThreadManager = new AutoPlayerThreadManager(this);
 
             this._players = new Player[]
             {
-                new Player("Green", Color.Green, this, true),
-                new Player("Red", Color.Red, this),
-                new Player("Yellow", Color.Yellow, this),
-                new Player("Blue", Color.Blue, this),
+                new Player("Green", Color.Green, this._autoPlayerThreadManager, true),
+                new Player("Red", Color.Red, this._autoPlayerThreadManager),
+                new Player("Yellow", Color.Yellow, this._autoPlayerThreadManager),
+                new Player("Blue", Color.Blue, this._autoPlayerThreadManager),
             };
 
             this._gameBoard = new GameBoard();
             this._actualPlayerID = 0;
-            this._threadRunning = false;
         }
 
+        /// <summary>
+        /// Rolls dice, checks movement options, sets player state and optionally changes player
+        /// </summary>
         public void RollDice()
         {
             // check if win checking algorithm is correct
@@ -62,101 +187,12 @@ namespace man_dont_get_angry.Models
             }
         }
 
-        public GameBoard TheGameBoard
-        {
-            get { return this._gameBoard; }
-            set { this._gameBoard = value; }
-        }
-
-        public Dice TheDice
-        {
-            get { return this._dice; }
-            set { this._dice = value; }
-        }
-
-        public Player ActualPlayer
-        {
-            get { return this._players[this._actualPlayerID]; }
-        }
-
-        public Player[] Players
-        {
-            get { return this._players; }
-            set { this._players = value; }
-        }
-
-        public int PlayerID
-        {
-            get { return this._actualPlayerID; }
-            set { this._actualPlayerID = value; }
-        }
-
-        public int LastPlayerID
-        {
-            get { return this._lastPlayerID; }
-            set { this._lastPlayerID = value; }
-        }
-
-        public string ActualMove
-        {
-            get
-            {
-                switch (this.ActualPlayer.ThePlayerState)
-                {
-                    case PlayerState.ThrowDice:
-                        return "Throw Dice";
-                    case PlayerState.MovePieces:
-                    case PlayerState.MovePiecesRepeadetly:
-                        return "Move Pieces";
-                    case PlayerState.MoveDone:
-                        return "Move Done";
-                    default:
-                        return "";
-                }
-            }
-        }
-
-        // Ignore Movement Options, TODO allow to redice every time new when game is loaded
-        public List<MovementOption> MovementOptions
-        {
-            get { return this._movementOptions; }
-            set { this._movementOptions = value; }
-        }
-
-        public void SetAutoThread(bool state)
-        {
-            if (state)
-            {
-                if (this._thread.ThreadState != ThreadState.Running && this._players[this._actualPlayerID].IsAutomatic)
-                {
-                    this._thread = new Thread(this.RollD);
-                    this._threadRunning = true;
-                    this._thread.IsBackground = true;
-                    this._thread.Start();
-                }
-            }
-            else
-            {
-                this._threadRunning = false;
-            }
-        }
-
-        public bool DiceRollable()
-        {
-            if (this._players[_actualPlayerID].ThePlayerState == PlayerState.ThrowDice)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
+        /// <summary>
+        /// Sets a piece to a specified position if that is in the movementOptions list
+        /// </summary>
+        /// <param name="a">Position to set a Piece of the actual player to</param>
         public void setPosition(int a)
         {
-            // TODO: win check does not work
             if ((this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
             {
                 foreach (MovementOption movementOption in this._movementOptions)
@@ -182,7 +218,9 @@ namespace man_dont_get_angry.Models
             }
         }
 
-
+        /// <summary>
+        /// Changes the player, so the next player can make his move
+        /// </summary>
         private void changePlayer()
         {
             // als enumerator implementieren
@@ -198,58 +236,16 @@ namespace man_dont_get_angry.Models
             this._dice.resetDice();
             this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
 
-            if (this.ActualPlayer.IsAutomatic && !this._thread.IsAlive)
+            // Use coalescing operator
+            if ((this.ActualPlayer.IsAutomatic ?? false) && !this._autoPlayerThreadManager.AutoPlayerThreadRunning())
             {
-                this._thread = new Thread(this.RollD);
-                this._thread.IsBackground = true;
-                this._threadRunning = true;
-                this._thread.Start();
+                this._autoPlayerThreadManager.StartAutoThread();
             }
         }
 
-        [field: NonSerialized]
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void RollD()
-        {
-            var random = new Random();
-            while (this._threadRunning && this.ActualPlayer.IsAutomatic && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
-            {
-                if (this.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
-                {
-                    this.RollDice();
-                    Thread.Sleep(50);
-                }
-                else
-                {
-                    int index = random.Next(this.MovementOptions.Count);
-                    this.setPosition(this.MovementOptions[index].EndPosition);
-                    Thread.Sleep(50);
-                }
-            }
-
-            if (OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
-            {
-                ViewModelUtils.PopupWindowHandler.HandleWinDialog(this._players[this._lastPlayerID].Name);
-                this.ResetGame();
-            }
-        }
-
-        public void StartAutoThread(int num)
-        {
-            if (num == this._actualPlayerID)
-            {
-                this._thread = new Thread(this.RollD);
-                this._threadRunning = true;
-                this._thread.IsBackground = true;
-                this._thread.Start();
-            }
-        }
-
+        /// <summary>
+        /// Resets the game so a new game can be started
+        /// </summary>
         public void ResetGame()
         {
             this.TheGameBoard.SetupStartPostitions();
@@ -265,6 +261,10 @@ namespace man_dont_get_angry.Models
             this._dice.resetDice();
         }
 
+        /// <summary>
+        /// Loads a game from a GameManager instance
+        /// </summary>
+        /// <param name="gameManager">GameManager instance to load game from</param>
         public void LoadGame(GameManager gameManager)
         {
             // set actual player
@@ -285,9 +285,14 @@ namespace man_dont_get_angry.Models
             this._gameBoard.SetupPositions(gameManager);
         }
 
-        public bool CheckGameWon() 
+        /// <summary>
+        /// Handler for The PropertyChangedEvent, which is for updating the value of the property 
+        /// in the gui
+        /// </summary>
+        /// <param name="prop">Name of the property of which the value should be updated in the gui</param>
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            return OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
