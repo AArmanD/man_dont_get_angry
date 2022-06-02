@@ -93,9 +93,9 @@ namespace man_dont_get_angry.ViewModels
 
             DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
             FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
-            ResetClickedCommand = new DelegateCommand(OnResetClicked, OnResetClickAllowed);
-            SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked, OnResetClickAllowed);
-            LoadXMLClickedCommand = new DelegateCommand(OnLoadXMLClicked, OnLoadXMLClickeAllowed);
+            ResetClickedCommand = new DelegateCommand(OnResetClicked);
+            SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked);
+            LoadXMLClickedCommand = new DelegateCommand(OnLoadXMLClicked);
         }
 
 
@@ -105,7 +105,8 @@ namespace man_dont_get_angry.ViewModels
         /// <param name="arg">not used</param>
         public void OnDiceButtonClicked(Object arg)
         {
-            this.ManDontGetAngryGame.RollDice();
+            if (!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
+                this.ManDontGetAngryGame.RollDice();
         }
 
         /// <summary>
@@ -125,9 +126,12 @@ namespace man_dont_get_angry.ViewModels
         /// <param name="arg">Number of the field which is clicked</param>
         public void OnFieldClicked(Object arg)
         {
-            string? fieldNumber = (string?)arg;
-            if (!string.IsNullOrEmpty(fieldNumber))
-                this.ManDontGetAngryGame.setPosition(int.Parse(fieldNumber));
+            if(!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
+            {
+                string? fieldNumber = (string?)arg;
+                if (!string.IsNullOrEmpty(fieldNumber))
+                    this.ManDontGetAngryGame.setPosition(int.Parse(fieldNumber));
+            }
         }
 
         /// <summary>
@@ -138,9 +142,7 @@ namespace man_dont_get_angry.ViewModels
         /// <returns>true, when handler function is allowed to run, otherwise false</returns>
         public bool OnFieldClickAllowed(Object arg)
         {
-            // TODO implement that
             return true;
-            //return this.ManDontGetAngryGame.positionSettable(int.Parse(arg.ToString()));
         }
 
         /// <summary>
@@ -153,18 +155,6 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the ResetClickedCommand is run
-        /// </summary>
-        /// <param name="arg">not used</param>
-        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
-        public bool OnResetClickAllowed(Object arg)
-        {
-            // make only possible when game is already started
-            return true;
-        }
-
-        /// <summary>
         /// Handler function which is called when the SaveAsXMLClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
@@ -174,34 +164,12 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the SaveAsXMLClickedCommand is run
-        /// </summary>
-        /// <param name="arg">not used</param>
-        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
-        public bool OnSaveAsXMLClickAllowed(Object arg)
-        {
-            return true;
-        }
-
-        /// <summary>
         /// Handler function which is called when the LoadXMLClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnLoadXMLClicked(Object arg)
         {
             PopupWindowHandler.HandleOpenFile(this.ManDontGetAngryGame);
-        }
-
-        /// <summary>
-        /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the LoadXMLClickedCommand is run
-        /// </summary>
-        /// <param name="arg">not used</param>
-        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
-        public bool OnLoadXMLClickeAllowed(Object arg)
-        {
-            return true;
         }
     }
 }
