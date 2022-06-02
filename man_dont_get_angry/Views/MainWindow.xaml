@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Man dont get angry"
         Height="740" Width="841"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Icon="\images\window_icon.png">
     <!--height was 680 before-->
     <Canvas Name="GameCanvas" Focusable="True" Background="White">
         <Button Height="50" Canvas.Left="242" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="0">

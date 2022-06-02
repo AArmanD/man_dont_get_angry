@@ -32,6 +32,7 @@
     <None Remove="images\square_yellow_arrow.png" />
     <None Remove="images\square_yellow_player.png" />
     <None Remove="images\square_yellow_player_yellow.png" />
+    <None Remove="images\window_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,7 @@
     <Resource Include="images\dice_4.png" />
     <Resource Include="images\dice_5.png" />
     <Resource Include="images\dice_6.png" />
+    <Resource Include="images\window_icon.png" />
     <Resource Include="images\square.jpg" />
     <Resource Include="images\square.png" />
     <Resource Include="images\square_blue.png" />
