@@ -253,7 +253,7 @@ namespace man_dont_get_angry.ModelUtils
         }
 
         /// <summary>
-        /// Calculates Movement options for pieces at the 
+        /// Calculates Movement options for pieces in the end fields
         /// </summary>
         /// <param name="player">Player for which the the movement options should be calculated</param>
         /// <param name="endPositions">List with positions of the pieces in the end field array</param>
