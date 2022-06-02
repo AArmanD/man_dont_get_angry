@@ -69,13 +69,13 @@ namespace man_dont_get_angry.ModelUtils
                 if (this._gameManager.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
                 {
                     this._gameManager.RollDice();
-                    Thread.Sleep(50);
+                    Thread.Sleep(1000);
                 }
                 else
                 {
                     int index = random.Next(this._gameManager.MovementOptions.Count);
                     this._gameManager.setPosition(this._gameManager.MovementOptions[index].EndPosition);
-                    Thread.Sleep(50);
+                    Thread.Sleep(1000);
                 }
             }
 
