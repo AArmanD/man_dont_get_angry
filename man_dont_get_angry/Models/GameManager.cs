@@ -117,6 +117,7 @@ namespace man_dont_get_angry.Models
                 switch (this.ActualPlayer.ThePlayerState)
                 {
                     case PlayerState.ThrowDice:
+                    case PlayerState.MoveDone:
                         return "Throw Dice";
                     case PlayerState.MovePieces:
                     case PlayerState.MovePiecesRepeadetly:
@@ -283,6 +284,21 @@ namespace man_dont_get_angry.Models
             }
 
             this._gameBoard.SetupPositions(gameManager);
+        }
+
+        /// <summary>
+        /// Checks whether a field is in the movement options
+        /// </summary>
+        /// <param name="pos">Position to check wheter it is in the movement options</param>
+        /// <returns>true if field is in the movement options, otherwise false</returns>
+        public bool CheckFieldIsInMovementOptions(int pos)
+        {
+            foreach (MovementOption option in this._movementOptions)
+            {
+                if (option.EndPosition == pos)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>

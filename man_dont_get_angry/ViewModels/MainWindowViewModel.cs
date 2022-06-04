@@ -91,8 +91,8 @@ namespace man_dont_get_angry.ViewModels
         {
             ManDontGetAngryGame = new GameManager();
 
-            DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked);
-            FieldClickedCommand = new DelegateCommand(OnFieldClicked);
+            DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
+            FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
             ResetClickedCommand = new DelegateCommand(OnResetClicked);
             SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked);
             LoadXMLClickedCommand = new DelegateCommand(OnLoadXMLClicked);
@@ -110,6 +110,22 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
+        /// Handler function which is checks whether the command is runnable before running the handler function
+        /// when the DicebuttonClickedCommand is run
+        /// </summary>
+        /// <param name="arg">not used</param>
+        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
+        public bool OnDiceButtonClickAllowed(Object arg)
+        {
+            if (this.ManDontGetAngryGame.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /// <summary>
         /// Handler function which is called when the FieldClickedCommand is run
         /// </summary>
         /// <param name="arg">Number of the field which is clicked</param>
@@ -121,6 +137,24 @@ namespace man_dont_get_angry.ViewModels
                 if (!string.IsNullOrEmpty(fieldNumber))
                     this.ManDontGetAngryGame.setPosition(int.Parse(fieldNumber));
             }
+        }
+
+        /// <summary>
+        /// Handler function which is checks whether the command is runnable before running the handler function
+        /// when the FieldClickedCommand is run
+        /// </summary>
+        /// <param name="arg">number of the field which is clicked</param>
+        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
+        public bool OnFieldClickAllowed(Object arg)
+        {
+            if (!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
+            {
+                string? fieldNumber = (string?)arg;
+                if (!string.IsNullOrEmpty(fieldNumber))
+                    return this.ManDontGetAngryGame.CheckFieldIsInMovementOptions(int.Parse(fieldNumber));
+            }
+
+            return false;
         }
 
         /// <summary>

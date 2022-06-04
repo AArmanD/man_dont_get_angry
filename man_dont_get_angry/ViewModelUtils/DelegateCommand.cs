@@ -23,8 +23,11 @@ namespace man_dont_get_angry.ViewModelUtils
         /// <summary>
         /// Event which is to be raised when the CanExecute has changed
         /// </summary>
-        public event EventHandler? CanExecuteChanged;
-
+        public event EventHandler? CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         /// <summary>
         /// Creates a new DelegateCommand with the provided action.
@@ -55,14 +58,6 @@ namespace man_dont_get_angry.ViewModelUtils
         public bool CanExecute(object parameter)
         {
             return _canExecute(parameter);
-        }
-
-        /// <summary>
-        /// The RaiseCanExecuteChanged method is called to assess if this command can be executed.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
