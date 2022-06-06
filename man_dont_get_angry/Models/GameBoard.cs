@@ -183,11 +183,7 @@ namespace man_dont_get_angry.Models
                         }
                     }
                 }
-                else
-                {
-                    this._gameBoardFields[movementOption.EndPosition].ThePiece = pieceToSet;
-                }
-
+                this._gameBoardFields[movementOption.EndPosition].ThePiece = pieceToSet;
             }
 
             // check whether the position to set the piece to is on the start fields

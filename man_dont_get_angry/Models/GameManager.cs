@@ -173,7 +173,6 @@ namespace man_dont_get_angry.Models
         /// </summary>
         public void RollDice()
         {
-            // check if win checking algorithm is correct
             if (this._players[this._actualPlayerID].ThePlayerState == PlayerState.ThrowDice && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
             {
                 this._dice.roll();
@@ -224,7 +223,6 @@ namespace man_dont_get_angry.Models
         /// </summary>
         private void changePlayer()
         {
-            // als enumerator implementieren
             this._lastPlayerID = this._actualPlayerID;
             if (this._actualPlayerID < 3)
             {
@@ -237,7 +235,6 @@ namespace man_dont_get_angry.Models
             this._dice.resetDice();
             this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
 
-            // Use coalescing operator
             if ((this.ActualPlayer.IsAutomatic ?? false) && !this._autoPlayerThreadManager.AutoPlayerThreadRunning())
             {
                 this._autoPlayerThreadManager.StartAutoThread();
