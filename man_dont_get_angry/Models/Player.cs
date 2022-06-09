@@ -90,7 +90,7 @@ namespace man_dont_get_angry.Models
         /// <summary>
         /// Get/Set the color of the player
         /// </summary>
-        public Color? TheColor
+        public Color? Color
         {
             get { return _color; }
             set { _color = value; }
@@ -110,16 +110,16 @@ namespace man_dont_get_angry.Models
                 // start auto playing thread in the game manager
                 switch (this._color)
                 {
-                    case Color.Green:
+                    case ModelUtils.Color.Green:
                         this._autoPlayerThreadManager?.StartAutoPlayer(0);
                         break;
-                    case Color.Red:
+                    case ModelUtils.Color.Red:
                         this._autoPlayerThreadManager?.StartAutoPlayer(1);
                         break;
-                    case Color.Yellow:
+                    case ModelUtils.Color.Yellow:
                         this._autoPlayerThreadManager?.StartAutoPlayer(2);
                         break;
-                    case Color.Blue:
+                    case ModelUtils.Color.Blue:
                         this._autoPlayerThreadManager?.StartAutoPlayer(3);
                         break;
                 }

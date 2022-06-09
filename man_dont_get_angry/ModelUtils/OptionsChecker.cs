@@ -21,7 +21,7 @@ namespace man_dont_get_angry.ModelUtils
             for (int i = 0; i < fieldArray.Length; i++)
                 if (fieldArray[i].Piece != null)
                 {
-                    if (player.TheColor == fieldArray[i].Piece?.Color)
+                    if (player.Color == fieldArray[i].Piece?.Color)
                     {
                         playerPositions.Add(i);
                     }
@@ -92,7 +92,7 @@ namespace man_dont_get_angry.ModelUtils
             // check whether a player can be moved from the startFields on the gameBoardFields, otherwise calclulate movement options in the start- and endFields
             if (dice.Value == 6 && startPositions.Count > 0)
             {
-                switch (player.TheColor)
+                switch (player.Color)
                 {
                     // when there is the option to move out a player from start fields add Movement option to move out next piece in the start fields,
                     // otherwise calculate movement options in the gameBoardFields
@@ -165,7 +165,7 @@ namespace man_dont_get_angry.ModelUtils
                 // Go through every the positions of every found piece and calculate whether a movement is possible
                 foreach (int position in gameBoardPositions)
                 {
-                    switch (player.TheColor)
+                    switch (player.Color)
                     {
                         case Color.Green:
                             // Check whether there has to be gone over the own start field for getting to the next position
@@ -297,7 +297,7 @@ namespace man_dont_get_angry.ModelUtils
 
             foreach (int position in endPositions)
             {
-                switch (player.TheColor)
+                switch (player.Color)
                 {
                     case Color.Green:
                         if ((position + dice.Value) < 4)
@@ -379,7 +379,7 @@ namespace man_dont_get_angry.ModelUtils
         {
             List<int> playerPositions = CheckPlayerPositions(player, endFields);
 
-            switch (player.TheColor)
+            switch (player.Color)
             {
                 case Color.Green:
                     for (int i = 3; i > 3 - playerPositions.Count; i--)
