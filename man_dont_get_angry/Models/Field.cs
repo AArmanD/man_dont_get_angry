@@ -33,38 +33,6 @@ namespace man_dont_get_angry.Models
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        /// Gets/Sets a piece on the field
-        /// </summary>
-        public Piece? ThePiece
-        {
-            get { return this._piece; }
-            set
-            {
-                this._piece = value;
-                ImagePathSetter();
-                OnPropertyChanged("ImagePath");
-            }
-        }
-
-        /// <summary>
-        /// Get/Set the image path of the image on the dice button
-        /// </summary>
-        public string? ImagePath
-        {
-            get { return this._imagePath; }
-            set { this._imagePath = value; }
-        }
-
-        /// <summary>
-        /// Get/Set the field type of the field
-        /// </summary>
-        public FieldType? TheFieldType
-        {
-            get { return this._fieldType; }
-            set { this._fieldType = value; }
-        }
-
-        /// <summary>
         /// Constructor needed for serializing/deserializing
         /// </summary>
         private Field()
@@ -98,13 +66,46 @@ namespace man_dont_get_angry.Models
         }
 
         /// <summary>
-        /// Sets up the correct image path for the field
+        /// Gets/Sets a piece on the field
+        /// </summary>
+        public Piece? Piece
+        {
+            get { return this._piece; }
+            set
+            {
+                this._piece = value;
+                ImagePathSetter();
+                OnPropertyChanged("ImagePath");
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the image path of the image on the dice button
+        /// </summary>
+        public string? ImagePath
+        {
+            get { return this._imagePath; }
+            set { this._imagePath = value; }
+        }
+
+        /// <summary>
+        /// Get/Set the field type of the field
+        /// </summary>
+        public FieldType? FieldType
+        {
+            get { return this._fieldType; }
+            set { this._fieldType = value; }
+        }
+
+        /// <summary>
+        /// Sets up the correct image path for the field depending on the fieldType and whether
+        /// a piece stands on the field or not
         /// </summary>
         private void ImagePathSetter()
         {
             switch (this._fieldType)
             {
-                case FieldType.NormalField:
+                case ModelUtils.FieldType.NormalField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square.png";
@@ -114,7 +115,7 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
-                case FieldType.BlueArrowField:
+                case ModelUtils.FieldType.BlueArrowField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_blue_arrow.png";
@@ -124,7 +125,7 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
-                case FieldType.GreenArrowField:
+                case ModelUtils.FieldType.GreenArrowField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_green_arrow.png";
@@ -134,7 +135,7 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
-                case FieldType.RedArrowField:
+                case ModelUtils.FieldType.RedArrowField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_red_arrow.png";
@@ -144,7 +145,7 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
-                case FieldType.YellowArrowField:
+                case ModelUtils.FieldType.YellowArrowField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_yellow_arrow.png";
@@ -154,8 +155,8 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_" + PieceColorStringGenerator() + "_player.png";
                     }
                     break;
-                case FieldType.GreenStartField:
-                case FieldType.GreenEndField:
+                case ModelUtils.FieldType.GreenStartField:
+                case ModelUtils.FieldType.GreenEndField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_green.png";
@@ -165,8 +166,8 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_green_player_green.png";
                     }
                     break;
-                case FieldType.YellowStartField:
-                case FieldType.YellowEndField:
+                case ModelUtils.FieldType.YellowStartField:
+                case ModelUtils.FieldType.YellowEndField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_yellow.png";
@@ -176,8 +177,8 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_yellow_player_yellow.png";
                     }
                     break;
-                case FieldType.RedStartField:
-                case FieldType.RedEndField:
+                case ModelUtils.FieldType.RedStartField:
+                case ModelUtils.FieldType.RedEndField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_red.png";
@@ -187,8 +188,8 @@ namespace man_dont_get_angry.Models
                         this._imagePath = "\\images\\square_red_player_red.png";
                     }
                     break;
-                case FieldType.BlueStartField:
-                case FieldType.BlueEndField:
+                case ModelUtils.FieldType.BlueStartField:
+                case ModelUtils.FieldType.BlueEndField:
                     if (this._piece == null)
                     {
                         this._imagePath = "\\images\\square_blue.png";
@@ -207,7 +208,7 @@ namespace man_dont_get_angry.Models
         /// <returns>Generated string for inserting into the image paths</returns>
         private string PieceColorStringGenerator()
         {
-            switch (this._piece?.TheColor)
+            switch (this._piece?.Color)
             {
                 case Color.Red:
                     return "red";

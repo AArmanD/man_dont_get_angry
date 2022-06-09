@@ -30,7 +30,7 @@ namespace man_dont_get_angry.Models
         /// </summary>
         private bool? _isAutomatic;
 
-        private AutoPlayerThreadManager? _autoPlayerThreadManager;
+        private AutoPlayerManager? _autoPlayerThreadManager;
 
         /// <summary>
         /// Event which is to be raised when a property changes from which the value should be updated
@@ -52,7 +52,7 @@ namespace man_dont_get_angry.Models
         /// <param name="color">Color of the player, are defined in ModelUtils.Constants</param>
         /// <param name="gameManager">Instance of the game manager</param>
         /// <param name="first">Optional bool parameter which specifies whether the player which is created is the first one</param>
-        public Player(string Name, Color color, AutoPlayerThreadManager autoPlayerThreadManager, bool first = false)
+        public Player(string Name, Color color, AutoPlayerManager autoPlayerThreadManager, bool first = false)
         {
             this._name = Name;
             this._color = color;
@@ -60,10 +60,10 @@ namespace man_dont_get_angry.Models
             this._autoPlayerThreadManager = autoPlayerThreadManager;
 
             if (first)
-                this._playerState = PlayerState.ThrowDice;
+                this._playerState = ModelUtils.PlayerState.ThrowDice;
 
             else
-                this._playerState = PlayerState.MoveDone;
+                this._playerState = ModelUtils.PlayerState.MoveDone;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace man_dont_get_angry.Models
         /// <summary>
         /// Get/Set the state of the player
         /// </summary>
-        public PlayerState? ThePlayerState
+        public PlayerState? PlayerState
         {
             get { return _playerState; }
             set
@@ -111,16 +111,16 @@ namespace man_dont_get_angry.Models
                 switch (this._color)
                 {
                     case Color.Green:
-                        this._autoPlayerThreadManager?.StartAutoThread(0);
+                        this._autoPlayerThreadManager?.StartAutoPlayer(0);
                         break;
                     case Color.Red:
-                        this._autoPlayerThreadManager?.StartAutoThread(1);
+                        this._autoPlayerThreadManager?.StartAutoPlayer(1);
                         break;
                     case Color.Yellow:
-                        this._autoPlayerThreadManager?.StartAutoThread(2);
+                        this._autoPlayerThreadManager?.StartAutoPlayer(2);
                         break;
                     case Color.Blue:
-                        this._autoPlayerThreadManager?.StartAutoThread(3);
+                        this._autoPlayerThreadManager?.StartAutoPlayer(3);
                         break;
                 }
 

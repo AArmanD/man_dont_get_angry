@@ -11,7 +11,7 @@ namespace man_dont_get_angry.ViewModelUtils
     public class DelegateCommand : ICommand
     {
         /// <summary>
-        /// Saves the action which is executed when the command is run
+        /// Saves the action which is executed when the command is Run
         /// </summary>
         private Action<object> _execute;
 
@@ -21,18 +21,9 @@ namespace man_dont_get_angry.ViewModelUtils
         private Func<object, bool> _canExecute;
 
         /// <summary>
-        /// Event which is to be raised when the CanExecute has changed
-        /// </summary>
-        public event EventHandler? CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        /// <summary>
         /// Creates a new DelegateCommand with the provided action.
         /// </summary>
-        /// <param name="execute">Action which should be executed when the command is run</param>
+        /// <param name="execute">Action which should be executed when the command is Run</param>
         public DelegateCommand(Action<object> execute)
         {
             _execute = execute;
@@ -42,12 +33,21 @@ namespace man_dont_get_angry.ViewModelUtils
         /// <summary>
         /// Creates a new DelegateCommand with the provided action and condition.
         /// </summary>
-        /// <param name="execute">Action which should be executed when the command is run</param>
-        /// <param name="canExecute">Function which checks wheter a command can be run</param>
+        /// <param name="execute">Action which should be executed when the command is Run</param>
+        /// <param name="canExecute">Function which checks wheter a command can be Run</param>
         public DelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             _execute = execute ?? throw new NullReferenceException();
             _canExecute = canExecute ?? throw new NullReferenceException();
+        }
+
+        /// <summary>
+        /// Event which is to be raised when the CanExecute has changed
+        /// </summary>
+        public event EventHandler? CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         /// <summary>

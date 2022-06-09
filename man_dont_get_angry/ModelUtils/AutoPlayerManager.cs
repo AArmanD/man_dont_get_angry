@@ -5,9 +5,9 @@ using System.Threading;
 namespace man_dont_get_angry.ModelUtils
 {
     /// <summary>
-    /// Implementation of Thread manager which manages a thread for automatic moving of players
+    /// Implementation an auto player which uses a thread for automatic moving of players
     /// </summary>
-    public class AutoPlayerThreadManager
+    public class AutoPlayerManager
     {
         /// <summary>
         /// Saves gameManager for getting needed data
@@ -28,45 +28,22 @@ namespace man_dont_get_angry.ModelUtils
         /// Constructor for creating a thread manager object
         /// </summary>
         /// <param name="gameManager">Instance of the GameManager</param>
-        public AutoPlayerThreadManager(GameManager gameManager)
+        public AutoPlayerManager(GameManager gameManager)
         { 
             this._gameManager = gameManager;
             this._threadRunning = false;
-            this._thread = new Thread(AutoPlayerThread);
-        }
-
-        /// <summary>
-        /// Starts the automatic player thread
-        /// </summary>
-        /// <param name="num">specifies player which has initiated the start for avoiding starting double threads</param>
-        public void StartAutoThread(int num = -1)
-        {
-            if (num == -1 || num == this._gameManager.PlayerID)
-            {
-                this._thread = new Thread(this.AutoPlayerThread);
-                this._threadRunning = true;
-                this._thread.IsBackground = true;
-                this._thread.Start();
-            }
-        }
-
-        /// <summary>
-        /// Stops the automatic player thread
-        /// </summary>
-        public void StopAutoThread()
-        {
-            this._threadRunning = false;
+            this._thread = new Thread(Run);
         }
 
         /// <summary>
         /// Is run when player should play automatically in a thread
         /// </summary>
-        public void AutoPlayerThread()
+        private void Run()
         {
             var random = new Random();
-            while (this._threadRunning && (_gameManager.ActualPlayer.IsAutomatic ?? false) && !OptionsChecker.checkGameWon(this._gameManager.Players[this._gameManager.LastPlayerID], this._gameManager.TheGameBoard.EndFields))
+            while (this._threadRunning && (_gameManager.ActualPlayer.IsAutomatic ?? false) && !OptionsChecker.CheckGameWon(this._gameManager.Players[this._gameManager.LastPlayerID], this._gameManager.GameBoard.EndFields))
             {
-                if (this._gameManager.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
+                if (this._gameManager.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice)
                 {
                     this._gameManager.RollDice();
                     Thread.Sleep(1000);
@@ -74,7 +51,7 @@ namespace man_dont_get_angry.ModelUtils
                 else
                 {
                     int index = random.Next(this._gameManager.MovementOptions.Count);
-                    this._gameManager.setPosition(this._gameManager.MovementOptions[index].EndPosition);
+                    this._gameManager.SetPosition(this._gameManager.MovementOptions[index].EndPosition);
                     Thread.Sleep(1000);
                 }
             }
@@ -83,30 +60,53 @@ namespace man_dont_get_angry.ModelUtils
         }
 
         /// <summary>
+        /// Starts the automatic player thread
+        /// </summary>
+        /// <param name="playerID">specifies player which has initiated the start for avoiding starting double threads</param>
+        public void StartAutoPlayer(int playerID = -1)
+        {
+            if (playerID == -1 || playerID == this._gameManager.PlayerID)
+            {
+                this._thread = new Thread(this.Run);
+                this._threadRunning = true;
+                this._thread.IsBackground = true;
+                this._thread.Start();
+            }
+        }
+
+        /// <summary>
+        /// Stops the automatic player
+        /// </summary>
+        private void StopAutoPlayer()
+        {
+            this._threadRunning = false;
+        }
+
+        /// <summary>
         /// Returns whether the automatic player thread runs
         /// </summary>
         /// <returns>true if the auto player thread is alive, otherwise false</returns>
-        public bool AutoPlayerThreadRunning()
+        public bool AutoPlayerRunning()
         { 
             return this._thread.IsAlive; 
         }
 
         /// <summary>
-        /// Starts/Stops the auto player thread
+        /// Starts/Stops the auto player thread for saving/loading an actual game
         /// </summary>
         /// <param name="state">State to set the thread to: true-> running, false -> stopped</param>
-        public void SetAutoThread(bool state)
+        public void SetAutoPlayerState(bool state)
         {
             if (state)
             {
                 if (!this._thread.IsAlive && (_gameManager.ActualPlayer.IsAutomatic ?? false))
                 {
-                    this.StartAutoThread();
+                    this.StartAutoPlayer();
                 }
             }
             else
             {
-                this.StopAutoThread();
+                this.StopAutoPlayer();
             }
         }
     }

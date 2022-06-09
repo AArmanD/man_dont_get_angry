@@ -30,7 +30,7 @@ namespace man_dont_get_angry.Models
         /// <summary>
         /// Get/Set the color of the piece
         /// </summary>
-        public Color? TheColor
+        public Color? Color
         {
             get { return _pieceColor; }
             set { _pieceColor = value; }

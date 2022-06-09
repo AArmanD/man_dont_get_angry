@@ -37,6 +37,17 @@ namespace man_dont_get_angry.Models
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
+        /// Constructor for creating a dice object
+        /// </summary>
+        public Dice()
+        {
+            this._value = 1;
+            this._random = new Random();
+            this._diceThrownNumber = 0;
+            this._imagePath = "\\images\\dice_1.png";
+        }
+
+        /// <summary>
         /// Get/Set the dice value
         /// </summary>
         public int Value
@@ -55,14 +66,6 @@ namespace man_dont_get_angry.Models
         }
 
         /// <summary>
-        /// Resets the dice so it can be used again in the next round
-        /// </summary>
-        public void resetDice()
-        {
-            this._diceThrownNumber = 0;
-        }
-
-        /// <summary>
         /// Get/Set the image path of the image on the dice button
         /// </summary>
         public string ImagePath
@@ -72,20 +75,9 @@ namespace man_dont_get_angry.Models
         }
 
         /// <summary>
-        /// Constructor for creating a dice object
-        /// </summary>
-        public Dice()
-        {
-            this._value = 1;
-            this._random = new Random();
-            this._diceThrownNumber = 0;
-            this._imagePath = "\\images\\dice_1.png";
-        }
-
-        /// <summary>
         /// Rolls virtual dice
         /// </summary>
-        public void roll()
+        public void Roll()
         {
             // create new random value
             this._value = _random.Next(1, 7);
@@ -96,6 +88,14 @@ namespace man_dont_get_angry.Models
             // change image which represents dice number on the game board
             this._imagePath = "\\images\\dice_" + this._value + ".png";
             OnPropertyChanged("ImagePath");
+        }
+
+        /// <summary>
+        /// Resets the dice so it can be used again in the next round
+        /// </summary>
+        public void Reset()
+        {
+            this._diceThrownNumber = 0;
         }
 
         /// <summary>

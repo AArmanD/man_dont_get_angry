@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace man_dont_get_angry.ModelUtils
+﻿namespace man_dont_get_angry.ModelUtils
 {
     /// <summary>
     /// Defines constants for distinguishing between different colors

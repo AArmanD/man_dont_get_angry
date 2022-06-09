@@ -23,33 +23,6 @@ namespace man_dont_get_angry.Models
         private Field[] _endFields;
 
         /// <summary>
-        /// Get/Set the gameboard fields
-        /// </summary>
-        public Field[] GameBoardFields
-        {
-            get { return _gameBoardFields; }
-            set { _gameBoardFields = value; }
-        }
-
-        /// <summary>
-        /// Get/Set the start fields
-        /// </summary>
-        public Field[] StartFields
-        {
-            get { return _startFields; }
-            set { _startFields = value; }
-        }
-
-        /// <summary>
-        /// Get/Set the end fields
-        /// </summary>
-        public Field[] EndFields
-        {
-            get { return _endFields; }
-            set { _endFields = value; }
-        }
-
-        /// <summary>
         /// Constructor for creating a game board object
         /// </summary>
         public GameBoard()
@@ -128,38 +101,65 @@ namespace man_dont_get_angry.Models
         }
 
         /// <summary>
+        /// Get/Set the gameboard fields
+        /// </summary>
+        public Field[] GameBoardFields
+        {
+            get { return _gameBoardFields; }
+            set { _gameBoardFields = value; }
+        }
+
+        /// <summary>
+        /// Get/Set the start fields
+        /// </summary>
+        public Field[] StartFields
+        {
+            get { return _startFields; }
+            set { _startFields = value; }
+        }
+
+        /// <summary>
+        /// Get/Set the end fields
+        /// </summary>
+        public Field[] EndFields
+        {
+            get { return _endFields; }
+            set { _endFields = value; }
+        }
+
+        /// <summary>
         /// Sets a piece to a specified position
         /// </summary>
         /// <param name="movementOption">Object of type MovementOption in which stands from where to where should be moved</param>
-        public void setPiece(MovementOption movementOption)
+        public void SetPiece(MovementOption movementOption)
         {
             // remove the piece from its initial position, save it into a temporary variable
             Piece? pieceToSet = null;
             if (movementOption.StartPosition < 40)
             {
-                pieceToSet = this._gameBoardFields[movementOption.StartPosition].ThePiece;
-                this._gameBoardFields[movementOption.StartPosition].ThePiece = null;
+                pieceToSet = this._gameBoardFields[movementOption.StartPosition].Piece;
+                this._gameBoardFields[movementOption.StartPosition].Piece = null;
             }
             else if (movementOption.StartPosition > 39 && movementOption.StartPosition < 56)
             {
-                pieceToSet = this._startFields[movementOption.StartPosition - 40].ThePiece;
-                this._startFields[movementOption.StartPosition - 40].ThePiece = null;
+                pieceToSet = this._startFields[movementOption.StartPosition - 40].Piece;
+                this._startFields[movementOption.StartPosition - 40].Piece = null;
             }
             else if (movementOption.StartPosition > 55 && movementOption.StartPosition < 72)
             {
-                pieceToSet = this._endFields[movementOption.StartPosition - 56].ThePiece;
-                this._endFields[movementOption.StartPosition - 56].ThePiece = null;
+                pieceToSet = this._endFields[movementOption.StartPosition - 56].Piece;
+                this._endFields[movementOption.StartPosition - 56].Piece = null;
             }
 
             // check whether the position to set the piece to is on the gameboard fields
             if (movementOption.EndPosition < 40)
             {
                 // check whether at the position to set the piece to already piece stands
-                if (this._gameBoardFields[movementOption.EndPosition].ThePiece != null)
+                if (this._gameBoardFields[movementOption.EndPosition].Piece != null)
                 {
                     // move piece on field back to start
                     int count = 3;
-                    switch (this._gameBoardFields[movementOption.EndPosition].ThePiece?.TheColor)
+                    switch (this._gameBoardFields[movementOption.EndPosition].Piece?.Color)
                     {
                         case Color.Green:
                             break;
@@ -176,26 +176,26 @@ namespace man_dont_get_angry.Models
 
                     for (int i = count; i > -1; i--)
                     {
-                        if (this._startFields[i].ThePiece == null)
+                        if (this._startFields[i].Piece == null)
                         {
-                            this._startFields[i].ThePiece = this._gameBoardFields[movementOption.EndPosition].ThePiece;
+                            this._startFields[i].Piece = this._gameBoardFields[movementOption.EndPosition].Piece;
                             break;
                         }
                     }
                 }
-                this._gameBoardFields[movementOption.EndPosition].ThePiece = pieceToSet;
+                this._gameBoardFields[movementOption.EndPosition].Piece = pieceToSet;
             }
 
             // check whether the position to set the piece to is on the start fields
             else if (movementOption.EndPosition > 39 && movementOption.EndPosition < 56)
             {
-                this._startFields[movementOption.EndPosition - 40].ThePiece = pieceToSet;
+                this._startFields[movementOption.EndPosition - 40].Piece = pieceToSet;
             }
 
             // check whether the position to set the piece to is on the end fields
             else if (movementOption.EndPosition > 55 && movementOption.EndPosition < 72)
             {
-                this._endFields[movementOption.EndPosition - 56].ThePiece = pieceToSet;
+                this._endFields[movementOption.EndPosition - 56].Piece = pieceToSet;
             }
         }
 
@@ -209,32 +209,32 @@ namespace man_dont_get_angry.Models
             {
                 if (-1 < count && count < 4)
                 {
-                    this._startFields[count].ThePiece = new Piece(Color.Green);
+                    this._startFields[count].Piece = new Piece(Color.Green);
                 }
                 else if (3 < count && count < 8)
                 {
-                    this._startFields[count].ThePiece = new Piece(Color.Red);
+                    this._startFields[count].Piece = new Piece(Color.Red);
                 }
                 else if (7 < count && count < 12)
                 {
-                    this._startFields[count].ThePiece = new Piece(Color.Yellow);
+                    this._startFields[count].Piece = new Piece(Color.Yellow);
                 }
                 else if (11 < count && count < 16)
                 {
-                    this._startFields[count].ThePiece = new Piece(Color.Blue);
+                    this._startFields[count].Piece = new Piece(Color.Blue);
                 }
             }
 
             // clear out end fields from pieces
             for (int i = 0; i < _endFields.Length; i++)
             {
-                _endFields[i].ThePiece = null;
+                _endFields[i].Piece = null;
             }
 
             // clear out game board fields from pieces
             for (int i = 0; i < this._gameBoardFields.Length; i++)
             {
-                this._gameBoardFields[i].ThePiece = null;
+                this._gameBoardFields[i].Piece = null;
             }
         }
 
@@ -247,19 +247,19 @@ namespace man_dont_get_angry.Models
             // set piece positions in the start fields
             for (int i = 0; i < this._startFields.Length; i++)
             {
-                this._startFields[i].ThePiece = gameManager.TheGameBoard._startFields[i].ThePiece;
+                this._startFields[i].Piece = gameManager.GameBoard._startFields[i].Piece;
             }
 
             // set piece positions in the end fields
             for (int i = 0; i < this._endFields.Length; i++)
             {
-                this._endFields[i].ThePiece = gameManager.TheGameBoard._endFields[i].ThePiece;
+                this._endFields[i].Piece = gameManager.GameBoard._endFields[i].Piece;
             }
 
             // set piece positions in the game board fields
             for (int i = 0; i < this._gameBoardFields.Length; i++)
             {
-                this._gameBoardFields[i].ThePiece = gameManager.TheGameBoard._gameBoardFields[i].ThePiece;
+                this._gameBoardFields[i].Piece = gameManager.GameBoard._gameBoardFields[i].Piece;
             }
         }
     }

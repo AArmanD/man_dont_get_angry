@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using man_dont_get_angry.ModelUtils;
-using System.Threading;
 
 namespace man_dont_get_angry.Models
 {
@@ -45,19 +44,42 @@ namespace man_dont_get_angry.Models
         /// <summary>
         /// For saving the Automatic player thread manager
         /// </summary>
-        private AutoPlayerThreadManager _autoPlayerThreadManager;
+        private AutoPlayerManager _autoPlayerManager;
 
         /// <summary>
-        /// Event which is to be raised when a property changes from which the value should be updated
+        /// Event which is to be raised when posToSet property changes from which the value should be updated
         /// in the main window
         /// </summary>
         [field: NonSerialized]
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
+        /// Constructor for creating posToSet GameManager object
+        /// </summary>
+        public GameManager()
+        {
+
+            this._dice = new Dice();
+            this._movementOptions = new List<MovementOption>();
+
+            this._autoPlayerManager = new AutoPlayerManager(this);
+
+            this._players = new Player[]
+            {
+                new Player("Green", Color.Green, this._autoPlayerManager, true),
+                new Player("Red", Color.Red, this._autoPlayerManager),
+                new Player("Yellow", Color.Yellow, this._autoPlayerManager),
+                new Player("Blue", Color.Blue, this._autoPlayerManager),
+            };
+
+            this._gameBoard = new GameBoard();
+            this._actualPlayerID = 0;
+        }
+
+        /// <summary>
         /// Get/Set the game board
         /// </summary>
-        public GameBoard TheGameBoard
+        public GameBoard GameBoard
         {
             get { return this._gameBoard; }
             set { this._gameBoard = value; }
@@ -66,7 +88,7 @@ namespace man_dont_get_angry.Models
         /// <summary>
         /// Get/Set the dice
         /// </summary>
-        public Dice TheDice
+        public Dice Dice
         {
             get { return this._dice; }
             set { this._dice = value; }
@@ -114,16 +136,23 @@ namespace man_dont_get_angry.Models
         {
             get
             {
-                switch (this.ActualPlayer.ThePlayerState)
+                if (!OptionsChecker.CheckGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields))
                 {
-                    case PlayerState.ThrowDice:
-                    case PlayerState.MoveDone:
-                        return "Throw Dice";
-                    case PlayerState.MovePieces:
-                    case PlayerState.MovePiecesRepeadetly:
-                        return "Move Pieces";
-                    default:
-                        return "";
+                    switch (this.ActualPlayer.PlayerState)
+                    {
+                        case PlayerState.ThrowDice:
+                        case PlayerState.MoveDone:
+                            return "Throw Dice";
+                        case PlayerState.MovePieces:
+                        case PlayerState.MovePiecesRepeadetly:
+                            return "Move Pieces";
+                        default:
+                            return "";
+                    }
+                }
+                else
+                {
+                    return "..";
                 }
             }
         }
@@ -138,34 +167,11 @@ namespace man_dont_get_angry.Models
         }
 
         /// <summary>
-        /// Get the saved AutoPlayerThreadManager
+        /// Get the saved AutoPlayerManager
         /// </summary>
-        public AutoPlayerThreadManager TheAutoPlayerThreadManager
+        public AutoPlayerManager AutoPlayerManager
         {
-            get { return _autoPlayerThreadManager; }
-        }
-
-        /// <summary>
-        /// Constructor for creating a GameManager object
-        /// </summary>
-        public GameManager()
-        {
-
-            this._dice = new Dice();
-            this._movementOptions = new List<MovementOption>();
-
-            this._autoPlayerThreadManager = new AutoPlayerThreadManager(this);
-
-            this._players = new Player[]
-            {
-                new Player("Green", Color.Green, this._autoPlayerThreadManager, true),
-                new Player("Red", Color.Red, this._autoPlayerThreadManager),
-                new Player("Yellow", Color.Yellow, this._autoPlayerThreadManager),
-                new Player("Blue", Color.Blue, this._autoPlayerThreadManager),
-            };
-
-            this._gameBoard = new GameBoard();
-            this._actualPlayerID = 0;
+            get { return _autoPlayerManager; }
         }
 
         /// <summary>
@@ -173,45 +179,49 @@ namespace man_dont_get_angry.Models
         /// </summary>
         public void RollDice()
         {
-            if (this._players[this._actualPlayerID].ThePlayerState == PlayerState.ThrowDice && !OptionsChecker.checkGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
+            if (this._players[this._actualPlayerID].PlayerState == PlayerState.ThrowDice && !OptionsChecker.CheckGameWon(this._players[this._lastPlayerID], this._gameBoard.EndFields))
             {
-                this._dice.roll();
-                this._movementOptions = OptionsChecker.checkMovements(_players[this._actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields, this._gameBoard.EndFields);
-                this._players[_actualPlayerID].ThePlayerState = OptionsChecker.GenerateStateAfterRolling(this._movementOptions, this._dice, this._players[this._actualPlayerID], this._gameBoard.EndFields);
+                this._dice.Roll();
+                this._movementOptions = OptionsChecker.CalculateMovementOptions(_players[this._actualPlayerID], this._dice, this._gameBoard.GameBoardFields, this._gameBoard.StartFields, this._gameBoard.EndFields);
+                this._players[_actualPlayerID].PlayerState = OptionsChecker.GenerateStateAfterRolling(this._movementOptions, this._dice, this._players[this._actualPlayerID], this._gameBoard.EndFields);
                 OnPropertyChanged("ActualMove");
 
-                if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MoveDone)
+                if (this._players[_actualPlayerID].PlayerState == PlayerState.MoveDone)
                 {
-                    changePlayer();
+                    ChangePlayer();
                 }
             }
         }
 
         /// <summary>
-        /// Sets a piece to a specified position if that is in the movementOptions list
+        /// Sets posToSet piece to specified position if that is in the movementOptions list
         /// </summary>
-        /// <param name="a">Position to set a Piece of the actual player to</param>
-        public void setPosition(int a)
+        /// <param name="posToSet">Position to set posToSet Piece of the actual player to</param>
+        public void SetPosition(int posToSet)
         {
-            if ((this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly))
+            if ((this._players[_actualPlayerID].PlayerState == PlayerState.MovePieces || this._players[_actualPlayerID].PlayerState == PlayerState.MovePiecesRepeadetly))
             {
                 foreach (MovementOption movementOption in this._movementOptions)
                 {
-                    if (movementOption.EndPosition == a)
+                    if (movementOption.EndPosition == posToSet)
                     {
-                        this._gameBoard.setPiece(movementOption);
+                        this._gameBoard.SetPiece(movementOption);
 
 
-                        if (this._players[_actualPlayerID].ThePlayerState == PlayerState.MovePiecesRepeadetly)
+                        if (this._players[_actualPlayerID].PlayerState == PlayerState.MovePiecesRepeadetly)
                         {
-                            this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
+                            this._players[_actualPlayerID].PlayerState = PlayerState.ThrowDice;
                             OnPropertyChanged("ActualMove");
                         }
                         else
                         {
-                            this._players[_actualPlayerID].ThePlayerState = PlayerState.MoveDone;
-                            changePlayer();
-                            OnPropertyChanged("ActualMove");
+                            this._players[_actualPlayerID].PlayerState = PlayerState.MoveDone;
+
+                            if (!OptionsChecker.CheckGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields))
+                            {
+                                ChangePlayer();
+                                OnPropertyChanged("ActualMove");
+                            }
                         }
                     }
                 }
@@ -221,7 +231,7 @@ namespace man_dont_get_angry.Models
         /// <summary>
         /// Changes the player, so the next player can make his move
         /// </summary>
-        private void changePlayer()
+        private void ChangePlayer()
         {
             this._lastPlayerID = this._actualPlayerID;
             if (this._actualPlayerID < 3)
@@ -232,35 +242,35 @@ namespace man_dont_get_angry.Models
                 this._actualPlayerID = 0;
 
             OnPropertyChanged("ActualPlayer");
-            this._dice.resetDice();
-            this._players[_actualPlayerID].ThePlayerState = PlayerState.ThrowDice;
+            this._dice.Reset();
+            this._players[_actualPlayerID].PlayerState = PlayerState.ThrowDice;
 
-            if ((this.ActualPlayer.IsAutomatic ?? false) && !this._autoPlayerThreadManager.AutoPlayerThreadRunning())
+            if ((this.ActualPlayer.IsAutomatic ?? false) && !this._autoPlayerManager.AutoPlayerRunning())
             {
-                this._autoPlayerThreadManager.StartAutoThread();
+                this._autoPlayerManager.StartAutoPlayer();
             }
         }
 
         /// <summary>
-        /// Resets the game so a new game can be started
+        /// Resets the game so posToSet new game can be started
         /// </summary>
         public void ResetGame()
         {
-            this.TheGameBoard.SetupStartPostitions();
+            this.GameBoard.SetupStartPostitions();
             for (int i = 0; i < this._players.Length; i++)
             {
                 this._players[i].IsAutomatic = false;
             }
 
-            this._players[0].ThePlayerState = PlayerState.ThrowDice;
+            this._players[0].PlayerState = PlayerState.ThrowDice;
             OnPropertyChanged("ActualMove");
             this._actualPlayerID = 0;
             OnPropertyChanged("ActualPlayer");
-            this._dice.resetDice();
+            this._dice.Reset();
         }
 
         /// <summary>
-        /// Loads a game from a GameManager instance
+        /// Loads posToSet game from posToSet GameManager instance
         /// </summary>
         /// <param name="gameManager">GameManager instance to load game from</param>
         public void LoadGame(GameManager gameManager)
@@ -277,14 +287,14 @@ namespace man_dont_get_angry.Models
             for (int i = 0; i < this._players.Length; i++)
             {
                 this._players[i].IsAutomatic = false;
-                this._players[i].ThePlayerState = gameManager.Players[i].ThePlayerState;
+                this._players[i].PlayerState = gameManager.Players[i].PlayerState;
             }
 
             this._gameBoard.SetupPositions(gameManager);
         }
 
         /// <summary>
-        /// Checks whether a field is in the movement options
+        /// Checks whether posToSet field is in the movement options
         /// </summary>
         /// <param name="pos">Position to check wheter it is in the movement options</param>
         /// <returns>true if field is in the movement options, otherwise false</returns>

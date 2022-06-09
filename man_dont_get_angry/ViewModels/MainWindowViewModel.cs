@@ -10,6 +10,20 @@ namespace man_dont_get_angry.ViewModels
     internal class MainWindowViewModel
     {
         /// <summary>
+        /// Constructor for creating a VievModel object
+        /// </summary>
+        public MainWindowViewModel()
+        {
+            ManDontGetAngryGame = new GameManager();
+
+            DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
+            FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
+            ResetClickedCommand = new DelegateCommand(OnResetClicked);
+            SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked);
+            LoadXMLClickedCommand = new DelegateCommand(OnLoadXMLClicked);
+        }
+
+        /// <summary>
         /// Get/Set GameManager instance for controlling the game
         /// </summary>
         public GameManager ManDontGetAngryGame { get; set; }
@@ -62,22 +76,22 @@ namespace man_dont_get_angry.ViewModels
         /// <summary>
         /// Shortcut for gui to get dice properties
         /// </summary>
-        public Dice TheDice => this.ManDontGetAngryGame.TheDice;
+        public Dice TheDice => this.ManDontGetAngryGame.Dice;
 
         /// <summary>
         /// Shortcut for gui to get game board field properties
         /// </summary>
-        public Field[] GameBoardFields => this.ManDontGetAngryGame.TheGameBoard.GameBoardFields;
+        public Field[] GameBoardFields => this.ManDontGetAngryGame.GameBoard.GameBoardFields;
 
         /// <summary>
         /// Shortcut for gui to get start field properties
         /// </summary>
-        public Field[] StartFields => this.ManDontGetAngryGame.TheGameBoard.StartFields;
+        public Field[] StartFields => this.ManDontGetAngryGame.GameBoard.StartFields;
 
         /// <summary>
         /// Shortcut for gui to get end field properties
         /// </summary>
-        public Field[] EndFields => this.ManDontGetAngryGame.TheGameBoard.EndFields;
+        public Field[] EndFields => this.ManDontGetAngryGame.GameBoard.EndFields;
 
         /// <summary>
         /// Shortcut for gui to get player properties
@@ -85,22 +99,7 @@ namespace man_dont_get_angry.ViewModels
         public Player[] Players => this.ManDontGetAngryGame.Players;
 
         /// <summary>
-        /// Constructor for creating a VievModel object
-        /// </summary>
-        public MainWindowViewModel()
-        {
-            ManDontGetAngryGame = new GameManager();
-
-            DiceClickedCommand = new DelegateCommand(OnDiceButtonClicked, OnDiceButtonClickAllowed);
-            FieldClickedCommand = new DelegateCommand(OnFieldClicked, OnFieldClickAllowed);
-            ResetClickedCommand = new DelegateCommand(OnResetClicked);
-            SaveAsXMLClickedCommand = new DelegateCommand(OnSaveAsXMLClicked);
-            LoadXMLClickedCommand = new DelegateCommand(OnLoadXMLClicked);
-        }
-
-
-        /// <summary>
-        /// Handler function which is called when the DicebuttonClickedCommand is run
+        /// Handler function which is called when the DicebuttonClickedCommand is Run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnDiceButtonClicked(Object arg)
@@ -111,13 +110,13 @@ namespace man_dont_get_angry.ViewModels
 
         /// <summary>
         /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the DicebuttonClickedCommand is run
+        /// when the DicebuttonClickedCommand is Run
         /// </summary>
         /// <param name="arg">not used</param>
-        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
+        /// <returns>true, when handler function is allowed to Run, otherwise false</returns>
         public bool OnDiceButtonClickAllowed(Object arg)
         {
-            if (this.ManDontGetAngryGame.ActualPlayer.ThePlayerState == ModelUtils.PlayerState.ThrowDice)
+            if (this.ManDontGetAngryGame.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice)
             {
                 return true;
             }
@@ -126,7 +125,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the FieldClickedCommand is run
+        /// Handler function which is called when the FieldClickedCommand is Run
         /// </summary>
         /// <param name="arg">Number of the field which is clicked</param>
         public void OnFieldClicked(Object arg)
@@ -135,16 +134,16 @@ namespace man_dont_get_angry.ViewModels
             {
                 string? fieldNumber = (string?)arg;
                 if (!string.IsNullOrEmpty(fieldNumber))
-                    this.ManDontGetAngryGame.setPosition(int.Parse(fieldNumber));
+                    this.ManDontGetAngryGame.SetPosition(int.Parse(fieldNumber));
             }
         }
 
         /// <summary>
         /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the FieldClickedCommand is run
+        /// when the FieldClickedCommand is Run
         /// </summary>
         /// <param name="arg">number of the field which is clicked</param>
-        /// <returns>true, when handler function is allowed to run, otherwise false</returns>
+        /// <returns>true, when handler function is allowed to Run, otherwise false</returns>
         public bool OnFieldClickAllowed(Object arg)
         {
             if (!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
@@ -158,7 +157,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the ResetClickedCommand is run
+        /// Handler function which is called when the ResetClickedCommand is Run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnResetClicked(Object arg)
@@ -167,7 +166,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the SaveAsXMLClickedCommand is run
+        /// Handler function which is called when the SaveAsXMLClickedCommand is Run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnSaveAsXMLClicked(Object arg)
@@ -176,7 +175,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the LoadXMLClickedCommand is run
+        /// Handler function which is called when the LoadXMLClickedCommand is Run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnLoadXMLClicked(Object arg)

@@ -19,7 +19,7 @@ namespace man_dont_get_angry.ViewModelUtils
         public static void HandleOpenFile(GameManager gameManager) 
         {
             // stop auto player thread
-            gameManager.TheAutoPlayerThreadManager.SetAutoThread(false);
+            gameManager.AutoPlayerManager.SetAutoPlayerState(false);
 
             // create open file dialog for xml files
             OpenFileDialog openFileDialog1 = new OpenFileDialog
@@ -65,7 +65,7 @@ namespace man_dont_get_angry.ViewModelUtils
                     MessageBox.Show(message, title);
 
                     // start auto player thread
-                    gameManager.TheAutoPlayerThreadManager.SetAutoThread(true);
+                    gameManager.AutoPlayerManager.SetAutoPlayerState(true);
                 }
                 finally
                 { 
@@ -76,7 +76,7 @@ namespace man_dont_get_angry.ViewModelUtils
             else
             {
                 // start auto player thread
-                gameManager.TheAutoPlayerThreadManager.SetAutoThread(true);
+                gameManager.AutoPlayerManager.SetAutoPlayerState(true);
             }
 
         }
@@ -89,7 +89,7 @@ namespace man_dont_get_angry.ViewModelUtils
         {
 
             // stop auto player thread
-            gameManager.TheAutoPlayerThreadManager.SetAutoThread(false);
+            gameManager.AutoPlayerManager.SetAutoPlayerState(false);
 
             // create save file dialog for xml files
             SaveFileDialog saveFileDialog = new SaveFileDialog()
@@ -126,7 +126,7 @@ namespace man_dont_get_angry.ViewModelUtils
             }
 
             // start auto player thread
-            gameManager.TheAutoPlayerThreadManager.SetAutoThread(true);
+            gameManager.AutoPlayerManager.SetAutoPlayerState(true);
         }
     }
 }
