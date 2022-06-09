@@ -58,7 +58,6 @@ namespace man_dont_get_angry.Models
         /// </summary>
         public GameManager()
         {
-
             this._dice = new Dice();
             this._movementOptions = new List<MovementOption>();
 

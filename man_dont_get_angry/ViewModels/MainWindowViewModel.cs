@@ -76,7 +76,7 @@ namespace man_dont_get_angry.ViewModels
         /// <summary>
         /// Shortcut for gui to get dice properties
         /// </summary>
-        public Dice TheDice => this.ManDontGetAngryGame.Dice;
+        public Dice Dice => this.ManDontGetAngryGame.Dice;
 
         /// <summary>
         /// Shortcut for gui to get game board field properties
@@ -130,7 +130,7 @@ namespace man_dont_get_angry.ViewModels
         /// <param name="arg">Number of the field which is clicked</param>
         public void OnFieldClicked(Object arg)
         {
-            if(!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
+            if (!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
             {
                 string? fieldNumber = (string?)arg;
                 if (!string.IsNullOrEmpty(fieldNumber))

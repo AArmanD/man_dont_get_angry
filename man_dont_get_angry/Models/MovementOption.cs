@@ -42,7 +42,7 @@ namespace man_dont_get_angry.Models
         /// Get/Set start position
         /// </summary>
         public int StartPosition
-        { 
+        {
             get { return this._startPosition; }
             set { this._startPosition = value; }
         }

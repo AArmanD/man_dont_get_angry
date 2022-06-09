@@ -29,7 +29,7 @@ namespace man_dont_get_angry.ModelUtils
         /// </summary>
         /// <param name="gameManager">Instance of the GameManager</param>
         public AutoPlayerManager(GameManager gameManager)
-        { 
+        {
             this._gameManager = gameManager;
             this._threadRunning = false;
             this._thread = new Thread(Run);
@@ -87,8 +87,8 @@ namespace man_dont_get_angry.ModelUtils
         /// </summary>
         /// <returns>true if the auto player thread is alive, otherwise false</returns>
         public bool AutoPlayerRunning()
-        { 
-            return this._thread.IsAlive; 
+        {
+            return this._thread.IsAlive;
         }
 
         /// <summary>

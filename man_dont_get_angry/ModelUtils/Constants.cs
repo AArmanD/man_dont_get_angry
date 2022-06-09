@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines constants for distinguishing between different colors
     /// </summary>
-    public enum Color 
+    public enum Color
     {
         Red,
         Green,
@@ -15,7 +15,7 @@
     /// Defines constants for distinguishing between different field types
     /// </summary>
     public enum FieldType
-    { 
+    {
         NormalField,
         RedArrowField,
         GreenArrowField,
@@ -35,7 +35,7 @@
     /// Defines constants for distinguishing between different player states
     /// </summary>
     public enum PlayerState
-    { 
+    {
         ThrowDice,
         MovePieces,
         MovePiecesRepeadetly,

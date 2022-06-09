@@ -21,7 +21,7 @@ namespace man_dont_get_angry.ModelUtils
             for (int i = 0; i < fieldArray.Length; i++)
                 if (fieldArray[i].Piece != null)
                 {
-                    if (player.TheColor == fieldArray[i]?.Piece?.Color)
+                    if (player.TheColor == fieldArray[i].Piece?.Color)
                     {
                         playerPositions.Add(i);
                     }
@@ -47,7 +47,7 @@ namespace man_dont_get_angry.ModelUtils
 
             // when the dice value is 6 and there are no movement options, let player dice again
             else if (dice.Value == 6 && movementOptions.Count == 0)
-            { 
+            {
                 return PlayerState.ThrowDice;
             }
 
@@ -97,7 +97,7 @@ namespace man_dont_get_angry.ModelUtils
                     // when there is the option to move out a player from start fields add Movement option to move out next piece in the start fields,
                     // otherwise calculate movement options in the gameBoardFields
                     case Color.Green:
-                        if (gameBoardFields[0].Piece == null || gameBoardFields[0]?.Piece?.Color != Color.Green)
+                        if (gameBoardFields[0].Piece == null || gameBoardFields[0].Piece?.Color != Color.Green)
                         {
                             movementOptions.Add(new MovementOption(startPositions.ElementAt(0) + 40, 0));
                         }
@@ -107,7 +107,7 @@ namespace man_dont_get_angry.ModelUtils
                         }
                         break;
                     case Color.Red:
-                        if (gameBoardFields[10].Piece == null || gameBoardFields[10]?.Piece?.Color != Color.Red)
+                        if (gameBoardFields[10].Piece == null || gameBoardFields[10].Piece?.Color != Color.Red)
                         {
                             movementOptions.Add(new MovementOption(startPositions.ElementAt(0) + 40, 10));
                         }
@@ -117,7 +117,7 @@ namespace man_dont_get_angry.ModelUtils
                         }
                         break;
                     case Color.Blue:
-                        if (gameBoardFields[30].Piece == null || gameBoardFields[30]?.Piece?.Color != Color.Blue)
+                        if (gameBoardFields[30].Piece == null || gameBoardFields[30].Piece?.Color != Color.Blue)
                         {
                             movementOptions.Add(new MovementOption(startPositions.ElementAt(0) + 40, 30));
                         }
@@ -127,7 +127,7 @@ namespace man_dont_get_angry.ModelUtils
                         }
                         break;
                     case Color.Yellow:
-                        if (gameBoardFields[20].Piece == null || gameBoardFields[20]?.Piece?.Color != Color.Yellow)
+                        if (gameBoardFields[20].Piece == null || gameBoardFields[20].Piece?.Color != Color.Yellow)
                         {
                             movementOptions.Add(new MovementOption(startPositions.ElementAt(0) + 40, 20));
                         }
@@ -202,7 +202,7 @@ namespace man_dont_get_angry.ModelUtils
                                     nextPos = (position + dice.Value) - 40;
 
                                 // check whether an own figure is already standing on the field, if not add movement option
-                                if (gameBoardFields[nextPos].Piece == null || gameBoardFields[nextPos]?.Piece?.Color != Color.Red)
+                                if (gameBoardFields[nextPos].Piece == null || gameBoardFields[nextPos].Piece?.Color != Color.Red)
                                 {
                                     movementOptions.Add(new MovementOption(position, nextPos));
                                 }
@@ -231,7 +231,7 @@ namespace man_dont_get_angry.ModelUtils
                                     nextPos = (position + dice.Value) - 40;
 
                                 // check whether an own figure is already standing on the field, if not add movement option
-                                if (gameBoardFields[nextPos].Piece == null || gameBoardFields[nextPos]?.Piece?.Color != Color.Yellow)
+                                if (gameBoardFields[nextPos].Piece == null || gameBoardFields[nextPos].Piece?.Color != Color.Yellow)
                                 {
                                     movementOptions.Add(new MovementOption(position, nextPos));
                                 }
@@ -260,7 +260,7 @@ namespace man_dont_get_angry.ModelUtils
                                     nextPos = (position + dice.Value) - 40;
 
                                 // check whether an own figure is already standing on the field, if not add movement option
-                                if (gameBoardFields[nextPos].Piece == null || gameBoardFields[nextPos]?.Piece?.Color != Color.Blue)
+                                if (gameBoardFields[nextPos].Piece == null || gameBoardFields[nextPos].Piece?.Color != Color.Blue)
                                 {
                                     movementOptions.Add(new MovementOption(position, nextPos));
                                 }
@@ -382,9 +382,9 @@ namespace man_dont_get_angry.ModelUtils
             switch (player.TheColor)
             {
                 case Color.Green:
-                    for(int i = 3; i > 3-playerPositions.Count; i--)
+                    for (int i = 3; i > 3 - playerPositions.Count; i--)
                     {
-                        if(endFields[i].Piece == null)
+                        if (endFields[i].Piece == null)
                         {
                             return false;
                         }

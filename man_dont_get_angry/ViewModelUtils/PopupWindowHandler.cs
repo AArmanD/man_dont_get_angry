@@ -16,7 +16,7 @@ namespace man_dont_get_angry.ViewModelUtils
         /// Creates an open file dialog, opens specified file and loads content into the game
         /// </summary>
         /// <param name="gameManager">Instance of gameManager for calling specific methods</param>
-        public static void HandleOpenFile(GameManager gameManager) 
+        public static void HandleOpenFile(GameManager gameManager)
         {
             // stop auto player thread
             gameManager.AutoPlayerManager.SetAutoPlayerState(false);
@@ -68,7 +68,7 @@ namespace man_dont_get_angry.ViewModelUtils
                     gameManager.AutoPlayerManager.SetAutoPlayerState(true);
                 }
                 finally
-                { 
+                {
                     if (reader != null)
                         reader.Close();
                 }

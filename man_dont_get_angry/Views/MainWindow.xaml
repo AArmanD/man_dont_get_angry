@@ -230,7 +230,7 @@
 
         <Label Content="Actual Player:" Canvas.Left="31" Canvas.Top="655" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Canvas.Left="292" Canvas.Top="638" Width="60" Height="60" Command="{Binding DiceClickedCommand}" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Image Source="{Binding Path=TheDice.ImagePath}"></Image>
+            <Image Source="{Binding Path=Dice.ImagePath}"></Image>
         </Button>
         <Button Content="Restart Game" Canvas.Left="656" Canvas.Top="61" Height="35" Width="144" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding ResetClickedCommand}"/>
         <Label Content="Actual move:" Canvas.Left="445" Canvas.Top="655" FontWeight="Bold"/>

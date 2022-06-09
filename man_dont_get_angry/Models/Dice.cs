@@ -81,7 +81,7 @@ namespace man_dont_get_angry.Models
         {
             // create new random value
             this._value = _random.Next(1, 7);
-            
+
             // increment thrown number for this round
             this._diceThrownNumber++;
 
