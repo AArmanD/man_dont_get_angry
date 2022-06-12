@@ -9,7 +9,6 @@
         Height="740" Width="841"
         ResizeMode="NoResize"
         Icon="\images\window_icon.png">
-    <!--height was 680 before-->
     <Canvas Name="GameCanvas" Focusable="True" Background="White">
         <Button Height="50" Canvas.Left="242" Canvas.Top="568" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding FieldClickedCommand}" CommandParameter="0">
             <Image Source="{Binding Path=GameBoardFields[0].ImagePath}"></Image>
@@ -227,7 +226,6 @@
         <Button Height="35" Canvas.Left="360" Canvas.Top="300" Width="34" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding FieldClickedCommand}" CommandParameter="71">
             <Image Source="{Binding Path=EndFields[15].ImagePath}"></Image>
         </Button>
-
         <Label Content="Actual Player:" Canvas.Left="31" Canvas.Top="655" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Canvas.Left="292" Canvas.Top="638" Width="60" Height="60" Command="{Binding DiceClickedCommand}" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image Source="{Binding Path=Dice.ImagePath}"></Image>

@@ -32,7 +32,7 @@ namespace man_dont_get_angry.Models
             this._endFields = new Field[16];
             this._gameBoardFields = new Field[40];
 
-            // initialize game board field array, consider in arrow fields
+            // initialize game board field array, consider arrow fields
             for (int i = 0; i < _gameBoardFields.Length; i++)
             {
                 if (i == 0)
@@ -154,9 +154,11 @@ namespace man_dont_get_angry.Models
             // check whether the position to set the piece to is on the gameboard fields
             if (movementOption.EndPosition < 40)
             {
+
                 // check whether at the position to set the piece to already piece stands
                 if (this._gameBoardFields[movementOption.EndPosition].Piece != null)
                 {
+
                     // move piece on field back to start
                     int count = 3;
                     switch (this._gameBoardFields[movementOption.EndPosition].Piece?.Color)

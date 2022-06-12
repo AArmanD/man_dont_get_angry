@@ -47,7 +47,7 @@ namespace man_dont_get_angry.Models
         private AutoPlayerManager _autoPlayerManager;
 
         /// <summary>
-        /// Event which is to be raised when posToSet property changes from which the value should be updated
+        /// Event which is to be raised when properties changed for updating the ui
         /// in the main window
         /// </summary>
         [field: NonSerialized]

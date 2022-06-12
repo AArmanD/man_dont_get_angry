@@ -30,7 +30,10 @@ namespace man_dont_get_angry.Models
         /// </summary>
         private bool? _isAutomatic;
 
-        private AutoPlayerManager? _autoPlayerThreadManager;
+        /// <summary>
+        /// For starting auto playing
+        /// </summary>
+        private AutoPlayerManager? _autoPlayerManager;
 
         /// <summary>
         /// Event which is to be raised when a property changes from which the value should be updated
@@ -57,7 +60,7 @@ namespace man_dont_get_angry.Models
             this._name = Name;
             this._color = color;
             this._isAutomatic = false;
-            this._autoPlayerThreadManager = autoPlayerThreadManager;
+            this._autoPlayerManager = autoPlayerThreadManager;
 
             if (first)
                 this._playerState = ModelUtils.PlayerState.ThrowDice;
@@ -111,16 +114,16 @@ namespace man_dont_get_angry.Models
                 switch (this._color)
                 {
                     case ModelUtils.Color.Green:
-                        this._autoPlayerThreadManager?.StartAutoPlayer(0);
+                        this._autoPlayerManager?.StartAutoPlayer(0);
                         break;
                     case ModelUtils.Color.Red:
-                        this._autoPlayerThreadManager?.StartAutoPlayer(1);
+                        this._autoPlayerManager?.StartAutoPlayer(1);
                         break;
                     case ModelUtils.Color.Yellow:
-                        this._autoPlayerThreadManager?.StartAutoPlayer(2);
+                        this._autoPlayerManager?.StartAutoPlayer(2);
                         break;
                     case ModelUtils.Color.Blue:
-                        this._autoPlayerThreadManager?.StartAutoPlayer(3);
+                        this._autoPlayerManager?.StartAutoPlayer(3);
                         break;
                 }
 

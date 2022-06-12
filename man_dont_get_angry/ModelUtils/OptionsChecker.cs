@@ -39,6 +39,7 @@ namespace man_dont_get_angry.ModelUtils
         /// <returns>Generated player state</returns>
         public static PlayerState GenerateStateAfterRolling(List<MovementOption> movementOptions, Dice dice, Player player, Field[] endFields)
         {
+
             // when the dice value is 6 and there is a movement option, let player move and dice again
             if (dice.Value == 6 && movementOptions.Count > 0)
             {
@@ -53,6 +54,7 @@ namespace man_dont_get_angry.ModelUtils
 
             if (movementOptions.Count == 0)
             {
+
                 // when there are no movement options, all pieces are aligned after each other in the end fields and the dice is not thrown three times, let player dice again, otherwise set the PlayerState to MoveDone
                 // so that the player is changed
                 if (dice.DiceThrownNumber < 3 && CheckPlayersAreAfterEachOtherInEndFields(player, endFields))
@@ -94,6 +96,7 @@ namespace man_dont_get_angry.ModelUtils
             {
                 switch (player.Color)
                 {
+
                     // when there is the option to move out a player from start fields add Movement option to move out next piece in the start fields,
                     // otherwise calculate movement options in the gameBoardFields
                     case Color.Green:
@@ -162,16 +165,19 @@ namespace man_dont_get_angry.ModelUtils
 
             if (gameBoardPositions.Count > 0)
             {
+
                 // Go through every the positions of every found piece and calculate whether a movement is possible
                 foreach (int position in gameBoardPositions)
                 {
                     switch (player.Color)
                     {
                         case Color.Green:
+
                             // Check whether there has to be gone over the own start field for getting to the next position
                             // If no, check possible movements in gameboard fields, otherwise check possible movement into the end fields
                             if ((position + dice.Value) < 40)
                             {
+
                                 // check whether an own figure is already standing on the field, if not add movement option
                                 if (gameBoardFields[(position + dice.Value)].Piece == null || gameBoardFields[(position + dice.Value)]?.Piece?.Color != Color.Green)
                                 {
@@ -181,6 +187,7 @@ namespace man_dont_get_angry.ModelUtils
                             }
                             else if ((position + dice.Value) - 40 < 4)
                             {
+
                                 // check whether an own figure standing on the possible end position to move to, if not, add movement option
                                 if (endFields[(position + dice.Value) - 40].Piece == null)
                                 {
@@ -191,6 +198,7 @@ namespace man_dont_get_angry.ModelUtils
                             else
                                 break;
                         case Color.Red:
+
                             // Check whether there has to be gone over the own start field for getting to the next position
                             // If no, check possible movements in gameboard fields, otherwise check possible movement into the end fields
                             if ((position + dice.Value) < 10 && position < 10 || position > 9)
@@ -210,6 +218,7 @@ namespace man_dont_get_angry.ModelUtils
                             }
                             else if ((position + dice.Value) - 10 < 4)
                             {
+
                                 // check whether an own figure standing on the possible end position to move to, if not, add movement option
                                 if (endFields[(position + dice.Value) - 6].Piece == null)
                                 {
@@ -220,6 +229,7 @@ namespace man_dont_get_angry.ModelUtils
                             else
                                 break;
                         case Color.Yellow:
+
                             // Check whether there has to be gone over the own start field for getting to the next position
                             // If no, check possible movements in gameboard fields, otherwise check possible movement into the end fields
                             if ((position + dice.Value) < 20 && position < 20 || position > 19)
@@ -239,6 +249,7 @@ namespace man_dont_get_angry.ModelUtils
                             }
                             else if ((position + dice.Value) - 20 < 4)
                             {
+
                                 // check whether an own figure standing on the possible end position to move to, if not, add movement option
                                 if (endFields[(position + dice.Value) - 12].Piece == null)
                                 {
@@ -249,6 +260,7 @@ namespace man_dont_get_angry.ModelUtils
                             else
                                 break;
                         case Color.Blue:
+
                             // Check whether there has to be gone over the own start field for getting to the next position
                             // If no, check possible movements in gameboard fields, otherwise check possible movement into the end fields
                             if ((position + dice.Value) < 30 && position < 30 || position > 29)
@@ -268,6 +280,7 @@ namespace man_dont_get_angry.ModelUtils
                             }
                             else if ((position + dice.Value) - 30 < 4)
                             {
+
                                 // check whether an own figure standing on the possible end position to move to, if not, add movement option
                                 if (endFields[(position + dice.Value) - 18].Piece == null)
                                 {
@@ -284,7 +297,7 @@ namespace man_dont_get_angry.ModelUtils
         }
 
         /// <summary>
-        /// Calculates Movement options for pieces in the end fields
+        /// Calculates movement options for pieces in the end fields
         /// </summary>
         /// <param name="player">Player for which the the movement options should be calculated</param>
         /// <param name="endPositions">List with positions of the pieces in the end field array</param>
@@ -302,6 +315,7 @@ namespace man_dont_get_angry.ModelUtils
                     case Color.Green:
                         if ((position + dice.Value) < 4)
                         {
+
                             // check whether an own figure standing on the possible end position to move to, if not, add movement option
                             if (endFields[(position + dice.Value)].Piece == null)
                             {
@@ -313,6 +327,7 @@ namespace man_dont_get_angry.ModelUtils
                     case Color.Red:
                         if (position < 7 && position > 3 && (position + dice.Value) < 8)
                         {
+
                             // check whether an own figure standing on the possible end position to move to, if not, add movement option
                             if (endFields[(position + dice.Value)].Piece == null)
                             {
@@ -324,6 +339,7 @@ namespace man_dont_get_angry.ModelUtils
                     case Color.Yellow:
                         if (position < 11 && position > 7 && (position + dice.Value) < 12)
                         {
+
                             // check whether an own figure standing on the possible end position to move to, if not, add movement option
                             if (endFields[(position + dice.Value)].Piece == null)
                             {
@@ -335,6 +351,7 @@ namespace man_dont_get_angry.ModelUtils
                     case Color.Blue:
                         if (position < 15 && position > 11 && (position + dice.Value) < 16)
                         {
+
                             // check whether an own figure standing on the possible end position to move to, if not, add movement option
                             if (endFields[(position + dice.Value)].Piece == null)
                             {
