@@ -116,7 +116,7 @@ namespace man_dont_get_angry.ViewModels
         /// <returns>true, when handler function is allowed to Run, otherwise false</returns>
         public bool OnDiceButtonClickAllowed(Object arg)
         {
-            if (this.ManDontGetAngryGame.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice && !(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
+            if (this.ManDontGetAngryGame.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice)
             {
                 return true;
             }
