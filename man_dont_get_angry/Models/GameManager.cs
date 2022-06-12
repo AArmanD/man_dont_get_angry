@@ -3,6 +3,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using man_dont_get_angry.ModelUtils;
+using System.Windows.Input;
+using System.Windows;
 
 namespace man_dont_get_angry.Models
 {
@@ -206,7 +208,6 @@ namespace man_dont_get_angry.Models
                     {
                         this._gameBoard.SetPiece(movementOption);
 
-
                         if (this._players[_actualPlayerID].PlayerState == PlayerState.MovePiecesRepeadetly)
                         {
                             this._players[_actualPlayerID].PlayerState = PlayerState.ThrowDice;
@@ -232,22 +233,33 @@ namespace man_dont_get_angry.Models
         /// </summary>
         private void ChangePlayer()
         {
+            // change id of actual player
             this._lastPlayerID = this._actualPlayerID;
             if (this._actualPlayerID < 3)
             {
                 this._actualPlayerID++;
             }
             else
+            {
                 this._actualPlayerID = 0;
+            }
 
             OnPropertyChanged("ActualPlayer");
+
+            // reset dice count
             this._dice.Reset();
+
+            // set player state of next player to ThrowDice so he is able to throw the dice
             this._players[_actualPlayerID].PlayerState = PlayerState.ThrowDice;
 
+            // start auto player when next player is set to be automatic
             if ((this.ActualPlayer.IsAutomatic ?? false) && !this._autoPlayerManager.AutoPlayerRunning())
             {
                 this._autoPlayerManager.StartAutoPlayer();
             }
+
+            // Raise event to reevaluate whether buttons should be enabled/disabled
+            Application.Current.Dispatcher.Invoke(CommandManager.InvalidateRequerySuggested);
         }
 
         /// <summary>
@@ -302,7 +314,9 @@ namespace man_dont_get_angry.Models
             foreach (MovementOption option in this._movementOptions)
             {
                 if (option.EndPosition == pos)
+                {
                     return true;
+                }
             }
             return false;
         }

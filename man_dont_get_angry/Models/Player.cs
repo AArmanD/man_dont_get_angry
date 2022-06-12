@@ -63,10 +63,13 @@ namespace man_dont_get_angry.Models
             this._autoPlayerManager = autoPlayerThreadManager;
 
             if (first)
+            {
                 this._playerState = ModelUtils.PlayerState.ThrowDice;
-
+            }
             else
+            {
                 this._playerState = ModelUtils.PlayerState.MoveDone;
+            }
         }
 
         /// <summary>

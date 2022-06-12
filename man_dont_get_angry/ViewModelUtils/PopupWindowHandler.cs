@@ -56,7 +56,9 @@ namespace man_dont_get_angry.ViewModelUtils
                     GameManager? xmlData = (GameManager?)obj;
 
                     if (xmlData != null)
+                    {
                         gameManager.LoadGame(xmlData);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +72,9 @@ namespace man_dont_get_angry.ViewModelUtils
                 finally
                 {
                     if (reader != null)
+                    {
                         reader.Close();
+                    }
                 }
             }
             else
@@ -121,7 +125,9 @@ namespace man_dont_get_angry.ViewModelUtils
                 finally
                 {
                     if (writer != null)
+                    {
                         writer.Close();
+                    }
                 }
             }
 

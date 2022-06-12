@@ -105,7 +105,9 @@ namespace man_dont_get_angry.ViewModels
         public void OnDiceButtonClicked(Object arg)
         {
             if (!(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
+            {
                 this.ManDontGetAngryGame.RollDice();
+            }
         }
 
         /// <summary>
@@ -116,12 +118,14 @@ namespace man_dont_get_angry.ViewModels
         /// <returns>true, when handler function is allowed to Run, otherwise false</returns>
         public bool OnDiceButtonClickAllowed(Object arg)
         {
-            if (this.ManDontGetAngryGame.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice)
+            if (this.ManDontGetAngryGame.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice && !(this.ManDontGetAngryGame.ActualPlayer.IsAutomatic ?? false))
             {
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
 
         /// <summary>
@@ -134,7 +138,9 @@ namespace man_dont_get_angry.ViewModels
             {
                 string? fieldNumber = (string?)arg;
                 if (!string.IsNullOrEmpty(fieldNumber))
+                {
                     this.ManDontGetAngryGame.SetPosition(int.Parse(fieldNumber));
+                }
             }
         }
 
@@ -150,9 +156,10 @@ namespace man_dont_get_angry.ViewModels
             {
                 string? fieldNumber = (string?)arg;
                 if (!string.IsNullOrEmpty(fieldNumber))
+                {
                     return this.ManDontGetAngryGame.CheckFieldIsInMovementOptions(int.Parse(fieldNumber));
+                }
             }
-
             return false;
         }
 
