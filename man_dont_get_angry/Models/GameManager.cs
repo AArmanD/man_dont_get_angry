@@ -323,7 +323,7 @@ namespace man_dont_get_angry.Models
         }
 
         /// <summary>
-        /// Handler for The PropertyChangedEvent, which is for updating the value of the property 
+        /// Handler for The PropertyChangedEvent, which is for updating the value of properties 
         /// in the gui
         /// </summary>
         /// <param name="prop">Name of the property of which the value should be updated in the gui</param>

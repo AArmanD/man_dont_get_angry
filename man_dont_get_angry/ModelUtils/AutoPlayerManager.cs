@@ -43,7 +43,7 @@ namespace man_dont_get_angry.ModelUtils
             var random = new Random();
             while (this._threadRunning && (_gameManager.ActualPlayer.IsAutomatic ?? false) && !OptionsChecker.CheckGameWon(this._gameManager.Players[this._gameManager.LastPlayerID], this._gameManager.GameBoard.EndFields))
             {
-                if (this._gameManager.ActualPlayer.PlayerState == ModelUtils.PlayerState.ThrowDice)
+                if (this._gameManager.ActualPlayer.PlayerState == PlayerState.ThrowDice)
                 {
                     this._gameManager.RollDice();
                     Thread.Sleep(1000);
