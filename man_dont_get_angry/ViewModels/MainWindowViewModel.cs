@@ -1,6 +1,6 @@
-﻿using System;
+﻿using man_dont_get_angry.Models;
 using man_dont_get_angry.ViewModelUtils;
-using man_dont_get_angry.Models;
+using System;
 
 namespace man_dont_get_angry.ViewModels
 {

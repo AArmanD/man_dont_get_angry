@@ -1,7 +1,7 @@
-﻿using System;
+﻿using man_dont_get_angry.ModelUtils;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using man_dont_get_angry.ModelUtils;
 
 namespace man_dont_get_angry.Models
 {

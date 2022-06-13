@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using man_dont_get_angry.Models;
+using System.Collections.Generic;
 using System.Linq;
-using man_dont_get_angry.Models;
 
 namespace man_dont_get_angry.ModelUtils
 {

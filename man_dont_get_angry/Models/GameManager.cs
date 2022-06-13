@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using man_dont_get_angry.ModelUtils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using man_dont_get_angry.ModelUtils;
-using System.Windows.Input;
 using System.Windows;
+using System.Windows.Input;
 
 namespace man_dont_get_angry.Models
 {
