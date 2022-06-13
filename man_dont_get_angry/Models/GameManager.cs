@@ -220,8 +220,9 @@ namespace man_dont_get_angry.Models
                             if (!OptionsChecker.CheckGameWon(this._players[this._actualPlayerID], this._gameBoard.EndFields))
                             {
                                 ChangePlayer();
-                                OnPropertyChanged("ActualMove");
                             }
+
+                            OnPropertyChanged("ActualMove");
                         }
                     }
                 }
