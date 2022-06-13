@@ -99,7 +99,7 @@ namespace man_dont_get_angry.ViewModels
         public Player[] Players => this.ManDontGetAngryGame.Players;
 
         /// <summary>
-        /// Handler function which is called when the DicebuttonClickedCommand is Run
+        /// Handler function which is called when the DicebuttonClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnDiceButtonClicked(Object arg)
@@ -112,7 +112,7 @@ namespace man_dont_get_angry.ViewModels
 
         /// <summary>
         /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the DicebuttonClickedCommand is Run
+        /// when the DicebuttonClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
         /// <returns>true, when handler function is allowed to Run, otherwise false</returns>
@@ -129,7 +129,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the FieldClickedCommand is Run
+        /// Handler function which is called when the FieldClickedCommand is run
         /// </summary>
         /// <param name="arg">Number of the field which is clicked</param>
         public void OnFieldClicked(Object arg)
@@ -146,7 +146,7 @@ namespace man_dont_get_angry.ViewModels
 
         /// <summary>
         /// Handler function which is checks whether the command is runnable before running the handler function
-        /// when the FieldClickedCommand is Run
+        /// when the FieldClickedCommand is run
         /// </summary>
         /// <param name="arg">number of the field which is clicked</param>
         /// <returns>true, when handler function is allowed to Run, otherwise false</returns>
@@ -164,7 +164,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the ResetClickedCommand is Run
+        /// Handler function which is called when the ResetClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnResetClicked(Object arg)
@@ -173,7 +173,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the SaveAsXMLClickedCommand is Run
+        /// Handler function which is called when the SaveAsXMLClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnSaveAsXMLClicked(Object arg)
@@ -182,7 +182,7 @@ namespace man_dont_get_angry.ViewModels
         }
 
         /// <summary>
-        /// Handler function which is called when the LoadXMLClickedCommand is Run
+        /// Handler function which is called when the LoadXMLClickedCommand is run
         /// </summary>
         /// <param name="arg">not used</param>
         public void OnLoadXMLClicked(Object arg)
